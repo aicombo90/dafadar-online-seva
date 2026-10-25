@@ -35,7 +35,7 @@
         footer a { color: #1fc64c; text-decoration: none; }
 
         .share-float-btn { position: fixed; top: 76px; right: 14px; width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg,#4f46e5,#7c3aed); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; border: none; cursor: pointer; box-shadow: 0 8px 20px rgba(79,70,229,.4); z-index: 900; }
-        .share-menu { display: none; position: fixed; top: 132px; right: 14px; background: #fff; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,.2); z-index: 901; overflow: hidden; min-width: 175px; }
+        .share-menu { display: none; position: fixed; top: 188px; right: 14px; background: #fff; border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,.2); z-index: 901; overflow: hidden; min-width: 175px; }
         .share-menu button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 16px; border: none; background: #fff; font-size: 15px; font-weight: 600; color: #1e293b; cursor: pointer; font-family: 'Hind Siliguri', sans-serif; }
         .share-menu button:hover { background: #f1f5f9; }
         .like-row { margin-top: 26px; padding-top: 18px; border-top: 1px solid #eef1ee; display: flex; align-items: center; gap: 10px; }
@@ -46,6 +46,13 @@
         @keyframes likepop { 0% { transform: scale(1); } 40% { transform: scale(1.25) rotate(-6deg); } 100% { transform: scale(1); } }
         .like-hint { font-size: 13px; color: #8a93a8; }
         .view-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #5b6478; }
+        .script-float-btn { position: fixed; top: 132px; right: 14px; width: 48px; height: 48px; border-radius: 50%; background: #ff0000; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px; border: none; cursor: pointer; box-shadow: 0 8px 20px rgba(255,0,0,.4); z-index: 900; }
+        .script-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .script-modal { background: #fff; border-radius: 14px; padding: 24px; width: 100%; max-width: 320px; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,.3); }
+        .script-modal input { width: 100%; padding: 12px 14px; border: 2px solid #d7e3dc; border-radius: 8px; font-size: 16px; font-family: inherit; margin-bottom: 12px; box-sizing: border-box; }
+        .script-modal button { padding: 10px 20px; border: none; border-radius: 8px; background: #057a55; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; margin: 0 4px; }
+        .script-modal button.script-cancel { background: #e2e8f0; color: #334155; }
+        .script-modal #scriptErr { color: #c0392b; font-weight: 700; margin: 12px 0 0; }
     </style>
     <script type="application/ld+json">
     {
@@ -71,6 +78,16 @@
         <button onclick="shareVia('whatsapp')">💬 WhatsApp</button>
         <button onclick="shareVia('facebook')">📘 Facebook</button>
         <button onclick="shareVia('copy')">📋 লিংক কপি</button>
+    </div>
+
+    <button class="script-float-btn" onclick="openScriptGate()" aria-label="Video">▶</button>
+    <div id="scriptModal" class="script-modal-overlay" style="display:none;">
+        <div class="script-modal">
+            <input type="password" id="scriptPass" placeholder="পাসওয়ার্ড দিন" autocomplete="off">
+            <button onclick="unlockScript()">দেখুন</button>
+            <button onclick="closeScriptGate()" class="script-cancel">বন্ধ করুন</button>
+            <p id="scriptErr" style="display:none;">ভুল পাসওয়ার্ড।</p>
+        </div>
     </div>
 
     <article class="article">
@@ -133,25 +150,24 @@
             <p style="margin:0">📰 প্রতিবেদন: <a href="https://bangla.aajtak.in/utility/story/annapurna-bhandar-new-apply-from-november-december-form-fill-up-in-west-bengal-govt-jankalyan-shibir-rpsg-1466543-2026-10-23" target="_blank" rel="noopener">Aaj Tak Bangla — কবে থেকে ফের অন্নপূর্ণার অ্যাপ্লাই করা যাবে?</a><br>🌐 পোর্টাল: <a href="https://socialregistry.wb.gov.in" target="_blank" rel="noopener">socialregistry.wb.gov.in</a> · <a href="https://socialsecurity.wb.gov.in" target="_blank" rel="noopener">socialsecurity.wb.gov.in</a></p>
         </div>
 
-        <h2>🎬 এই খবরের ভিডিও স্ক্রিপ্ট</h2>
-        <div class="highlight">
-            <p style="margin:0 0 10px"><strong>🎬 ভিডিও স্ক্রিপ্ট</strong> — স্ক্রিপ্টটি দেখতে পাসওয়ার্ড দিন।</p>
-            <div id="gateForm">
-                <input type="password" id="gatePass" placeholder="পাসওয়ার্ড দিন" autocomplete="off" style="padding:10px 14px;border:2px solid #d7e3dc;border-radius:8px;font-size:16px;font-family:inherit;width:220px;max-width:100%;">
-                <button onclick="unlockScript()" style="padding:10px 20px;border:none;border-radius:8px;background:#057a55;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;">দেখুন</button>
-                <p id="gateErr" style="display:none;color:#c0392b;font-weight:700;margin:10px 0 0;">ভুল পাসওয়ার্ড।</p>
-            </div>
-            <div id="scriptBox" style="display:none;white-space:pre-wrap;background:#fff;border:1px solid #d7e3dc;border-radius:8px;padding:16px;margin-top:14px;font-size:16px;"></div>
-        </div>
+        <div id="scriptBox" style="display:none;white-space:pre-wrap;background:#fff;border:1px solid #d7e3dc;border-radius:8px;padding:16px;margin:16px 0;font-size:16px;"></div>
         <script>
         const SCRIPT_HASH = "ba9d2d1bdd32d987c06cb2dc042da1021dc358f25196ef52954f7cce1844fc98";
         const SCRIPT_B64 = "4Kao4Kau4Ka44KeN4KaV4Ka+4KawIOCmrOCmqOCnjeCmp+CngeCmsOCmviwg4KaF4Kao4KeN4Kao4Kaq4KeC4Kaw4KeN4Kaj4Ka+IOCmreCmvuCmo+CnjeCmoeCmvuCmsOCnhyDgpq/gpr7gprDgpr4g4Kao4Kak4KeB4KaoIOCmleCmsOCnhyDgpobgpqzgp4fgpqbgpqgg4KaV4Kaw4Kak4KeHIOCmmuCmvuCmh+CmmyDgpo/gpqzgpoIg4Kav4Ka+4Kaw4Ka+IOCmhuCml+CnhyDgpobgpqzgp4fgpqbgpqgg4KaV4Kaw4KeH4KaTIOCmj+CmluCmqOCmkyDgpp/gpr7gppXgpr4g4Kaq4Ka+4KaT4Kao4Ka/LCDgpobgppzgppXgp4fgprAg4Kat4Ka/4Kah4Ka/4KaT4Kaf4Ka+IOCmpOCni+CmruCmvuCmpuCnh+CmsCDgppzgpqjgp43gpq/gpaQg4KaG4Kac4KaV4KeHIOCmheCmsuCnjeCmqiDgppXgpqXgpr7gpq/gprwg4KaV4Kav4Ka84KeH4KaV4Kaf4Ka+IOCml+CngeCmsOCngeCmpOCnjeCmrOCmquCnguCmsOCnjeCmoyDgpqzgpr/gprfgpq/gprwg4Kac4Ka+4Kao4Ka/4Kav4Ka84KeHIOCmpuCnh+CmrOClpAoK4Kas4Kao4KeN4Kan4KeB4Kaw4Ka+LCBBYWogVGFrIEJhbmdsYS3gpqTgp4cg4Ka44Kau4KeN4Kaq4KeN4Kaw4Kak4Ka/IOCmheCmqOCnjeCmqOCmquCnguCmsOCnjeCmo+CmviDgpq3gpr7gpqPgp43gpqHgpr7gprDgp4cg4Kao4Kak4KeB4KaoIOCmhuCmrOCnh+CmpuCmqCDgpqjgpr/gpq/gprzgp4cg4KaP4KaV4Kaf4Ka/IOCmluCmrOCmsCDgpqrgp43gprDgppXgpr7gprbgpr/gpqQg4Ka54Kav4Ka84KeH4Kab4KeH4KWkIOCmuOCnh+CmluCmvuCmqOCnhyDgpqjgpq3gp4fgpq7gp43gpqzgprAg4KaTIOCmoeCmv+CmuOCnh+CmruCnjeCmrOCmsCDgpq7gpr7gprjgp4cg4Kao4Kak4KeB4KaoIOCmleCmsOCnhyDgpobgpqzgp4fgpqbgpqgg4Ka24KeB4Kaw4KeBIOCmueCmk+Cmr+CmvOCmvuCmsCDgprjgpq7gp43gpq3gpr7gpqzgpqjgpr7gprAg4KaV4Kal4Ka+IOCmrOCmsuCmviDgprngpq/gprzgp4fgppvgp4fgpaQg4Kak4Kas4KeHIOCmj+CmluCmqOCmkyDgpobgpqzgp4fgpqbgpqgg4Ka24KeB4Kaw4KeB4KawIOCmqOCmv+CmsOCnjeCmpuCmv+Cmt+CnjeCmnyDgpqTgpr7gprDgpr/gppYg4Kao4Ka/4Ka24KeN4Kaa4Ka/4Kak4Kat4Ka+4Kas4KeHIOCmnOCmvuCmqOCmviDgpq/gpr7gpq/gprzgpqjgpr/gpaQg4Kak4Ka+4KaHIOCmleCmrOCnhyDgpqXgp4fgppXgp4cg4KaG4Kas4KeH4Kam4KaoIOCmtuCngeCmsOCngSDgprngpqzgp4csIOCmuOCnh+Cmn+CmviDgpo/gppbgpqjgpocg4Kao4Ka/4Ka24KeN4Kaa4Ka/4KakIOCmleCmsOCnhyDgpqzgprLgpr4g4Kav4Ka+4Kaa4KeN4Kab4KeHIOCmqOCmvuClpAoK4Kav4Ka+4Kaw4Ka+IOCmhuCml+CnhyDgpobgpqzgp4fgpqbgpqgg4KaV4Kaw4Kak4KeHIOCmquCmvuCmsOCni+CmqOCmvywg4Kak4Ka+4Kaw4Ka+IOCmhuCmquCmvuCmpOCmpCDgpqjgpr/gppzgp4fgpqbgp4fgprAg4KaG4Kan4Ka+4KawIOCmleCmvuCmsOCnjeCmoSwg4Kas4KeN4Kav4Ka+4KaC4KaV4KeH4KawIOCmquCmvuCmuOCmrOCmhywg4Kat4KeL4Kaf4Ka+4KawIOCmleCmvuCmsOCnjeCmoSDgpo/gpqzgpoIg4Kaq4KeN4Kaw4Kav4Ka84KeL4Kac4Kao4KeA4Kav4Ka8IOCmleCmvuCml+CmnOCmquCmpOCnjeCmsCDgppfgp4Hgppvgpr/gpq/gprzgp4cg4Kaw4Ka+4KaW4KeL4KWkIOCmhuCmrOCnh+CmpuCmqCDgprbgp4HgprDgp4Eg4Ka54Kay4KeHIOCmr+CmvuCmpOCnhyDgppXgp4vgpqjgppMg4Ka44Kau4Ka44KeN4Kav4Ka+IOCmqOCmviDgprngpq/gprzgpaQKCuCmj+CmrOCmvuCmsCDgpqzgprLgpr8sIOCmr+CmvuCmsOCmviDgpobgppfgp4cg4KaG4Kas4KeH4Kam4KaoIOCmleCmsOCnh+CmmyDgppXgpr/gpqjgp43gpqTgp4Eg4KaP4KaW4Kao4KaTIOCmj+CmleCmrOCmvuCmsOCmkyDgpp/gpr7gppXgpr4g4Kaq4Ka+4KaT4Kao4Ka/LCDgpqTgpr7gpqbgp4fgprAg4KaV4KeAIOCmueCmrOCnhz8KCuCmpuCnh+CmluCniyDgpqzgpqjgp43gpqfgp4HgprDgpr4sIOCmhuCmruCmvuCmsCDgpqjgpr/gppzgp4fgprAg4Kav4KeH4Kaf4Ka+IOCmruCmqOCnhyDgprngpprgp43gppvgp4csIOCmr+Cnh+CmueCnh+CmpOCngSDgpqTgp4vgpq7gprDgpr4g4KaG4KaX4KeHIOCmpeCnh+CmleCnh+CmhyDgpobgpqzgp4fgpqbgpqgg4KaV4Kaw4KeHIOCmsOCnh+CmluCnh+Cmmywg4Kak4Ka+4KaHIOCmqOCmpOCngeCmqCDgppXgprDgp4cg4KaG4Kas4KeH4Kam4KaoIOCmtuCngeCmsOCngSDgprngprLgp4fgpocg4Kak4KeL4Kau4Ka+4Kam4KeH4KawIOCmhuCmrOCmvuCmsCDgpobgpqzgp4fgpqbgpqgg4KaV4Kaw4Kak4KeHIOCmueCmrOCnhywg4KaP4Kau4Kao4Kaf4Ka+IOCmqOCmvuCmkyDgprngpqTgp4cg4Kaq4Ka+4Kaw4KeH4KWkIOCmueCmr+CmvOCmpOCniyDgpqrgp4HgprDgpqjgp4sg4KaG4Kas4KeH4Kam4Kao4Kaf4Ka+4KaHIOCmr+CmvuCmmuCmvuCmhyDgppXgprDgp4cg4Kam4KeH4KaW4Ka+IOCmueCmrOCnhywg4KaG4KawIOCmleCni+CmpeCmvuCmkyDgppXgp4vgpqjgppMg4Ka44Kau4Ka44KeN4Kav4Ka+IOCmpeCmvuCmleCmsuCnhyDgprjgp4fgpp/gpr4g4Kag4Ka/4KaVIOCmleCmsOCmpOCnhyDgpqzgprLgpr4g4Ka54Kas4KeH4KWkCgrgpqTgpqzgp4cg4KaP4Kaf4Ka+IOCmhuCmruCmvuCmsCDgpqjgpr/gppzgp4fgprAg4KaG4Kao4KeN4Kam4Ka+4KacLCDgprjgprDgppXgpr7gprDgpr8g4KaV4KeL4Kao4KaTIOCmqOCmv+CmsOCnjeCmpuCnh+CmtiDgpqjgpq/gprzgpaQg4Kak4Ka+4KaHIOCmj+CmluCmqOCmhyDgpqjgpr/gprbgp43gpprgpr/gpqQg4KaV4Kaw4KeHIOCmrOCmsuCmviDgpq/gpr7gpprgp43gppvgp4cg4Kao4Ka+IOCmr+CnhyDgpqTgp4vgpq7gpr7gpqbgp4fgprAg4Kao4Kak4KeB4KaoIOCmleCmsOCnhyDgpobgpqzgp4fgpqbgpqgg4KaV4Kaw4Kak4KeHIOCmueCmrOCnhyDgpqjgpr7gpaQg4KaG4Kau4Ka+4KawIOCmquCmsOCmvuCmruCmsOCnjeCmtiwg4Kao4Kak4KeB4KaoIOCmhuCmrOCnh+CmpuCmqCDgprbgp4HgprDgp4Eg4Ka54Kay4KeHIOCmhuCml+CnhyDgpqjgpr/gppzgp4fgprAg4KaG4Kas4KeH4Kam4Kao4KeH4KawIOCmuOCnjeCmn+CnjeCmr+CmvuCmn+CmvuCmuOCmn+CmviDgpq/gpr7gpprgpr7gpocg4KaV4Kaw4KeHIOCmqOCmv+Cmk+ClpCDgpqTgpr7gprDgpqrgprAg4Ka44KeH4KaHIOCmuOCmruCmr+CmvCDgprjgprDgppXgpr7gprAg4KaV4KeAIOCmqOCmv+CmsOCnjeCmpuCnh+CmtiDgpqbgpr/gpprgp43gppvgp4csIOCmuOCnh+Cmn+CmviDgpqbgp4fgppbgp4cg4Ka44Ka/4Kam4KeN4Kan4Ka+4Kao4KeN4KakIOCmqOCmv+Cmk+ClpAoK4KaG4KawIOCmrOCmqOCnjeCmp+CngeCmsOCmviwg4Kao4Kat4KeH4Kau4KeN4Kas4KawLeCmoeCmv+CmuOCnh+CmruCnjeCmrOCmsOCnhyDgpobgpqzgp4fgpqbgpqgg4Ka24KeB4Kaw4KeBIOCmueCmk+Cmr+CmvOCmvuCmsCDgpq/gp4cg4KaW4Kas4Kaw4Kaf4Ka+IOCmquCnjeCmsOCmleCmvuCmtuCmv+CmpCDgprngpq/gprzgp4fgppvgp4csIOCmuOCnh+Cmn+CmviDgpqXgp4fgppXgp4cg4KaG4Kau4Kaw4Ka+IOCmleCmv+Cmm+CngeCmn+CmviDgpobgprbgpr7gpqzgpr7gpqbgp4Ag4Ka54Kak4KeHIOCmquCmvuCmsOCmv+ClpCDgpqTgpqzgp4cg4Kao4Ka/4Kaw4KeN4Kam4Ka/4Ka34KeN4KafIOCmpOCmvuCmsOCmv+CmliDgppzgpr7gpqjgpr7gprAg4Kac4Kao4KeN4KavIOCmuOCmsOCmleCmvuCmsOCmvyDgppjgp4vgprfgpqPgpr7gprAg4KaF4Kaq4KeH4KaV4KeN4Ka34Ka+IOCmleCmsOCmpOCnhyDgprngpqzgp4fgpaQKCuCmqOCmpOCngeCmqCDgppXgp4vgpqjgppMg4KaW4Kas4KawIOCmuOCmvuCmruCmqOCnhyDgpo/gprLgp4cg4KaG4Kau4Ka/IOCmpOCni+CmruCmvuCmpuCnh+CmsCDgppzgpr7gpqjgpr/gpq/gprzgp4cg4Kam4KeH4Kas4KWkIOCmreCmv+CmoeCmv+Cmk+Cmn+CmviDgpq3gpr7gprLgp4sg4Kay4Ka+4KaX4Kay4KeHIOCmj+CmleCmn+CmviDgprLgpr7gpofgppUg4KaV4Kaw4KeHIOCmpuCmv+Cmkywg4KaG4KawIOCmj+CmhyDgpqfgprDgpqjgp4fgprAg4KaG4Kaq4Kah4KeH4KafIOCmquCnh+CmpOCnhyDgpprgp43gpq/gpr7gpqjgp4fgprLgpp/gpr4g4Ka44Ka+4Kas4Ka44KeN4KaV4KeN4Kaw4Ka+4KaH4KasIOCmleCmsOCnhyDgprDgp4fgppbgp4vgpaQg4Kan4Kao4KeN4Kav4Kas4Ka+4Kam4KWkCg==";
+        function openScriptGate(){
+          const m = document.getElementById('scriptModal');
+          m.style.display = 'flex';
+          document.getElementById('scriptErr').style.display = 'none';
+          document.getElementById('scriptPass').value = '';
+          setTimeout(function(){ document.getElementById('scriptPass').focus(); }, 50);
+        }
+        function closeScriptGate(){ document.getElementById('scriptModal').style.display = 'none'; }
         async function unlockScript(){
-          const err = document.getElementById('gateErr');
+          const err = document.getElementById('scriptErr');
           err.style.display = 'none';
           if(!window.crypto || !crypto.subtle){ err.textContent = 'এই ব্রাউজারে পাসওয়ার্ড যাচাই সম্ভব নয়।'; err.style.display = 'block'; return; }
           try{
-            const v = document.getElementById('gatePass').value;
+            const v = document.getElementById('scriptPass').value;
             const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(v));
             const hex = [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
             if(hex === SCRIPT_HASH){
@@ -159,11 +175,13 @@
               const box = document.getElementById('scriptBox');
               box.textContent = new TextDecoder('utf-8').decode(bytes);
               box.style.display = 'block';
-              document.getElementById('gateForm').style.display = 'none';
+              closeScriptGate();
+              box.scrollIntoView({behavior:'smooth', block:'start'});
             } else { err.textContent = 'ভুল পাসওয়ার্ড।'; err.style.display = 'block'; }
           }catch(e){ err.textContent = 'কিছু ভুল হয়েছে, আবার চেষ্টা করুন।'; err.style.display = 'block'; }
         }
-        document.getElementById('gatePass').addEventListener('keydown', function(e){ if(e.key === 'Enter') unlockScript(); });
+        document.getElementById('scriptPass').addEventListener('keydown', function(e){ if(e.key === 'Enter') unlockScript(); });
+        document.getElementById('scriptModal').addEventListener('click', function(e){ if(e.target === this) closeScriptGate(); });
         </script>
 
         <h2>❓ সাধারণ প্রশ্ন</h2>
