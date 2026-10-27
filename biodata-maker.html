@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodata Maker — ১৫টি ডিজাইন, লাইভ প্রিভিউ, এক পাতার A4 PDF | DAFADAR ONLINE SEVA</title>
+    <meta name="description" content="ফ্রি অনলাইন বায়োডাটা মেকার — নিজের তথ্য ও শিক্ষাগত যোগ্যতা লিখুন, ১৫টি প্রফেশনাল ডিজাইন থেকে পছন্দ করুন, লাইভ প্রিভিউ দেখুন আর এক ক্লিকে এক পাতার A4 PDF ডাউনলোড করুন। কোনো সার্ভার নয়, সব কাজ আপনার ফোনেই হয়।">
+    <link rel="canonical" href="https://aicombo90.github.io/dafadar-online-seva/biodata-maker.html">
+    <meta property="og:title" content="Biodata Maker — ১৫টি ডিজাইনসহ ফ্রি বায়োডাটা তৈরি করুন">
+    <meta property="og:description" content="তথ্য লিখুন, ডিজাইন বাছুন, লাইভ প্রিভিউ দেখুন, এক পাতার A4 PDF ডাউনলোড করুন — সম্পূর্ণ ফ্রি।">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aicombo90.github.io/dafadar-online-seva/biodata-maker.html">
+    <meta property="og:image" content="https://aicombo90.github.io/dafadar-online-seva/assets/og-image.jpg">
+    <link rel="icon" type="image/png" href="assets/favicon-64.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="assets/html2canvas.min.js"></script>
+    <script src="assets/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&family=Noto+Serif+Bengali:wght@500;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: #eef2ee; color: #1e2433; line-height: 1.6; }
+        .navbar { background: #07100d; color: #fff; padding: 14px 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .navbar a { color: #fff; text-decoration: none; }
+        .logo { font-weight: 800; font-size: 18px; }
+        footer { background: #07100d; color: #9fb3a8; text-align: center; padding: 24px 5%; font-size: 14px; margin-top: 40px; }
+        footer a { color: #1fc64c; text-decoration: none; }
+        .footnav { margin-bottom: 10px; font-size: 14px; }
+        .footnav a { margin: 0 6px; white-space: nowrap; }
+        .page-head { max-width: 1400px; margin: 22px auto 6px; padding: 0 4%; }
+        .page-head h1 { font-size: 28px; color: #10231c; font-weight: 800; }
+        .page-head p { color: #51606a; font-size: 16px; max-width: 900px; }
+        .privacy-note { display: inline-block; background: #e6f9ec; color: #057a55; font-weight: 700; font-size: 13.5px; padding: 5px 14px; border-radius: 20px; margin-top: 8px; }
+
+        .maker { max-width: 1400px; margin: 14px auto; padding: 0 4%; display: grid; grid-template-columns: minmax(400px, 5fr) 7fr; gap: 22px; align-items: start; }
+        .maker > * { min-width: 0; }
+        @media (max-width: 980px) { .maker { grid-template-columns: 1fr; } }
+
+        .panel { background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,.07); padding: 20px; }
+        .panel h2.sec { font-size: 17px; color: #0e3b2e; margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #e0e7ff; font-weight: 700; }
+        .panel h2.sec:first-child { margin-top: 0; }
+        .flabel { display: block; font-size: 13.5px; font-weight: 600; color: #44536b; margin: 8px 0 4px; }
+        .tin, .tsel { width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 9px; font-size: 15px; font-family: inherit; background: #fff; color: #1e2433; }
+        .tin:focus, .tsel:focus { outline: none; border-color: #1fc64c; box-shadow: 0 0 0 3px rgba(31,198,76,.15); }
+        .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } }
+        .hint { font-size: 12.5px; color: #8494a7; margin-top: 4px; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; background: #0e9f4e; color: #fff; border: none; font-weight: 700; font-size: 15.5px; padding: 12px 22px; border-radius: 10px; cursor: pointer; font-family: inherit; }
+        .btn:hover { background: #0b8a42; }
+        .btn.blue { background: #1d4ed8; } .btn.blue:hover { background: #1e40af; }
+        .btn.outline { background: #fff; color: #0e3b2e; border: 1.5px solid #0e9f4e; }
+        .btn.danger { background: #fff; color: #b91c1c; border: 1.5px solid #fca5a5; }
+        .btn.small { padding: 8px 14px; font-size: 14px; border-radius: 8px; }
+        .btnrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+
+        .dress-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
+        .dress-btn { padding: 8px 14px; border: 1.5px solid #cbd5e1; background: #fff; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .dress-btn.active { background: #0e3b2e; color: #fff; border-color: #0e3b2e; }
+        input[type="range"] { width: 100%; accent-color: #0e9f4e; }
+
+        /* Education cards */
+        .edu-card { border: 1.5px solid #dbe4f0; border-radius: 12px; padding: 14px; margin-bottom: 14px; background: #fbfcfe; }
+        .edu-card .edu-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .edu-card .edu-top b { color: #0e3b2e; font-size: 15px; }
+        .edu-tools { display: flex; gap: 6px; }
+        .icon-btn { border: 1.5px solid #cbd5e1; background: #fff; border-radius: 8px; width: 32px; height: 32px; cursor: pointer; font-size: 13px; color: #44536b; }
+        .icon-btn:hover { background: #eef4ff; }
+        .icon-btn.red:hover { background: #fef2f2; color: #b91c1c; border-color: #fca5a5; }
+        .mode-toggle { display: inline-flex; border: 1.5px solid #cbd5e1; border-radius: 20px; overflow: hidden; margin: 4px 0 2px; }
+        .mode-toggle button { border: none; background: #fff; padding: 5px 12px; font-size: 12.5px; font-weight: 700; cursor: pointer; font-family: inherit; color: #44536b; }
+        .mode-toggle button.active { background: #0e3b2e; color: #fff; }
+        .perc-out { background: #e6f9ec; border-radius: 8px; padding: 8px 12px; font-weight: 700; color: #057a55; font-size: 14px; margin-top: 8px; display: none; }
+
+        /* Template picker */
+        .tpl-group { font-size: 14px; font-weight: 800; color: #0e3b2e; margin: 14px 0 8px; letter-spacing: .3px; }
+        .tpl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+        .tpl-card { border: 2px solid #dbe4f0; border-radius: 10px; padding: 8px; cursor: pointer; background: #fff; text-align: center; transition: border-color .15s, transform .15s; }
+        .tpl-card:hover { transform: translateY(-2px); }
+        .tpl-card.active { border-color: #0e9f4e; box-shadow: 0 0 0 3px rgba(31,198,76,.18); }
+        .tpl-thumb { height: 74px; border-radius: 6px; margin-bottom: 6px; position: relative; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; }
+        .tpl-name { font-size: 12.5px; font-weight: 700; color: #334155; line-height: 1.3; }
+
+        /* Preview */
+        .preview-panel { position: sticky; top: 76px; }
+        @media (max-width: 980px) { .preview-panel { position: static; } }
+        .preview-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .preview-head b { font-size: 17px; color: #0e3b2e; }
+        #fitWarn { display: none; background: #fff7e6; border: 1.5px solid #f5a623; color: #8a5a00; border-radius: 10px; padding: 10px 14px; font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+        #sheetScaler { width: 100%; overflow: hidden; position: relative; background: #dfe5df; border-radius: 8px; }
+        #sheetHolder { transform-origin: top left; width: 794px; height: 1123px; }
+        .sheet { width: 794px; height: 1123px; background: #fff; overflow: hidden; position: relative; box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+        .sheet-inner { height: 100%; display: flex; flex-direction: column; padding: calc(40px * var(--fit,1)) calc(46px * var(--fit,1)); }
+        .only-mobile { display: none; }
+        @media (max-width: 980px) { .only-mobile { display: inline-flex; } }
+        .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(80px); background: #0e3b2e; color: #fff; padding: 12px 22px; border-radius: 30px; font-weight: 700; font-size: 15px; z-index: 999; opacity: 0; transition: all .3s; max-width: 92vw; text-align: center; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ===== SHEET COMMON ===== */
+        .bd-photo { width: calc(118px * var(--fit,1)); height: calc(140px * var(--fit,1)); object-fit: cover; }
+        .bd-photo-empty { display: flex; align-items: center; justify-content: center; color: #a8a29e; font-size: calc(12px * var(--fit,1)); background: #f5f5f4; }
+        .sec { font-weight: 700; margin: calc(16px * var(--fit,1)) 0 calc(7px * var(--fit,1)); font-size: calc(15.5px * var(--fit,1)); }
+        .row { display: flex; font-size: calc(14.5px * var(--fit,1)); padding: calc(5px * var(--fit,1)) 0; line-height: 1.45; }
+        .row b { width: 38%; flex-shrink: 0; font-weight: 600; }
+        .row span { width: 62%; word-break: break-word; }
+        .foot { text-align: center; font-size: calc(11.5px * var(--fit,1)); margin-top: auto; padding-top: calc(10px * var(--fit,1)); }
+        table.edu { width: 100%; border-collapse: collapse; font-size: calc(13.5px * var(--fit,1)); margin-top: calc(4px * var(--fit,1)); }
+        table.edu th, table.edu td { padding: calc(6px * var(--fit,1)) calc(8px * var(--fit,1)); text-align: left; vertical-align: top; word-break: break-word; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="logo" href="index.html"><i class="fa-solid fa-laptop-code"></i> DAFADAR ONLINE SEVA</a>
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> সব টুল</a>
+    </nav>
+
+    <div class="page-head">
+        <h1>📋 Biodata Maker — বায়োডাটা তৈরি করুন</h1>
+        <p>নিচে নিজের তথ্য লিখুন — পাশে লাইভ প্রিভিউ সঙ্গে সঙ্গে বদলাবে। পছন্দের ডিজাইন বেছে নিন (মোট ১৫টি), তারপর এক ক্লিকে <b>এক পাতার A4 PDF</b> ডাউনলোড করুন। ফাঁকা ঘর পূরণ না করলে সেটা বায়োডাটায় আসবে না।</p>
+        <span class="privacy-note">🔒 আপনার তথ্য কোথাও পাঠানো হয় না — সব কাজ আপনার ফোন/কম্পিউটারেই হয়</span>
+    </div>
+
+    <div class="maker">
+        <!-- ============ FORM ============ -->
+        <div class="panel" id="formPanel">
+            <h2 class="sec">📷 ছবি (Photo)</h2>
+            <input type="file" id="p_photo" accept="image/*" class="tin">
+            <p class="hint">ছবি অটো পাসপোর্ট সাইজে (35×45) কাট হবে। মুখ বদলাবে না — চাইলে নিচে শুধু পোশাক বদলাতে পারবেন।</p>
+            <label class="flabel">👔 ফরমাল পোশাক (ঐচ্ছিক)</label>
+            <div class="dress-row">
+                <button type="button" class="dress-btn active" data-dress="none">No Change</button>
+                <button type="button" class="dress-btn" data-dress="suit">🤵 Suit + Tie</button>
+                <button type="button" class="dress-btn" data-dress="blazer">🧥 Blazer</button>
+            </div>
+            <div class="grid2">
+                <div><label class="flabel">পোশাকের সাইজ</label><input type="range" id="dressSize" min="70" max="140" value="100"></div>
+                <div><label class="flabel">পোশাকের অবস্থান</label><input type="range" id="dressY" min="30" max="70" value="52"></div>
+            </div>
+            <button type="button" class="btn danger small" id="removePhotoBtn" style="margin-top:8px;">🗑️ ছবি সরান</button>
+
+            <h2 class="sec">👤 ব্যক্তিগত তথ্য (Personal Details)</h2>
+            <label class="flabel">পুরো নাম (Full Name)</label>
+            <input id="p_name" class="tin" placeholder="যেমন: Rahul Sharma">
+            <div class="grid2">
+                <div><label class="flabel">জন্ম তারিখ (Date of Birth)</label><input id="p_dob" type="date" class="tin"></div>
+                <div><label class="flabel">বয়স (অটো)</label><input id="p_age" class="tin" placeholder="—" readonly></div>
+                <div><label class="flabel">লিঙ্গ (Gender) — ঐচ্ছিক</label>
+                    <select id="p_gender" class="tsel"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+                <div><label class="flabel">বৈবাহিক অবস্থা (Marital Status)</label>
+                    <select id="p_marital" class="tsel"><option value="">Select</option><option>Never Married</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
+                <input id="p_height" class="tin" placeholder="Height — যেমন: 5'6&quot;">
+                <input id="p_weight" class="tin" placeholder="Weight — যেমন: 60 kg">
+                <div><label class="flabel">ধর্ম (Religion)</label>
+                    <select id="p_religion" class="tsel"><option value="">Select</option><option>Hindu</option><option>Muslim</option><option>Christian</option><option>Sikh</option><option>Buddhist</option><option>Jain</option><option>Other</option></select></div>
+                <input id="p_nationality" class="tin" placeholder="Nationality — যেমন: Indian" style="align-self:end;">
+                <input id="p_caste" class="tin" placeholder="Caste">
+                <input id="p_gotra" class="tin" placeholder="Gotra">
+            </div>
+            <input id="p_rashi" class="tin" placeholder="Rashi / Star" style="margin-top:10px;">
+            <input id="p_languages" class="tin" placeholder="Languages Known — যেমন: Bengali, Hindi, English" style="margin-top:10px;">
+            <input id="p_address" class="tin" placeholder="Address — পুরো ঠিকানা" style="margin-top:10px;">
+            <div class="grid2" style="margin-top:10px;">
+                <input id="p_phone" class="tin" placeholder="Phone / Mobile">
+                <input id="p_email" class="tin" placeholder="Email — ঐচ্ছিক">
+            </div>
+
+            <h2 class="sec">🎓 শিক্ষাগত যোগ্যতা (Education)</h2>
+            <p class="hint" style="margin-bottom:10px;">➕ বোতামে যতগুলো চান যোগ্যতা যোগ করুন। তালিকায় না থাকলে <b>“নিজে লিখুন”</b> বেছে নিজে লিখতে পারবেন। নম্বর আর মোট নম্বর লিখলেই শতাংশ অটো হিসাব হবে।</p>
+            <div id="eduList"></div>
+            <button type="button" class="btn outline" id="addEduBtn">➕ যোগ্যতা যোগ করুন (Add Qualification)</button>
+
+            <h2 class="sec">💼 পেশা ও আয় (Occupation &amp; Income)</h2>
+            <div class="grid2">
+                <input id="p_occ" class="tin" placeholder="Occupation — পেশা">
+                <input id="p_income" class="tin" placeholder="Annual Income — বার্ষিক আয়">
+            </div>
+
+            <h2 class="sec">👨‍👩‍👧 পরিবার (Family Details)</h2>
+            <input id="p_father" class="tin" placeholder="Father's Name &amp; Occupation">
+            <input id="p_mother" class="tin" placeholder="Mother's Name" style="margin-top:10px;">
+            <input id="p_siblings" class="tin" placeholder="Siblings — ভাইবোন" style="margin-top:10px;">
+
+            <h2 class="sec">💑 পাত্র/পাত্রী পছন্দ (Partner Preference) — ঐচ্ছিক</h2>
+            <input id="p_partner" class="tin" placeholder="Expected partner details">
+
+            <h2 class="sec">🎨 ডিজাইন বাছুন (Choose Design — 15টি)</h2>
+            <div id="tplPicker"></div>
+
+            <div class="btnrow">
+                <button type="button" class="btn blue" id="downloadBtn">⬇️ PDF ডাউনলোড (A4, এক পাতা)</button>
+                <button type="button" class="btn outline" id="sampleBtn">✨ নমুনা তথ্য</button>
+            </div>
+            <div class="btnrow">
+                <button type="button" class="btn outline small" id="saveDraftBtn">💾 ড্রাফট সেভ করুন</button>
+                <button type="button" class="btn danger small" id="clearDraftBtn">🧹 সেভ করা তথ্য মুছুন</button>
+                <button type="button" class="btn danger small" id="resetBtn">↺ ফর্ম রিসেট</button>
+            </div>
+            <p class="hint">ড্রাফট শুধু এই ফোন/ব্রাউজারেই থাকে — সার্ভারে যায় না।</p>
+        </div>
+
+        <!-- ============ PREVIEW ============ -->
+        <div class="panel preview-panel" id="previewPanel">
+            <div class="preview-head">
+                <b>👁️ লাইভ প্রিভিউ (A4)</b>
+                <span class="hint" id="fitInfo">Auto-fit: চালু আছে</span>
+            </div>
+            <div id="fitWarn">⚠️ তথ্য অনেক বেশি — এক পাতায় ধরাতে লেখা সবচেয়ে ছোট করা হয়েছে। তবু জায়গা কম হলে কিছু ঐচ্ছিক তথ্য ছোট করে লিখুন বা মুছে দিন। কোনো তথ্য নিজে থেকে মোছা হবে না।</div>
+            <div id="sheetScaler"><div id="sheetHolder"></div></div>
+            <div class="btnrow">
+                <button type="button" class="btn blue" id="downloadBtn2">⬇️ PDF ডাউনলোড</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footnav">
+            <a href="index.html">হোম / সব টুল</a> · <a href="blog.html">ব্লগ</a> · <a href="annapurna-bhandar.html">অন্নপূর্ণা হেল্প সেন্টার</a> · <a href="status-check.html">স্ট্যাটাস চেক</a> · <a href="contact.html">যোগাযোগ</a>
+        </div>
+        © Dafadar Online Seva — Biodata Maker · তথ্য আপনার ডিভাইসেই থাকে, সার্ভারে পাঠানো হয় না
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <style>
+        /* ===== SHEET: shared head ===== */
+        .bd-head h2 { font-size: calc(27px * var(--fit,1)); margin: 0; }
+        .bd-name { font-size: calc(23px * var(--fit,1)); font-weight: 700; margin-top: calc(4px * var(--fit,1)); word-break: break-word; }
+        .bd-sub { font-size: calc(12.5px * var(--fit,1)); margin-top: calc(2px * var(--fit,1)); }
+        .bd-head .bd-photo, .bd-head .bd-photo-empty { float: right; margin: 0 0 calc(8px * var(--fit,1)) calc(12px * var(--fit,1)); }
+        .side-wrap { display: flex; gap: calc(22px * var(--fit,1)); height: 100%; }
+        .side-col { width: 31%; flex-shrink: 0; }
+        .main-col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+        .side-col .bd-photo, .side-col .bd-photo-empty { width: 100%; height: auto; aspect-ratio: 7/8.4; display: block; margin-bottom: calc(12px * var(--fit,1)); }
+        .side-col .row { flex-direction: column; padding: calc(4px * var(--fit,1)) 0; }
+        .side-col .row b { width: 100%; font-size: calc(11.5px * var(--fit,1)); text-transform: uppercase; letter-spacing: .4px; }
+        .side-col .row span { width: 100%; }
+
+        /* ===== SIMPLE 1 — Classic Cream (আগের ডিজাইন) ===== */
+        .tpl-s1 { font-family: Georgia, 'Noto Serif Bengali', serif; border: 3px double #b45309; color: #1f2937; }
+        .tpl-s1 .sheet-inner { background: #fffdf7; }
+        .tpl-s1 .bd-head { text-align: center; border-bottom: 2px solid #b45309; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-s1 .bd-head h2 { letter-spacing: calc(8px * var(--fit,1)); color: #92400e; }
+        .tpl-s1 .bd-name { color: #78350f; } .tpl-s1 .bd-sub { color: #78716c; }
+        .tpl-s1 .sec { background: #b45309; color: #fff; padding: calc(6px * var(--fit,1)) calc(12px * var(--fit,1)); border-radius: 4px; }
+        .tpl-s1 .row { border-bottom: 1px dotted #ccc; } .tpl-s1 .row b { color: #57534e; }
+        .tpl-s1 .bd-photo, .tpl-s1 .bd-photo-empty { border: 2px solid #b45309; }
+        .tpl-s1 .foot { color: #78716c; border-top: 1px solid #ddd; }
+        .tpl-s1 table.edu th { background: #b45309; color: #fff; } .tpl-s1 table.edu td { border-bottom: 1px dotted #ccc; }
+
+        /* ===== SIMPLE 2 — Clean Blue ===== */
+        .tpl-s2 { font-family: 'Hind Siliguri', sans-serif; border-top: calc(12px * var(--fit,1)) solid #1d4ed8; color: #1e293b; }
+        .tpl-s2 .bd-head { border-bottom: 1px solid #e2e8f0; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-s2 .bd-head h2 { color: #1d4ed8; font-size: calc(19px * var(--fit,1)); letter-spacing: 3px; }
+        .tpl-s2 .bd-name { color: #1e3a8a; font-size: calc(27px * var(--fit,1)); }
+        .tpl-s2 .bd-sub { color: #64748b; }
+        .tpl-s2 .sec { color: #1d4ed8; border-bottom: 2px solid #bfdbfe; padding-bottom: calc(4px * var(--fit,1)); }
+        .tpl-s2 .row { border-bottom: 1px solid #eef2f7; } .tpl-s2 .row b { color: #475569; }
+        .tpl-s2 .bd-photo, .tpl-s2 .bd-photo-empty { border: 2px solid #1d4ed8; border-radius: 8px; }
+        .tpl-s2 .foot { color: #94a3b8; }
+        .tpl-s2 table.edu th { background: #1d4ed8; color: #fff; } .tpl-s2 table.edu td { border-bottom: 1px solid #e2e8f0; }
+
+        /* ===== SIMPLE 3 — Minimal Grey ===== */
+        .tpl-s3 { font-family: 'Hind Siliguri', sans-serif; color: #27272a; }
+        .tpl-s3 .bd-head { text-align: center; padding-bottom: calc(8px * var(--fit,1)); }
+        .tpl-s3 .bd-head h2 { font-size: calc(16px * var(--fit,1)); letter-spacing: 6px; color: #71717a; font-weight: 600; }
+        .tpl-s3 .bd-name { font-size: calc(26px * var(--fit,1)); font-weight: 600; }
+        .tpl-s3 .bd-sub { color: #a1a1aa; }
+        .tpl-s3 .sec { text-transform: uppercase; letter-spacing: 2px; font-size: calc(12.5px * var(--fit,1)); color: #52525b; border-bottom: 1px solid #d4d4d8; padding-bottom: calc(4px * var(--fit,1)); }
+        .tpl-s3 .row b { color: #71717a; font-weight: 500; }
+        .tpl-s3 .bd-photo, .tpl-s3 .bd-photo-empty { border: 1px solid #d4d4d8; }
+        .tpl-s3 .foot { color: #a1a1aa; }
+        .tpl-s3 table.edu th { background: #f4f4f5; color: #3f3f46; border-bottom: 2px solid #d4d4d8; } .tpl-s3 table.edu td { border-bottom: 1px solid #e4e4e7; }
+
+        /* ===== SIMPLE 4 — Fresh Green ===== */
+        .tpl-s4 { font-family: 'Hind Siliguri', sans-serif; border: 2px solid #16a34a; color: #1c2b21; }
+        .tpl-s4 .sheet-inner { background: #fbfffc; }
+        .tpl-s4 .bd-head { text-align: center; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-s4 .bd-head h2 { color: #15803d; letter-spacing: 4px; }
+        .tpl-s4 .bd-name { color: #166534; } .tpl-s4 .bd-sub { color: #4d7c5f; }
+        .tpl-s4 .sec { background: #dcfce7; color: #166534; padding: calc(5px * var(--fit,1)) calc(14px * var(--fit,1)); border-radius: 20px; }
+        .tpl-s4 .row { border-bottom: 1px solid #e7f4ea; } .tpl-s4 .row b { color: #15803d; }
+        .tpl-s4 .bd-photo, .tpl-s4 .bd-photo-empty { border: 2px solid #16a34a; border-radius: 10px; }
+        .tpl-s4 .foot { color: #7ba889; }
+        .tpl-s4 table.edu th { background: #16a34a; color: #fff; } .tpl-s4 table.edu td { border-bottom: 1px solid #dcfce7; }
+
+        /* ===== SIMPLE 5 — Traditional Maroon ===== */
+        .tpl-s5 { font-family: Georgia, 'Noto Serif Bengali', serif; border: 4px solid #7f1d1d; outline: 1.5px solid #7f1d1d; outline-offset: calc(-11px * var(--fit,1)); color: #292524; }
+        .tpl-s5 .bd-head { text-align: center; padding-bottom: calc(8px * var(--fit,1)); }
+        .tpl-s5 .bd-head h2 { color: #7f1d1d; letter-spacing: 5px; }
+        .tpl-s5 .bd-name { color: #7f1d1d; } .tpl-s5 .bd-sub { color: #78716c; }
+        .tpl-s5 .sec { text-align: center; color: #7f1d1d; border-top: 3px double #7f1d1d; border-bottom: 3px double #7f1d1d; padding: calc(4px * var(--fit,1)) 0; }
+        .tpl-s5 .row { border-bottom: 1px dotted #d6d3d1; } .tpl-s5 .row b { color: #7f1d1d; }
+        .tpl-s5 .bd-photo, .tpl-s5 .bd-photo-empty { border: 2px solid #7f1d1d; }
+        .tpl-s5 .foot { color: #78716c; }
+        .tpl-s5 table.edu th { background: #7f1d1d; color: #fff; } .tpl-s5 table.edu td { border-bottom: 1px dotted #d6d3d1; }
+
+        /* ===== PROFESSIONAL 1 — Navy Band (table) ===== */
+        .tpl-p1 { font-family: 'Hind Siliguri', sans-serif; color: #1e293b; }
+        .tpl-p1 .bd-head { background: #0f2a52; color: #fff; padding: calc(16px * var(--fit,1)) calc(18px * var(--fit,1)); border-radius: 8px; }
+        .tpl-p1 .bd-head h2 { color: #9db8dd; font-size: calc(14px * var(--fit,1)); letter-spacing: 4px; }
+        .tpl-p1 .bd-name { color: #fff; font-size: calc(26px * var(--fit,1)); }
+        .tpl-p1 .bd-sub { color: #c7d5ea; }
+        .tpl-p1 .bd-photo, .tpl-p1 .bd-photo-empty { border: 2px solid #fff; border-radius: 6px; }
+        .tpl-p1 .sec { background: #e8eef7; color: #0f2a52; border-left: 5px solid #0f2a52; padding: calc(6px * var(--fit,1)) calc(12px * var(--fit,1)); }
+        .tpl-p1 .row { border-bottom: 1px solid #eef2f7; } .tpl-p1 .row b { color: #0f2a52; }
+        .tpl-p1 .foot { color: #8496b3; }
+        .tpl-p1 table.edu th { background: #0f2a52; color: #fff; } .tpl-p1 table.edu td { border-bottom: 1px solid #dbe4f0; }
+
+        /* ===== PROFESSIONAL 2 — Sidebar Slate (sidebar) ===== */
+        .tpl-p2 { font-family: 'Hind Siliguri', sans-serif; color: #1e293b; }
+        .tpl-p2 .sheet-inner { padding: 0; }
+        .tpl-p2 .side-wrap { gap: 0; }
+        .tpl-p2 .side-col { background: #eef2f6; border-right: 2.5px solid #334155; padding: calc(30px * var(--fit,1)) calc(20px * var(--fit,1)); }
+        .tpl-p2 .main-col { padding: calc(30px * var(--fit,1)) calc(26px * var(--fit,1)); }
+        .tpl-p2 .bd-head h2 { color: #64748b; font-size: calc(14px * var(--fit,1)); letter-spacing: 4px; }
+        .tpl-p2 .bd-name { color: #0f172a; font-size: calc(27px * var(--fit,1)); }
+        .tpl-p2 .bd-sub { color: #64748b; }
+        .tpl-p2 .sec { color: #0f172a; border-bottom: 2.5px solid #334155; padding-bottom: calc(4px * var(--fit,1)); }
+        .tpl-p2 .side-col .sec { border-bottom: 2px solid #94a3b8; color: #334155; }
+        .tpl-p2 .row { border-bottom: 1px solid #e6ebf0; } .tpl-p2 .side-col .row { border-bottom: 1px solid #dde4ec; }
+        .tpl-p2 .row b { color: #334155; }
+        .tpl-p2 .bd-photo, .tpl-p2 .bd-photo-empty { border: 2.5px solid #334155; border-radius: 8px; }
+        .tpl-p2 .foot { color: #94a3b8; }
+        .tpl-p2 table.edu th { background: #334155; color: #fff; } .tpl-p2 table.edu td { border-bottom: 1px solid #dbe4f0; }
+
+        /* ===== PROFESSIONAL 3 — Corporate Box (table) ===== */
+        .tpl-p3 { font-family: 'Hind Siliguri', sans-serif; color: #26303b; }
+        .tpl-p3 .bd-head { border-bottom: 4px double #475569; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-p3 .bd-head h2 { color: #475569; font-size: calc(16px * var(--fit,1)); letter-spacing: 4px; }
+        .tpl-p3 .bd-name { color: #1e293b; font-size: calc(26px * var(--fit,1)); }
+        .tpl-p3 .bd-sub { color: #64748b; }
+        .tpl-p3 .sec { background: #f1f5f9; border: 1.5px solid #94a3b8; border-bottom: none; padding: calc(6px * var(--fit,1)) calc(12px * var(--fit,1)); border-radius: 8px 8px 0 0; color: #334155; margin-bottom: 0; }
+        .tpl-p3 .secbox { border: 1.5px solid #94a3b8; border-radius: 0 0 8px 8px; padding: calc(4px * var(--fit,1)) calc(12px * var(--fit,1)) calc(8px * var(--fit,1)); margin-bottom: calc(14px * var(--fit,1)); }
+        .tpl-p3 .row { border-bottom: 1px solid #e8edf2; } .tpl-p3 .row:last-child { border-bottom: none; }
+        .tpl-p3 .row b { color: #475569; }
+        .tpl-p3 .bd-photo, .tpl-p3 .bd-photo-empty { border: 2px solid #475569; }
+        .tpl-p3 .foot { color: #94a3b8; }
+        .tpl-p3 table.edu th { background: #475569; color: #fff; } .tpl-p3 table.edu td { border-bottom: 1px solid #e2e8f0; }
+
+        /* ===== PROFESSIONAL 4 — Teal Tabs ===== */
+        .tpl-p4 { font-family: 'Hind Siliguri', sans-serif; color: #173f3c; }
+        .tpl-p4 .bd-head { text-align: center; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-p4 .bd-head h2 { color: #0f766e; letter-spacing: 5px; }
+        .tpl-p4 .bd-name { color: #134e4a; } .tpl-p4 .bd-sub { color: #5f8a86; }
+        .tpl-p4 .sec { display: inline-block; background: #0f766e; color: #fff; padding: calc(5px * var(--fit,1)) calc(16px * var(--fit,1)); border-radius: 0 20px 20px 0; align-self: flex-start; }
+        .tpl-p4 .row { border-bottom: 1px solid #e0f2f0; } .tpl-p4 .row b { color: #0f766e; }
+        .tpl-p4 .bd-photo, .tpl-p4 .bd-photo-empty { border: 2.5px solid #0f766e; border-radius: 50%; width: calc(128px * var(--fit,1)); height: calc(128px * var(--fit,1)); }
+        .tpl-p4 .foot { color: #7fb3ae; }
+        .tpl-p4 table.edu th { background: #0f766e; color: #fff; } .tpl-p4 table.edu td { border-bottom: 1px solid #ccfbf1; }
+
+        /* ===== PROFESSIONAL 5 — Formal Black (table) ===== */
+        .tpl-p5 { font-family: Georgia, 'Noto Serif Bengali', serif; color: #111; border: 2px solid #111; }
+        .tpl-p5 .bd-head { text-align: center; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-p5 .bd-head h2 { letter-spacing: 7px; color: #111; }
+        .tpl-p5 .bd-name { color: #111; } .tpl-p5 .bd-sub { color: #555; }
+        .tpl-p5 .sec { text-align: center; text-transform: uppercase; letter-spacing: 2.5px; border-top: 3px double #111; border-bottom: 1px solid #111; padding: calc(5px * var(--fit,1)) 0; color: #111; }
+        .tpl-p5 .row { border-bottom: 1px solid #e5e5e5; } .tpl-p5 .row b { color: #333; }
+        .tpl-p5 .bd-photo, .tpl-p5 .bd-photo-empty { border: 2px solid #111; }
+        .tpl-p5 .foot { color: #777; }
+        .tpl-p5 table.edu th, .tpl-p5 table.edu td { border: 1px solid #bbb; }
+        .tpl-p5 table.edu th { background: #111; color: #fff; }
+
+        /* ===== SPECIAL 1 — Royal Purple & Gold ===== */
+        .tpl-x1 { font-family: Georgia, 'Noto Serif Bengali', serif; border: 3px double #6d28d9; color: #2e1065; }
+        .tpl-x1 .sheet-inner { background: #fdfaff; }
+        .tpl-x1 .bd-head { text-align: center; border-bottom: 2.5px solid #d4af37; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-x1 .bd-head h2 { color: #6d28d9; letter-spacing: 6px; }
+        .tpl-x1 .bd-name { color: #4c1d95; } .tpl-x1 .bd-sub { color: #a07c1f; }
+        .tpl-x1 .sec { background: #ede9fe; color: #4c1d95; border: 1px solid #d4af37; padding: calc(6px * var(--fit,1)) calc(12px * var(--fit,1)); border-radius: 6px; }
+        .tpl-x1 .row { border-bottom: 1px dotted #d8b4fe; } .tpl-x1 .row b { color: #6d28d9; }
+        .tpl-x1 .bd-photo, .tpl-x1 .bd-photo-empty { border: 2.5px solid #d4af37; }
+        .tpl-x1 .foot { color: #a07c1f; }
+        .tpl-x1 table.edu th { background: #6d28d9; color: #fde68a; } .tpl-x1 table.edu td { border-bottom: 1px dotted #d8b4fe; }
+
+        /* ===== SPECIAL 2 — Bengali Traditional ===== */
+        .tpl-x2 { font-family: 'Noto Serif Bengali', Georgia, serif; border: 4px solid #9d2235; color: #2b211f; }
+        .tpl-x2 .sheet-inner { background: #fffaf3; }
+        .tpl-x2 .bd-head { text-align: center; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-x2 .bd-head h2 { color: #9d2235; letter-spacing: 4px; }
+        .tpl-x2 .bd-name { color: #9d2235; } .tpl-x2 .bd-sub { color: #046a38; }
+        .tpl-x2 .sec { background: #9d2235; color: #fff; padding: calc(6px * var(--fit,1)) calc(14px * var(--fit,1)); border-radius: 4px; }
+        .tpl-x2 .row { border-bottom: 1px dotted #e5c1c7; } .tpl-x2 .row b { color: #9d2235; }
+        .tpl-x2 .bd-photo, .tpl-x2 .bd-photo-empty { border: 2.5px solid #046a38; border-radius: 6px; }
+        .tpl-x2 .foot { color: #9d2235; }
+        .tpl-x2 table.edu th { background: #9d2235; color: #fff; } .tpl-x2 table.edu td { border-bottom: 1px dotted #e5c1c7; }
+
+        /* ===== SPECIAL 3 — Modern Gradient ===== */
+        .tpl-x3 { font-family: 'Hind Siliguri', sans-serif; color: #1e293b; }
+        .tpl-x3 .bd-head { background: linear-gradient(100deg, #dbeafe, #e0e7ff 55%, #fae8ff); padding: calc(16px * var(--fit,1)) calc(18px * var(--fit,1)); border-radius: 12px; }
+        .tpl-x3 .bd-head h2 { color: #4338ca; font-size: calc(15px * var(--fit,1)); letter-spacing: 4px; }
+        .tpl-x3 .bd-name { color: #1e3a8a; font-size: calc(26px * var(--fit,1)); }
+        .tpl-x3 .bd-sub { color: #6366f1; }
+        .tpl-x3 .bd-photo, .tpl-x3 .bd-photo-empty { border: 3px solid #fff; border-radius: 14px; box-shadow: 0 3px 10px rgba(67,56,202,.25); }
+        .tpl-x3 .sec { background: #eef2ff; color: #4338ca; display: inline-block; padding: calc(5px * var(--fit,1)) calc(16px * var(--fit,1)); border-radius: 20px; align-self: flex-start; }
+        .tpl-x3 .row { border-bottom: 1px solid #eef2ff; } .tpl-x3 .row b { color: #4f46e5; }
+        .tpl-x3 .foot { color: #a5b4fc; }
+        .tpl-x3 table.edu th { background: #4f46e5; color: #fff; } .tpl-x3 table.edu td { border-bottom: 1px solid #e0e7ff; }
+
+        /* ===== SPECIAL 4 — Rose Floral ===== */
+        .tpl-x4 { font-family: Georgia, 'Noto Serif Bengali', serif; border: 2px solid #f472b6; color: #3f2a33; }
+        .tpl-x4 .sheet-inner { background: #fff8fa; }
+        .tpl-x4 .bd-head { text-align: center; padding-bottom: calc(10px * var(--fit,1)); }
+        .tpl-x4 .bd-head h2 { color: #be185d; font-family: 'Segoe Script', 'Brush Script MT', Georgia, cursive; letter-spacing: 2px; }
+        .tpl-x4 .bd-name { color: #9d174d; } .tpl-x4 .bd-sub { color: #db2777; }
+        .tpl-x4 .sec { color: #be185d; border-bottom: 2px dotted #f472b6; padding-bottom: calc(4px * var(--fit,1)); }
+        .tpl-x4 .sec::before { content: '❀ '; }
+        .tpl-x4 .row { border-bottom: 1px solid #ffe4ee; } .tpl-x4 .row b { color: #be185d; }
+        .tpl-x4 .bd-photo, .tpl-x4 .bd-photo-empty { border: 2.5px solid #f472b6; border-radius: 12px; }
+        .tpl-x4 .foot { color: #e58bb1; }
+        .tpl-x4 table.edu th { background: #db2777; color: #fff; } .tpl-x4 table.edu td { border-bottom: 1px solid #ffe4ee; }
+
+        /* ===== SPECIAL 5 — Vintage Paper ===== */
+        .tpl-x5 { font-family: Georgia, 'Times New Roman', serif; border: 1.5px solid #a68a4b; color: #3d3120; }
+        .tpl-x5 .sheet-inner { background: #f8f2e2; }
+        .tpl-x5 .bd-head { text-align: center; border-top: 3px double #a68a4b; border-bottom: 3px double #a68a4b; padding: calc(10px * var(--fit,1)) 0; }
+        .tpl-x5 .bd-head h2 { letter-spacing: 6px; color: #6b4f1d; }
+        .tpl-x5 .bd-name { color: #6b4f1d; } .tpl-x5 .bd-sub { color: #a68a4b; }
+        .tpl-x5 .sec { text-transform: uppercase; letter-spacing: 2.5px; color: #6b4f1d; border-bottom: 1px dashed #a68a4b; padding-bottom: calc(4px * var(--fit,1)); font-size: calc(13.5px * var(--fit,1)); }
+        .tpl-x5 .row { border-bottom: 1px dashed #ddd0ab; } .tpl-x5 .row b { color: #6b4f1d; }
+        .tpl-x5 .bd-photo, .tpl-x5 .bd-photo-empty { border: 2px solid #a68a4b; filter: sepia(.25); }
+        .tpl-x5 .foot { color: #a68a4b; }
+        .tpl-x5 table.edu th { background: #a68a4b; color: #fff8e7; } .tpl-x5 table.edu td { border-bottom: 1px dashed #ddd0ab; }
+    </style>
+
+    <style>
+        /* ===== PREMIUM REFINEMENT PASS ===== */
+        .sheet .sec { letter-spacing: .5px; }
+        .sheet .foot { letter-spacing: 1.4px; text-transform: uppercase; font-size: calc(10.5px * var(--fit,1)); }
+        .sheet table.edu th { text-transform: uppercase; letter-spacing: .7px; font-size: calc(12px * var(--fit,1)); }
+        .sheet table.edu tr:nth-child(even) td { background: rgba(15,23,42,.028); }
+        .sheet .bd-name { letter-spacing: .2px; }
+        /* Elegant display serif for classic/formal names & titles */
+        .tpl-s1 .bd-head h2, .tpl-s1 .bd-name,
+        .tpl-s5 .bd-head h2, .tpl-s5 .bd-name,
+        .tpl-p5 .bd-head h2, .tpl-p5 .bd-name,
+        .tpl-x1 .bd-head h2, .tpl-x1 .bd-name,
+        .tpl-x2 .bd-head h2, .tpl-x2 .bd-name,
+        .tpl-x5 .bd-head h2, .tpl-x5 .bd-name { font-family: 'Playfair Display', Georgia, 'Noto Serif Bengali', serif; }
+        /* Clean modern sans body for the contemporary designs */
+        .tpl-s2, .tpl-s3, .tpl-s4, .tpl-p1, .tpl-p2, .tpl-p3, .tpl-p4, .tpl-x3 { font-family: 'Inter', 'Hind Siliguri', sans-serif; }
+        .tpl-s1 .bd-head { border-bottom: 4px double #b45309; }
+        .tpl-p1 .bd-head { border-bottom: 3.5px solid #c9a227; }
+        .tpl-p4 .bd-head h2, .tpl-p4 .bd-name { font-family: 'Playfair Display', Georgia, serif; }
+
+        /* ===== LAYOUT: Header Band (s2, x3) ===== */
+        .band-wrap { display: flex; align-items: center; gap: calc(20px * var(--fit,1)); }
+        .band-wrap .bd-photo, .band-wrap .bd-photo-empty { float: none; flex-shrink: 0; margin: 0; }
+        .band-txt { flex: 1; min-width: 0; }
+        .band-over { font-size: calc(12px * var(--fit,1)); letter-spacing: 5px; text-transform: uppercase; font-weight: 600; }
+        .band-wrap .bd-name { font-size: calc(29px * var(--fit,1)); margin-top: calc(3px * var(--fit,1)); line-height: 1.2; }
+        .contact-line { font-size: calc(12.5px * var(--fit,1)); margin-top: calc(6px * var(--fit,1)); word-break: break-word; line-height: 1.5; }
+        .tpl-s2 .band-wrap { border-bottom: 3px solid #1d4ed8; padding-bottom: calc(14px * var(--fit,1)); flex-direction: row-reverse; }
+        .tpl-s2 .band-over { color: #1d4ed8; } .tpl-s2 .contact-line { color: #475569; }
+        .tpl-s2 .band-wrap .bd-photo, .tpl-s2 .band-wrap .bd-photo-empty { border: 2.5px solid #1d4ed8; border-radius: 10px; }
+        .tpl-x3 .band-wrap { background: linear-gradient(100deg, #dbeafe, #e0e7ff 55%, #fae8ff); padding: calc(16px * var(--fit,1)) calc(18px * var(--fit,1)); border-radius: 12px; }
+        .tpl-x3 .band-over { color: #4338ca; } .tpl-x3 .contact-line { color: #4338ca; }
+
+        /* ===== LAYOUT: Two-column personal grid (p5 duo) ===== */
+        .duo { display: grid; grid-template-columns: 1fr 1fr; column-gap: calc(30px * var(--fit,1)); }
+        .duo .row b { width: 46%; } .duo .row span { width: 54%; }
+
+        /* ===== LAYOUT: Education timeline (x5) ===== */
+        .tl { border-left: 2px solid #a68a4b; margin-left: calc(74px * var(--fit,1)); padding-left: calc(18px * var(--fit,1)); margin-top: calc(6px * var(--fit,1)); }
+        .tl-item { position: relative; padding: calc(5px * var(--fit,1)) 0; font-size: calc(14.5px * var(--fit,1)); line-height: 1.45; }
+        .tl-item .tl-year { position: absolute; left: calc(-92px * var(--fit,1)); top: calc(5px * var(--fit,1)); width: calc(66px * var(--fit,1)); text-align: right; font-weight: 700; color: #6b4f1d; }
+        .tl-item::before { content: ''; position: absolute; left: calc(-23px * var(--fit,1)); top: calc(11px * var(--fit,1)); width: calc(9px * var(--fit,1)); height: calc(9px * var(--fit,1)); border-radius: 50%; background: #a68a4b; }
+        .tl-item b { color: #3d3120; }
+    </style>
+    <script>
+    (function(){
+    'use strict';
+    var $ = function(id){ return document.getElementById(id); };
+    function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function val(id){ var el = $(id); return el ? el.value.trim() : ''; }
+    function toast(msg){ var t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(function(){ t.classList.remove('show'); }, 2600); }
+
+    var QUALS = ['Madhyamik (10th)', 'Higher Secondary (12th)', 'ITI', 'Diploma', 'Graduation — B.A.', 'Graduation — B.Sc.', 'Graduation — B.Com.', 'Graduation — B.Tech / B.E.', 'Graduation — Other', 'Post Graduation — M.A.', 'Post Graduation — M.Sc.', 'Post Graduation — M.Com.', 'Post Graduation — M.Tech', 'B.Ed', 'Other Qualification'];
+    var BOARDS = ['WBBSE – West Bengal Board', 'WBCHSE – West Bengal Council', 'CBSE', 'ICSE / ISC', 'NIOS', 'Rabindra Mukta Vidyalaya', 'MAKAUT (WBUT)', 'University of Calcutta', 'University of Burdwan', 'University of Kalyani', 'Vidyasagar University', 'North Bengal University', 'Jadavpur University', 'State Council of Technical Education', 'Other Board / University'];
+
+    var TEMPLATES = [
+        { id:'s1', name:'Simple 1', bn:'ক্লাসিক ক্রিম', cat:'Simple — সহজ', layout:'classic', cls:'tpl-s1', bar:'#b45309', bord:'3px double #b45309' },
+        { id:'s2', name:'Simple 2', bn:'ক্লিন ব্লু ব্যান্ড', cat:'Simple — সহজ', layout:'band', cls:'tpl-s2', bar:'#1d4ed8', bord:'2px solid #1d4ed8' },
+        { id:'s3', name:'Simple 3', bn:'মিনিমাল গ্রে', cat:'Simple — সহজ', layout:'classic', cls:'tpl-s3', bar:'#a1a1aa', bord:'1px solid #d4d4d8' },
+        { id:'s4', name:'Simple 4', bn:'ফ্রেশ গ্রিন', cat:'Simple — সহজ', layout:'classic', cls:'tpl-s4', bar:'#16a34a', bord:'2px solid #16a34a' },
+        { id:'s5', name:'Simple 5', bn:'ট্র্যাডিশনাল মেরুন', cat:'Simple — সহজ', layout:'classic', cls:'tpl-s5', bar:'#7f1d1d', bord:'4px solid #7f1d1d' },
+        { id:'p1', name:'Professional 1', bn:'নেভি ব্যান্ড', cat:'Professional — প্রফেশনাল', layout:'table', cls:'tpl-p1', bar:'#0f2a52', bord:'2px solid #0f2a52' },
+        { id:'p2', name:'Professional 2', bn:'সাইডবার স্লেট', cat:'Professional — প্রফেশনাল', layout:'side', cls:'tpl-p2', bar:'#334155', bord:'2px solid #334155' },
+        { id:'p3', name:'Professional 3', bn:'কর্পোরেট বক্স', cat:'Professional — প্রফেশনাল', layout:'table', cls:'tpl-p3', boxed:true, bar:'#475569', bord:'2px solid #475569' },
+        { id:'p4', name:'Professional 4', bn:'টিল ট্যাব', cat:'Professional — প্রফেশনাল', layout:'classic', cls:'tpl-p4', bar:'#0f766e', bord:'2px solid #0f766e' },
+        { id:'p5', name:'Professional 5', bn:'ফরমাল ব্ল্যাক গ্রিড', cat:'Professional — প্রফেশনাল', layout:'duo', cls:'tpl-p5', bar:'#111111', bord:'2px solid #111' },
+        { id:'x1', name:'Special 1', bn:'রয়েল পার্পল-গোল্ড', cat:'Special — বিশেষ', layout:'classic', cls:'tpl-x1', bar:'#6d28d9', bord:'3px double #6d28d9' },
+        { id:'x2', name:'Special 2', bn:'বাঙালি ঐতিহ্য', cat:'Special — বিশেষ', layout:'classic', cls:'tpl-x2', bar:'#9d2235', bord:'4px solid #9d2235' },
+        { id:'x3', name:'Special 3', bn:'মডার্ন গ্রেডিয়েন্ট ব্যান্ড', cat:'Special — বিশেষ', layout:'band', cls:'tpl-x3', bar:'#4f46e5', bord:'2px solid #4f46e5' },
+        { id:'x4', name:'Special 4', bn:'রোজ ফ্লোরাল', cat:'Special — বিশেষ', layout:'classic', cls:'tpl-x4', bar:'#db2777', bord:'2px solid #f472b6' },
+        { id:'x5', name:'Special 5', bn:'ভিনটেজ টাইমলাইন', cat:'Special — বিশেষ', layout:'timeline', cls:'tpl-x5', bar:'#a68a4b', bord:'2px solid #a68a4b' }
+    ];
+    function tplById(id){ for (var i=0;i<TEMPLATES.length;i++) if (TEMPLATES[i].id===id) return TEMPLATES[i]; return TEMPLATES[0]; }
+
+    var curTemplate = 's1';
+    var basePhoto = '', finalPhoto = '', dress = 'none', dressSize = 100, dressY = 52, dressImgs = {};
+    var currentFit = 1;
+
+    /* ---------- Template picker ---------- */
+    function buildPicker(){
+        var cats = [], byCat = {};
+        TEMPLATES.forEach(function(t){ if (!byCat[t.cat]) { byCat[t.cat] = []; cats.push(t.cat); } byCat[t.cat].push(t); });
+        var html = '';
+        cats.forEach(function(c){
+            html += '<div class="tpl-group">' + esc(c) + '</div><div class="tpl-grid">';
+            byCat[c].forEach(function(t){
+                html += '<div class="tpl-card' + (t.id===curTemplate ? ' active' : '') + '" data-tpl="' + t.id + '">' +
+                    '<div class="tpl-thumb" style="border:' + t.bord + '"><div style="height:13px;background:' + t.bar + '"></div>' +
+                    '<div style="margin:7px 9px;height:5px;background:#e2e8f0;border-radius:3px"></div>' +
+                    '<div style="margin:5px 9px;height:5px;background:#e2e8f0;border-radius:3px;width:62%"></div>' +
+                    '<div style="margin:5px 9px;height:5px;background:#e2e8f0;border-radius:3px;width:78%"></div></div>' +
+                    '<div class="tpl-name">' + esc(t.name) + '<br>' + esc(t.bn) + '</div></div>';
+            });
+            html += '</div>';
+        });
+        $('tplPicker').innerHTML = html;
+    }
+    $('tplPicker').addEventListener('click', function(e){
+        var card = e.target.closest('.tpl-card'); if (!card) return;
+        curTemplate = card.getAttribute('data-tpl');
+        var cards = $('tplPicker').querySelectorAll('.tpl-card');
+        for (var i=0;i<cards.length;i++) cards[i].classList.toggle('active', cards[i].getAttribute('data-tpl')===curTemplate);
+        render(); scheduleSave();
+    });
+
+    /* ---------- Education cards ---------- */
+    var eduCounter = 0;
+    function opts(list, sel){ return list.map(function(o){ return '<option' + (o===sel ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join(''); }
+    function eduCard(data){
+        data = data || {};
+        eduCounter++;
+        var card = document.createElement('div');
+        card.className = 'edu-card';
+        var qm = data.qualMode || 'list', bm = data.boardMode || 'list';
+        card.innerHTML =
+        '<div class="edu-top"><b>🎓 যোগ্যতা <span class="edu-num"></span></b>' +
+            '<div class="edu-tools">' +
+            '<button type="button" class="icon-btn mv-up" title="উপরে">⬆</button>' +
+            '<button type="button" class="icon-btn mv-dn" title="নিচে">⬇</button>' +
+            '<button type="button" class="icon-btn red rm" title="মুছুন">✖</button></div></div>' +
+        '<label class="flabel">Qualification / Class</label>' +
+        '<div class="mode-toggle" data-for="qual"><button type="button" data-mode="list" class="' + (qm==='list'?'active':'') + '">তালিকা থেকে</button><button type="button" data-mode="manual" class="' + (qm==='manual'?'active':'') + '">✎ নিজে লিখুন</button></div>' +
+        '<select class="tsel e-qual-sel" style="' + (qm==='list'?'':'display:none') + '"><option value="">Select Qualification</option>' + opts(QUALS, data.qualSel) + '</select>' +
+        '<input class="tin e-qual-txt" placeholder="নিজে লিখুন — যেমন: Fazil (10th Equivalent)" value="' + esc(data.qualTxt||'') + '" style="' + (qm==='manual'?'':'display:none') + '">' +
+        '<label class="flabel">Board / University</label>' +
+        '<div class="mode-toggle" data-for="board"><button type="button" data-mode="list" class="' + (bm==='list'?'active':'') + '">তালিকা থেকে</button><button type="button" data-mode="manual" class="' + (bm==='manual'?'active':'') + '">✎ নিজে লিখুন</button></div>' +
+        '<select class="tsel e-board-sel" style="' + (bm==='list'?'':'display:none') + '"><option value="">Select Board / University</option>' + opts(BOARDS, data.boardSel) + '</select>' +
+        '<input class="tin e-board-txt" placeholder="নিজে লিখুন — বোর্ড/বিশ্ববিদ্যালয়ের নাম" value="' + esc(data.boardTxt||'') + '" style="' + (bm==='manual'?'':'display:none') + '">' +
+        '<div class="grid2">' +
+            '<input class="tin e-inst" placeholder="School / College Name" value="' + esc(data.inst||'') + '" style="margin-top:10px;">' +
+            '<input class="tin e-year" placeholder="Passing Year — যেমন: 2021" value="' + esc(data.year||'') + '" style="margin-top:10px;">' +
+            '<input class="tin e-marks" type="number" placeholder="Marks obtained — প্রাপ্ত নম্বর" value="' + esc(data.marks||'') + '">' +
+            '<input class="tin e-total" type="number" placeholder="Total marks — মোট নম্বর" value="' + esc(data.total||'') + '">' +
+            '<input class="tin e-perc" placeholder="% / CGPA / Grade — সরাসরি লিখলেও হবে" value="' + esc(data.perc||'') + '">' +
+            '<input class="tin e-div" placeholder="Division / Grade — যেমন: First" value="' + esc(data.div||'') + '">' +
+        '</div>' +
+        '<div class="perc-out"></div>';
+        card.dataset.qualMode = qm; card.dataset.boardMode = bm;
+        return card;
+    }
+    function renumber(){
+        var cards = $('eduList').querySelectorAll('.edu-card');
+        for (var i=0;i<cards.length;i++) cards[i].querySelector('.edu-num').textContent = (i+1);
+    }
+    function addEdu(data){ $('eduList').appendChild(eduCard(data)); renumber(); }
+    $('addEduBtn').addEventListener('click', function(){ addEdu(); render(); scheduleSave(); });
+    $('eduList').addEventListener('click', function(e){
+        var card = e.target.closest('.edu-card'); if (!card) return;
+        if (e.target.closest('.rm')) { card.remove(); renumber(); render(); scheduleSave(); return; }
+        if (e.target.closest('.mv-up')) { var p = card.previousElementSibling; if (p) card.parentNode.insertBefore(card, p); renumber(); render(); scheduleSave(); return; }
+        if (e.target.closest('.mv-dn')) { var n = card.nextElementSibling; if (n) card.parentNode.insertBefore(n, card); renumber(); render(); scheduleSave(); return; }
+        var mt = e.target.closest('.mode-toggle button');
+        if (mt) {
+            var wrap = mt.closest('.mode-toggle'), kind = wrap.getAttribute('data-for'), mode = mt.getAttribute('data-mode');
+            var btns = wrap.querySelectorAll('button'); for (var i=0;i<btns.length;i++) btns[i].classList.toggle('active', btns[i]===mt);
+            if (kind === 'qual') { card.dataset.qualMode = mode; card.querySelector('.e-qual-sel').style.display = mode==='list' ? '' : 'none'; card.querySelector('.e-qual-txt').style.display = mode==='manual' ? '' : 'none'; }
+            else { card.dataset.boardMode = mode; card.querySelector('.e-board-sel').style.display = mode==='list' ? '' : 'none'; card.querySelector('.e-board-txt').style.display = mode==='manual' ? '' : 'none'; }
+            render(); scheduleSave();
+        }
+    });
+    function getEdu(){
+        var out = [], cards = $('eduList').querySelectorAll('.edu-card');
+        cards.forEach(function(card){
+            var q = function(s){ return card.querySelector(s); };
+            var qual = card.dataset.qualMode === 'manual' ? q('.e-qual-txt').value.trim() : q('.e-qual-sel').value.trim();
+            var board = card.dataset.boardMode === 'manual' ? q('.e-board-txt').value.trim() : q('.e-board-sel').value.trim();
+            var marks = q('.e-marks').value.trim(), total = q('.e-total').value.trim();
+            var pct = '';
+            if (marks && total && parseFloat(total) > 0) pct = (parseFloat(marks) / parseFloat(total) * 100).toFixed(1) + '%';
+            var po = q('.perc-out');
+            if (pct) { po.style.display = 'block'; po.textContent = '✅ অটো শতাংশ: ' + marks + '/' + total + ' = ' + pct; } else { po.style.display = 'none'; }
+            out.push({ qual: qual, board: board, inst: q('.e-inst').value.trim(), year: q('.e-year').value.trim(),
+                marks: marks, total: total, pct: pct, perc: q('.e-perc').value.trim(), div: q('.e-div').value.trim(),
+                raw: { qualMode: card.dataset.qualMode, qualSel: q('.e-qual-sel').value, qualTxt: q('.e-qual-txt').value,
+                       boardMode: card.dataset.boardMode, boardSel: q('.e-board-sel').value, boardTxt: q('.e-board-txt').value,
+                       inst: q('.e-inst').value, year: q('.e-year').value, marks: marks, total: total, perc: q('.e-perc').value, div: q('.e-div').value } });
+        });
+        return out;
+    }
+    function eduResult(e){
+        var r = '';
+        if (e.marks && e.total && e.pct) r = e.marks + '/' + e.total + ' (' + e.pct + ')';
+        else if (e.perc) r = e.perc;
+        if (e.div) r += (r ? ' · ' : '') + e.div;
+        return r;
+    }
+    function eduLine(e){
+        var parts = [];
+        if (e.board) parts.push(e.board);
+        if (e.inst) parts.push(e.inst);
+        if (e.year) parts.push(e.year);
+        var r = eduResult(e); if (r) parts.push(r);
+        return parts.join(' — ');
+    }
+    function eduEmpty(e){ return !e.qual && !e.board && !e.inst && !e.year && !e.marks && !e.perc && !e.div; }
+
+    /* ---------- Personal data ---------- */
+    var PERSONAL_IDS = ['p_name','p_dob','p_gender','p_marital','p_height','p_weight','p_religion','p_nationality','p_caste','p_gotra','p_rashi','p_languages','p_address','p_phone','p_email','p_occ','p_income','p_father','p_mother','p_siblings','p_partner'];
+    function ageParts(){
+        var v = val('p_dob'); if (!v) return { txt:'', age:'' };
+        var d = new Date(v + 'T00:00:00'); if (isNaN(d)) return { txt: v, age: '' };
+        var now = new Date(), age = now.getFullYear() - d.getFullYear();
+        var m = now.getMonth() - d.getMonth();
+        if (m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
+        var mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+        return { txt: d.getDate() + ' ' + mon + ' ' + d.getFullYear(), age: age + ' years' };
+    }
+    function collect(){
+        var ap = ageParts();
+        $('p_age').value = ap.age || '—';
+        var dobTxt = ap.txt ? ap.txt + (ap.age ? ' (' + ap.age + ')' : '') : '';
+        return { name: val('p_name'), dob: dobTxt, gender: val('p_gender'), marital: val('p_marital'),
+            height: val('p_height'), weight: val('p_weight'), religion: val('p_religion'), nationality: val('p_nationality'),
+            caste: val('p_caste'), gotra: val('p_gotra'), rashi: val('p_rashi'), languages: val('p_languages'),
+            address: val('p_address'), phone: val('p_phone'), email: val('p_email'),
+            occ: val('p_occ'), income: val('p_income'), father: val('p_father'), mother: val('p_mother'),
+            siblings: val('p_siblings'), partner: val('p_partner'), edu: getEdu() };
+    }
+
+    /* ---------- Render ---------- */
+    function rowsHTML(pairs){
+        var h = '';
+        pairs.forEach(function(p){ if (p[1]) h += '<div class="row"><b>' + esc(p[0]) + '</b><span>' + esc(p[1]) + '</span></div>'; });
+        return h;
+    }
+    function sectionHTML(title, inner, boxed){
+        if (!inner) return '';
+        return '<div class="sec">' + esc(title) + '</div>' + (boxed ? '<div class="secbox">' + inner + '</div>' : inner);
+    }
+    function photoHTML(){
+        if (finalPhoto) return '<img class="bd-photo" src="' + finalPhoto + '" alt="">';
+        return '<div class="bd-photo bd-photo-empty">Photo</div>';
+    }
+    function eduTableHTML(edu){
+        var rows = edu.filter(function(e){ return !eduEmpty(e); });
+        if (!rows.length) return '';
+        var h = '<table class="edu"><tr><th style="width:24%">Qualification</th><th style="width:26%">Board / University</th><th style="width:24%">Institution</th><th style="width:10%">Year</th><th style="width:16%">Result</th></tr>';
+        rows.forEach(function(e){
+            h += '<tr><td>' + esc(e.qual || '—') + '</td><td>' + esc(e.board || '—') + '</td><td>' + esc(e.inst || '—') + '</td><td>' + esc(e.year || '—') + '</td><td>' + esc(eduResult(e) || '—') + '</td></tr>';
+        });
+        return h + '</table>';
+    }
+    function eduRowsHTML(edu){
+        var pairs = [];
+        edu.forEach(function(e){ if (!eduEmpty(e)) pairs.push([e.qual || 'Qualification', eduLine(e)]); });
+        return rowsHTML(pairs);
+    }
+    function personalPairs(d, contactSplit){
+        var all = [['Date of Birth', d.dob], ['Gender', d.gender], ['Height', d.height], ['Weight', d.weight],
+            ['Marital Status', d.marital], ['Religion', d.religion], ['Caste', d.caste], ['Gotra', d.gotra],
+            ['Rashi', d.rashi], ['Nationality', d.nationality], ['Languages Known', d.languages]];
+        if (!contactSplit) all = all.concat([['Address', d.address], ['Phone', d.phone], ['Email', d.email]]);
+        return all;
+    }
+    function contactLine(d){
+        var parts = [];
+        if (d.phone) parts.push('📞 ' + d.phone);
+        if (d.email) parts.push('✉ ' + d.email);
+        if (d.address) parts.push('📍 ' + d.address);
+        return parts.length ? '<div class="contact-line">' + esc(parts.join('   •   ')) + '</div>' : '';
+    }
+    function bandHeadHTML(d){
+        return '<div class="band-wrap">' + photoHTML() + '<div class="band-txt">' +
+            '<div class="band-over">Biodata</div>' +
+            (d.name ? '<div class="bd-name">' + esc(d.name) + '</div>' : '') +
+            '<p class="bd-sub">Marriage Profile</p>' + contactLine(d) + '</div></div>';
+    }
+    function timelineHTML(edu){
+        var items = edu.filter(function(e){ return !eduEmpty(e); });
+        if (!items.length) return '';
+        var h = '<div class="tl">';
+        items.forEach(function(e){
+            var parts = [];
+            if (e.board) parts.push(e.board);
+            if (e.inst) parts.push(e.inst);
+            var r = eduResult(e); if (r) parts.push(r);
+            var line = parts.join(' — ');
+            h += '<div class="tl-item"><span class="tl-year">' + esc(e.year || '') + '</span><b>' + esc(e.qual || 'Qualification') + '</b>' + (line ? ' — ' + esc(line) : '') + '</div>';
+        });
+        return h + '</div>';
+    }
+    function render(){
+        var d = collect(), t = tplById(curTemplate);
+        var foot = '<div class="foot">Created with Dafadar Online Seva — Biodata Maker</div>';
+        var occIn = rowsHTML([['Occupation', d.occ], ['Annual Income', d.income]]);
+        var famIn = rowsHTML([["Father's Name", d.father], ["Mother's Name", d.mother], ['Siblings', d.siblings]]);
+        var parIn = rowsHTML([['Expectation', d.partner]]);
+        var html;
+        if (t.layout === 'side') {
+            var sidePersonal = rowsHTML(personalPairs(d, true));
+            var sideContact = rowsHTML([['Address', d.address], ['Phone', d.phone], ['Email', d.email]]);
+            var side = photoHTML() + sectionHTML('Personal Details', sidePersonal) + sectionHTML('Contact', sideContact);
+            var main = '<div class="bd-head"><h2>BIODATA</h2>' + (d.name ? '<div class="bd-name">' + esc(d.name) + '</div>' : '') + '<p class="bd-sub">Marriage Profile</p></div>' +
+                sectionHTML('Education Details', eduTableHTML(d.edu)) +
+                sectionHTML('Occupation & Income', occIn) + sectionHTML('Family Details', famIn) + sectionHTML('Partner Preference', parIn) + foot;
+            html = '<div class="side-wrap"><aside class="side-col">' + side + '</aside><main class="main-col">' + main + '</main></div>';
+        } else if (t.layout === 'band') {
+            html = bandHeadHTML(d) +
+                sectionHTML('Personal Details', rowsHTML(personalPairs(d, true)), t.boxed) +
+                sectionHTML('Education Details', eduRowsHTML(d.edu), t.boxed) +
+                sectionHTML('Occupation & Income', occIn, t.boxed) +
+                sectionHTML('Family Details', famIn, t.boxed) +
+                sectionHTML('Partner Preference', parIn, t.boxed) + foot;
+        } else if (t.layout === 'duo') {
+            var duoPersonal = rowsHTML(personalPairs(d, false));
+            html = '<div class="bd-head">' + photoHTML() + '<h2>BIODATA</h2>' + (d.name ? '<div class="bd-name">' + esc(d.name) + '</div>' : '') + '<p class="bd-sub">Marriage Profile</p></div>' +
+                '<div style="clear:both"></div>' +
+                sectionHTML('Personal Details', duoPersonal ? '<div class="duo">' + duoPersonal + '</div>' : '', t.boxed) +
+                sectionHTML('Education Details', eduTableHTML(d.edu), t.boxed) +
+                sectionHTML('Occupation & Income', occIn, t.boxed) +
+                sectionHTML('Family Details', famIn, t.boxed) +
+                sectionHTML('Partner Preference', parIn, t.boxed) + foot;
+        } else if (t.layout === 'timeline') {
+            html = '<div class="bd-head">' + photoHTML() + '<h2>BIODATA</h2>' + (d.name ? '<div class="bd-name">' + esc(d.name) + '</div>' : '') + '<p class="bd-sub">Marriage Profile</p></div>' +
+                '<div style="clear:both"></div>' +
+                sectionHTML('Personal Details', rowsHTML(personalPairs(d, false)), t.boxed) +
+                sectionHTML('Education Details', timelineHTML(d.edu), t.boxed) +
+                sectionHTML('Occupation & Income', occIn, t.boxed) +
+                sectionHTML('Family Details', famIn, t.boxed) +
+                sectionHTML('Partner Preference', parIn, t.boxed) + foot;
+        } else {
+            var eduIn = t.layout === 'table' ? eduTableHTML(d.edu) : eduRowsHTML(d.edu);
+            html = '<div class="bd-head">' + photoHTML() + '<h2>BIODATA</h2>' + (d.name ? '<div class="bd-name">' + esc(d.name) + '</div>' : '') + '<p class="bd-sub">Marriage Profile</p></div>' +
+                '<div style="clear:both"></div>' +
+                sectionHTML('Personal Details', rowsHTML(personalPairs(d, false)), t.boxed) +
+                sectionHTML('Education Details', eduIn, t.boxed) +
+                sectionHTML('Occupation & Income', occIn, t.boxed) +
+                sectionHTML('Family Details', famIn, t.boxed) +
+                sectionHTML('Partner Preference', parIn, t.boxed) + foot;
+        }
+        $('sheetHolder').innerHTML = '<div class="sheet ' + t.cls + '" id="theSheet"><div class="sheet-inner">' + html + '</div></div>';
+        fitSheet(); scalePreview();
+    }
+
+    /* ---------- Smart Auto-Fit ---------- */
+    function fitSheet(){
+        var sheet = $('theSheet'); if (!sheet) return;
+        var inner = sheet.querySelector('.sheet-inner');
+        var steps = [];
+        for (var f = 1; f >= 0.599; f -= 0.02) steps.push(Math.round(f * 100) / 100);
+        var chosen = .60, overflow = true;
+        for (var i = 0; i < steps.length; i++) {
+            sheet.style.setProperty('--fit', steps[i]);
+            if (inner.scrollHeight <= 1123) { chosen = steps[i]; overflow = false; break; }
+        }
+        sheet.style.setProperty('--fit', chosen);
+        currentFit = chosen;
+        $('fitWarn').style.display = overflow ? 'block' : 'none';
+        $('fitInfo').textContent = 'Auto-fit: লেখার মাপ ' + Math.round(chosen * 100) + '% — এক পাতায় ফিট করা হয়েছে';
+    }
+    function scalePreview(){
+        var scaler = $('sheetScaler'), holder = $('sheetHolder');
+        var w = scaler.clientWidth; if (!w) return;
+        var s = w / 794;
+        holder.style.transform = 'scale(' + s + ')';
+        scaler.style.height = (1123 * s) + 'px';
+    }
+    window.addEventListener('resize', scalePreview);
+
+    /* ---------- Photo + dress (আগের ফিচার হুবহু) ---------- */
+    function applyDress(){
+        if (!basePhoto) { finalPhoto = ''; render(); return; }
+        var img = new Image();
+        img.onload = function(){
+            var c = document.createElement('canvas'); c.width = 700; c.height = 900;
+            var ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0);
+            if (dress !== 'none' && dressImgs[dress]) {
+                var dr = dressImgs[dress], s = dressSize / 100;
+                var dw = 700 * 1.15 * s, dh = dw * (dr.height / dr.width);
+                ctx.drawImage(dr, (700 - dw) / 2, 900 * (dressY / 100), dw, dh);
+            }
+            finalPhoto = c.toDataURL('image/jpeg', 0.92);
+            render(); scheduleSave();
+        };
+        img.src = basePhoto;
+    }
+    $('p_photo').addEventListener('change', function(){
+        var input = this;
+        if (!input.files || !input.files[0]) return;
+        var reader = new FileReader();
+        reader.onload = function(e){
+            var img = new Image();
+            img.onload = function(){
+                var target = 7 / 9, sw = img.width, sh = img.height, sx = 0, sy = 0, cw = sw, ch = sh;
+                if (sw / sh > target) { cw = sh * target; sx = (sw - cw) / 2; } else { ch = sw / target; sy = (sh - ch) / 2; }
+                var c = document.createElement('canvas'); c.width = 700; c.height = 900;
+                c.getContext('2d').drawImage(img, sx, sy, cw, ch, 0, 0, 700, 900);
+                basePhoto = c.toDataURL('image/jpeg', 0.92);
+                applyDress(); toast('ছবি তৈরি — পাসপোর্ট সাইজ 📷');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    });
+    document.querySelectorAll('.dress-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            dress = btn.getAttribute('data-dress');
+            document.querySelectorAll('.dress-btn').forEach(function(b){ b.classList.toggle('active', b === btn); });
+            if (dress !== 'none' && !dressImgs[dress]) {
+                var img = new Image();
+                img.onload = function(){ dressImgs[dress] = img; applyDress(); };
+                img.src = 'assets/dress-' + dress + '.png';
+            } else applyDress();
+        });
+    });
+    $('dressSize').addEventListener('input', function(){ dressSize = this.value; applyDress(); });
+    $('dressY').addEventListener('input', function(){ dressY = this.value; applyDress(); });
+    $('removePhotoBtn').addEventListener('click', function(){ basePhoto = ''; finalPhoto = ''; $('p_photo').value = ''; render(); scheduleSave(); toast('ছবি সরানো হয়েছে'); });
+
+    /* ---------- PDF ---------- */
+    function pdfFallback(){
+        var styles = '';
+        document.querySelectorAll('style').forEach(function(s){ styles += s.textContent + '\n'; });
+        var w = window.open('', '_blank');
+        w.document.write('<html><head><title>Biodata</title><style>@page{size:A4;margin:0}body{margin:0}' + styles + '</style></head><body>' + $('sheetHolder').innerHTML + '</body></html>');
+        w.document.close(); w.focus();
+        setTimeout(function(){ w.print(); }, 500);
+    }
+    $('downloadBtn').addEventListener('click', downloadPDF);
+    $('downloadBtn2').addEventListener('click', downloadPDF);
+    function downloadPDF(){
+        var sheet = $('theSheet'); if (!sheet) return;
+        if (typeof html2canvas === 'undefined' || !window.jspdf) { pdfFallback(); return; }
+        toast('PDF তৈরি হচ্ছে… একটু অপেক্ষা করুন');
+        var cloneWrap = document.createElement('div');
+        cloneWrap.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;height:1123px;background:#fff;';
+        var clone = sheet.cloneNode(true); clone.removeAttribute('id');
+        cloneWrap.appendChild(clone); document.body.appendChild(cloneWrap);
+        var name = (val('p_name') || 'Profile').replace(/[\\/:*?"<>|]/g, '').trim() || 'Profile';
+        html2canvas(clone, { scale: 2, useCORS: true, backgroundColor: '#ffffff', width: 794, height: 1123, windowWidth: 1200 })
+        .then(function(canvas){
+            var img = canvas.toDataURL('image/jpeg', 0.98);
+            var pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+            pdf.addImage(img, 'JPEG', 0, 0, 210, 297);
+            var pages = pdf.internal.getNumberOfPages();
+            pdf.save('Biodata-' + name + '.pdf');
+            document.body.removeChild(cloneWrap);
+            toast('✅ PDF ডাউনলোড হয়েছে — মোট ' + pages + ' পাতা (A4)');
+        })
+        .catch(function(){ document.body.removeChild(cloneWrap); pdfFallback(); });
+    }
+
+    /* ---------- Draft (localStorage) ---------- */
+    var LS_KEY = 'bdm_draft_v2', saveTimer = null;
+    function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(function(){ saveDraft(true); }, 900); }
+    function saveDraft(silent){
+        try {
+            var data = { tpl: curTemplate, dress: dress, dressSize: dressSize, dressY: dressY, personal: {}, edu: getEdu().map(function(e){ return e.raw; }) };
+            PERSONAL_IDS.forEach(function(id){ data.personal[id] = $(id) ? $(id).value : ''; });
+            localStorage.setItem(LS_KEY, JSON.stringify(data));
+            try { if (basePhoto) localStorage.setItem(LS_KEY + '_photo', basePhoto); else localStorage.removeItem(LS_KEY + '_photo'); } catch (e2) {}
+            if (!silent) toast('💾 ড্রাফট সেভ হয়েছে — এই ডিভাইসেই আছে');
+        } catch (e) { if (!silent) toast('ড্রাফট সেভ হয়নি — ব্রাউজার স্টোরেজ পূর্ণ'); }
+    }
+    function loadDraft(){
+        try {
+            var raw = localStorage.getItem(LS_KEY); if (!raw) return false;
+            var data = JSON.parse(raw);
+            PERSONAL_IDS.forEach(function(id){ if ($(id) && data.personal && data.personal[id] != null) $(id).value = data.personal[id]; });
+            curTemplate = data.tpl || 's1';
+            dress = data.dress || 'none'; dressSize = data.dressSize || 100; dressY = data.dressY || 52;
+            $('dressSize').value = dressSize; $('dressY').value = dressY;
+            document.querySelectorAll('.dress-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-dress') === dress); });
+            $('eduList').innerHTML = '';
+            if (data.edu && data.edu.length) data.edu.forEach(function(e){ addEdu(e); }); else addEdu();
+            var ph = localStorage.getItem(LS_KEY + '_photo');
+            if (ph) { basePhoto = ph; if (dress !== 'none') { var img = new Image(); img.onload = function(){ dressImgs[dress] = img; applyDress(); }; img.src = 'assets/dress-' + dress + '.png'; } else applyDress(); }
+            return true;
+        } catch (e) { return false; }
+    }
+    $('saveDraftBtn').addEventListener('click', function(){ saveDraft(false); });
+    $('clearDraftBtn').addEventListener('click', function(){
+        if (!confirm('সেভ করা ড্রাফট মুছে ফেলবেন? ফর্মে এখন যা আছে তা থাকবে, শুধু সেভ করা কপি মুছবে।')) return;
+        localStorage.removeItem(LS_KEY); localStorage.removeItem(LS_KEY + '_photo'); toast('🧹 সেভ করা তথ্য মোছা হয়েছে');
+    });
+    $('resetBtn').addEventListener('click', function(){
+        if (!confirm('পুরো ফর্ম খালি করে নতুন করে শুরু করবেন? লেখা সব তথ্য মুছে যাবে।')) return;
+        PERSONAL_IDS.forEach(function(id){ if ($(id)) $(id).value = ''; });
+        $('eduList').innerHTML = ''; addEdu();
+        basePhoto = ''; finalPhoto = ''; $('p_photo').value = '';
+        localStorage.removeItem(LS_KEY); localStorage.removeItem(LS_KEY + '_photo');
+        render(); toast('ফর্ম রিসেট হয়েছে');
+    });
+    $('sampleBtn').addEventListener('click', function(){
+        var s = { p_name: 'Rahul Sharma', p_dob: '1995-08-15', p_height: "5'8\"", p_weight: '65 kg', p_religion: 'Hindu',
+            p_nationality: 'Indian', p_caste: 'Brahmin', p_gotra: 'Kashyap', p_rashi: 'Simha', p_languages: 'Bengali, Hindi, English',
+            p_address: 'Kolkata, West Bengal', p_phone: '+91 98765 43210', p_email: 'rahul@example.com',
+            p_occ: 'Software Engineer', p_income: 'Rs. 8 LPA', p_father: 'Amit Sharma (Businessman)',
+            p_mother: 'Sunita Sharma (Homemaker)', p_siblings: 'One younger sister', p_partner: 'Well-educated, caring partner from a good family' };
+        for (var k in s) if ($(k)) $(k).value = s[k];
+        $('p_gender').value = 'Male'; $('p_marital').value = 'Never Married';
+        $('eduList').innerHTML = '';
+        addEdu({ qualMode: 'list', qualSel: 'Madhyamik (10th)', boardMode: 'list', boardSel: 'WBBSE – West Bengal Board', inst: 'ABC High School', year: '2011', marks: '432', total: '500' });
+        addEdu({ qualMode: 'list', qualSel: 'Higher Secondary (12th)', boardMode: 'list', boardSel: 'WBCHSE – West Bengal Council', inst: 'ABC Higher Secondary School', year: '2013', marks: '380', total: '500' });
+        addEdu({ qualMode: 'list', qualSel: 'Graduation — B.Tech / B.E.', boardMode: 'list', boardSel: 'MAKAUT (WBUT)', inst: 'XYZ Institute of Technology', year: '2017', perc: '78%' });
+        render(); scheduleSave(); toast('✨ নমুনা তথ্য বসানো হয়েছে');
+    });
+
+    /* ---------- Live updates ---------- */
+    $('formPanel').addEventListener('input', function(){ render(); scheduleSave(); });
+    $('formPanel').addEventListener('change', function(){ render(); scheduleSave(); });
+
+    /* ---------- Init ---------- */
+    var hadDraft = loadDraft();
+    if (!hadDraft) addEdu({ qualMode: 'list', qualSel: 'Madhyamik (10th)' });
+    buildPicker();
+    render(); scalePreview();
+    if (hadDraft) toast('আগের সেভ করা ড্রাফট ফিরিয়ে আনা হয়েছে 💾');
+    })();
+    </script>
+</body>
+</html>
