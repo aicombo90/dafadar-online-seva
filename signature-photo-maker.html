@@ -91,6 +91,14 @@
         .warn-note { background: #fff7e6; border: 1.5px solid #f5c26b; color: #7a4a00; border-radius: 10px; padding: 9px 13px; font-size: 13.5px; font-weight: 600; margin-top: 8px; }
         .check-row { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; color: #44536b; margin-top: 8px; }
         .check-row input { width: 18px; height: 18px; accent-color: #0e9f4e; }
+
+        /* Photo + Signature combiner */
+        .tabbar { flex-wrap: wrap; }
+        .cb-stage { position: relative; border: 2px dashed #b6c4b0; border-radius: 12px; background: #f8fafc; overflow: hidden; line-height: 0; }
+        #cbCanvas { display: block; width: 100%; height: auto; background: #fff; touch-action: none; cursor: grab; }
+        #cbCanvas:active { cursor: grabbing; }
+        .cb-uprev { max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto; border: 1.5px solid #dbe4f0; border-radius: 8px; background: #fff; }
+        #cbSigPrev { max-width: 100%; height: auto; display: block; margin: 0 auto; }
     </style>
 </head>
 <body>
@@ -101,13 +109,14 @@
 
     <div class="page-head">
         <h1>✍️📷 Signature &amp; Photo Maker — সই ও ছবি তৈরি করুন</h1>
-        <p>একই টুলে দুটি সুবিধা — <b>সই আঁকুন</b> আর অনলাইন ফর্মের জন্য <b>ছবির সাইজ ঠিক করুন</b>। নিচের বোতাম দিয়ে যেকোনো একটা বেছে নিন।</p>
+        <p>একই টুলে তিনটি সুবিধা — <b>সই আঁকুন</b>, অনলাইন ফর্মের জন্য <b>ছবির সাইজ ঠিক করুন</b>, আর <b>ছবির উপরে সই বসান</b>। নিচের বোতাম দিয়ে যেকোনো একটা বেছে নিন।</p>
         <span class="privacy-note">🔒 আপনার সই ও ছবি কোথাও পাঠানো হয় না — সব কাজ আপনার ফোন/কম্পিউটারেই হয়</span>
     </div>
 
     <div class="tabbar" role="tablist">
         <button class="tab-btn active" id="tabBtnSig" type="button">✍️ Signature Maker</button>
         <button class="tab-btn" id="tabBtnPhoto" type="button">📷 Photo Maker</button>
+        <button class="tab-btn" id="tabBtnCombo" type="button">🖼️ ছবিতে সই বসান (Photo + Signature)</button>
     </div>
 
     <!-- ================= SIGNATURE TAB ================= -->
@@ -291,6 +300,74 @@
     </div>
     </section>
 
+    <!-- ================= PHOTO + SIGNATURE COMBO TAB ================= -->
+    <section id="tab-combo" style="display:none;">
+    <div class="maker">
+        <!-- LEFT: uploads + signature extraction -->
+        <div class="panel">
+            <h2 class="sec">🖼️ ১) ছবি আপলোড করুন</h2>
+            <input type="file" id="cbPhotoFile" accept="image/jpeg,image/png" hidden>
+            <button class="btn" id="cbPhotoBtn" type="button"><i class="fa-solid fa-upload"></i> <span id="cbPhotoLabel">যাঁর ছবি (JPG / PNG)</span></button>
+            <div id="cbPhotoPrevBox" style="display:none; margin-top:12px;">
+                <img id="cbPhotoPrev" class="cb-uprev" alt="আপলোড করা ছবি">
+            </div>
+
+            <h2 class="sec">✍️ ২) সইয়ের ছবি আপলোড করুন</h2>
+            <input type="file" id="cbSigFile" accept="image/jpeg,image/png" hidden>
+            <button class="btn" id="cbSigBtn" type="button"><i class="fa-solid fa-upload"></i> <span id="cbSigLabel">সইয়ের ছবি (সাদা কাগজে করা সই)</span></button>
+            <p class="hint">সাদা কাগজে সই করে তার ছবি তুলে আপলোড করুন — কাগজের সাদা ব্যাকগ্রাউন্ড নিজে থেকেই সরে গিয়ে শুধু সইয়ের কালিটুকু থাকবে। ছবি কোনো সার্ভারে যায় না।</p>
+
+            <div id="cbExtractBox" style="display:none;">
+                <label class="flabel" for="cbThresh">ব্যাকগ্রাউন্ড সরানোর মাত্রা — কাগজ ধূসর বা ছায়া পড়লে বাড়িয়ে দেখুন</label>
+                <div class="range-row">
+                    <input type="range" id="cbThresh" min="0" max="100" step="1" value="45">
+                    <output id="cbThreshOut">45</output>
+                </div>
+                <label class="flabel">বের করা সই (Preview) — খাঁজকাটা ধূসর জায়গা মানে স্বচ্ছ</label>
+                <div class="preview-box checker">
+                    <canvas id="cbSigPrev" width="300" height="120"></canvas>
+                </div>
+                <p class="hint">সইয়ের কোনো অংশ হালকা হয়ে গেলে মাত্রা কমান, কাগজের দাগ থেকে গেলে মাত্রা বাড়ান।</p>
+            </div>
+        </div>
+
+        <!-- RIGHT: compose + download -->
+        <div>
+            <div class="panel">
+                <h2 class="sec">🧩 ৩) ছবির উপরে সই বসান</h2>
+                <div class="cb-stage" id="cbStage">
+                    <canvas id="cbCanvas" width="600" height="760"></canvas>
+                </div>
+                <p class="canvas-hint">সইটা আঙুল/মাউস দিয়ে টেনে পছন্দের জায়গায় বসান।</p>
+                <label class="flabel" for="cbSize">সইয়ের মাপ (ছবির প্রস্থের % হিসাবে)</label>
+                <div class="range-row">
+                    <input type="range" id="cbSize" min="10" max="90" step="1" value="38">
+                    <output id="cbSizeOut">38%</output>
+                </div>
+                <label class="flabel">জায়গা বাছুন (Position)</label>
+                <div class="pill-row" id="cbPosRow">
+                    <button class="pill-btn" type="button" data-cpos="bl">নিচে-বামে</button>
+                    <button class="pill-btn active" type="button" data-cpos="bc">নিচে-মাঝে</button>
+                    <button class="pill-btn" type="button" data-cpos="br">নিচে-ডানে</button>
+                </div>
+
+                <h2 class="sec">📐 ৪) তৈরি ছবির মাপ (Output Size)</h2>
+                <div class="pill-row" id="cbOutRow">
+                    <button class="pill-btn active" type="button" data-cout="orig">আসল মাপ (Original)</button>
+                    <button class="pill-btn" type="button" data-cout="passport">Passport — 413 × 531 px</button>
+                    <button class="pill-btn" type="button" data-cout="small">Small — 240 × 320 px</button>
+                </div>
+                <div class="ph-info" id="cbOutInfo">আগে ছবি ও সইয়ের ছবি আপলোড করুন</div>
+
+                <h2 class="sec">⬇️ ডাউনলোড (Download)</h2>
+                <button class="btn dl-btn" id="cbDlJpg" type="button"><i class="fa-solid fa-download"></i> Download JPG</button>
+                <button class="btn outline dl-btn" id="cbDlPng" type="button"><i class="fa-solid fa-download"></i> Download PNG</button>
+                <p class="hint">ডাউনলোড করা ছবিতে সইটা ছবির উপর বসানো অবস্থাতেই থাকবে।</p>
+            </div>
+        </div>
+    </div>
+    </section>
+
     <footer>
         <div class="footnav">
             <a href="index.html">সব টুল</a> · <a href="biodata-maker.html">Biodata Maker</a> · <a href="resume-maker.html">Resume Maker</a> · <a href="blog.html">ব্লগ</a>
@@ -304,20 +381,28 @@
     /* ---------- tabs ---------- */
     (function () {
         'use strict';
-        var btnSig = document.getElementById('tabBtnSig');
-        var btnPhoto = document.getElementById('tabBtnPhoto');
-        var secSig = document.getElementById('tab-signature');
-        var secPhoto = document.getElementById('tab-photo');
+        var btns = {
+            sig: document.getElementById('tabBtnSig'),
+            photo: document.getElementById('tabBtnPhoto'),
+            combo: document.getElementById('tabBtnCombo')
+        };
+        var secs = {
+            sig: document.getElementById('tab-signature'),
+            photo: document.getElementById('tab-photo'),
+            combo: document.getElementById('tab-combo')
+        };
         function show(which) {
-            var sig = which === 'sig';
-            secSig.style.display = sig ? '' : 'none';
-            secPhoto.style.display = sig ? 'none' : '';
-            btnSig.classList.toggle('active', sig);
-            btnPhoto.classList.toggle('active', !sig);
-            if (!sig && window.__pmPositionCrop) window.__pmPositionCrop();
+            Object.keys(secs).forEach(function (k) {
+                if (!secs[k]) return;
+                secs[k].style.display = (k === which) ? '' : 'none';
+                btns[k].classList.toggle('active', k === which);
+            });
+            if (which === 'photo' && window.__pmPositionCrop) window.__pmPositionCrop();
+            if (which === 'combo' && window.__cbRefresh) window.__cbRefresh();
         }
-        btnSig.addEventListener('click', function () { show('sig'); });
-        btnPhoto.addEventListener('click', function () { show('photo'); });
+        btns.sig.addEventListener('click', function () { show('sig'); });
+        btns.photo.addEventListener('click', function () { show('photo'); });
+        btns.combo.addEventListener('click', function () { show('combo'); });
         window.__showTab = show;
     })();
     </script>
@@ -1000,6 +1085,298 @@
                 toast('✅ ডাউনলোড হচ্ছে — photo.png (' + lastW + '×' + lastH + ' px, ' + fmtBytes(b.size) + ')');
             }, 'image/png');
         });
+    })();
+    </script>
+
+    <script>
+    /* ---------- Photo + Signature Combiner (ছবিতে সই বসান) ---------- */
+    (function () {
+        'use strict';
+        function $(id) { return document.getElementById(id); }
+        var toastTimer = null;
+        function toast(msg) {
+            var t = $('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { t.classList.remove('show'); }, 3200);
+        }
+        function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+        function saveBlob(blob, name) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url; a.download = name;
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+        }
+
+        var cv = $('cbCanvas'), ctx = cv.getContext('2d');
+        var photoImg = null;      // আপলোড করা আসল ছবি (Image)
+        var sigSrc = null;        // সইয়ের ছবি (canvas, সর্বোচ্চ 1200px)
+        var sigCut = null;        // ব্যাকগ্রাউন্ড-সরানো ও ক্রপ করা সই (canvas)
+        var sigWfrac = 0.38;      // সইয়ের প্রস্থ = তৈরি ছবির প্রস্থের এই ভগ্নাংশ
+        var posFX = null, posFY = null; // সইয়ের বাম-উপরের কোণ (ভগ্নাংশ); null = নিচে-মাঝে (ডিফল্ট)
+        var outMode = 'orig';     // 'orig' | 'passport' | 'small'
+
+        /* ----- uploads ----- */
+        function loadImageFile(file) {
+            return new Promise(function (resolve, reject) {
+                var url = URL.createObjectURL(file);
+                var img = new Image();
+                img.onload = function () { resolve(img); };
+                img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('bad image')); };
+                img.src = url;
+            });
+        }
+        $('cbPhotoBtn').addEventListener('click', function () { $('cbPhotoFile').click(); });
+        $('cbPhotoFile').addEventListener('change', function () {
+            var f = this.files && this.files[0];
+            if (!f) return;
+            loadImageFile(f).then(function (img) {
+                photoImg = img;
+                $('cbPhotoPrev').src = img.src;
+                $('cbPhotoPrevBox').style.display = '';
+                $('cbPhotoLabel').textContent = 'অন্য ছবি বাছুন (নতুন ছবি)';
+                posFX = null; posFY = null;
+                setActivePill($('cbPosRow'), 'bc');
+                renderCombo();
+                toast('✅ ছবি আপলোড হয়েছে');
+            }).catch(function () { toast('⚠️ ছবিটা পড়া যায়নি — JPG/PNG ছবি দিন'); });
+            this.value = '';
+        });
+        $('cbSigBtn').addEventListener('click', function () { $('cbSigFile').click(); });
+        $('cbSigFile').addEventListener('change', function () {
+            var f = this.files && this.files[0];
+            if (!f) return;
+            loadImageFile(f).then(function (img) {
+                var sc = Math.min(1, 1200 / Math.max(img.naturalWidth, img.naturalHeight));
+                sigSrc = document.createElement('canvas');
+                sigSrc.width = Math.max(1, Math.round(img.naturalWidth * sc));
+                sigSrc.height = Math.max(1, Math.round(img.naturalHeight * sc));
+                sigSrc.getContext('2d').drawImage(img, 0, 0, sigSrc.width, sigSrc.height);
+                $('cbSigLabel').textContent = 'অন্য সইয়ের ছবি বাছুন (নতুন ছবি)';
+                $('cbExtractBox').style.display = '';
+                extractSignature();
+                renderCombo();
+                if (sigCut) toast('✅ সইয়ের ব্যাকগ্রাউন্ড সরে গেছে');
+            }).catch(function () { toast('⚠️ সইয়ের ছবিটা পড়া যায়নি — JPG/PNG ছবি দিন'); });
+            this.value = '';
+        });
+
+        /* ----- paper-background removal (luminance → alpha) ----- */
+        function extractSignature() {
+            if (!sigSrc) { sigCut = null; return; }
+            var w = sigSrc.width, h = sigSrc.height;
+            var c = document.createElement('canvas');
+            c.width = w; c.height = h;
+            var g = c.getContext('2d', { willReadFrequently: true });
+            g.drawImage(sigSrc, 0, 0);
+            var idata;
+            try { idata = g.getImageData(0, 0, w, h); } catch (e) { sigCut = null; return; }
+            var d = idata.data;
+            var s = parseInt($('cbThresh').value, 10) || 0;   // 0..100
+            var lo = 8 + s * 1.05;          // এর কম অন্ধকার = পুরো স্বচ্ছ (কাগজ)
+            var hi = lo + 85;               // এর বেশি অন্ধকার = পুরো অস্বচ্ছ (কালি)
+            var minX = w, minY = h, maxX = -1, maxY = -1;
+            for (var y = 0; y < h; y++) {
+                for (var x = 0; x < w; x++) {
+                    var i = (y * w + x) * 4;
+                    var lum = 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+                    var dark = 255 - lum;
+                    var a = (dark - lo) / (hi - lo);
+                    a = a < 0 ? 0 : (a > 1 ? 1 : a);
+                    a = a * a * (3 - 2 * a); // smooth ramp
+                    d[i + 3] = Math.round(a * 255);
+                    if (a > 0.04) {
+                        if (x < minX) minX = x;
+                        if (x > maxX) maxX = x;
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
+                    }
+                }
+            }
+            g.putImageData(idata, 0, 0);
+            var pv = $('cbSigPrev'), pctx = pv.getContext('2d');
+            if (maxX < 0) {
+                sigCut = null;
+                pv.width = 300; pv.height = 120;
+                pctx.clearRect(0, 0, pv.width, pv.height);
+                toast('⚠️ সই খুঁজে পাওয়া যায়নি — মাত্রা কমিয়ে আবার দেখুন');
+                return;
+            }
+            var pad = 8;
+            minX = Math.max(0, minX - pad); minY = Math.max(0, minY - pad);
+            maxX = Math.min(w - 1, maxX + pad); maxY = Math.min(h - 1, maxY + pad);
+            var cw = maxX - minX + 1, ch = maxY - minY + 1;
+            sigCut = document.createElement('canvas');
+            sigCut.width = cw; sigCut.height = ch;
+            sigCut.getContext('2d').drawImage(c, minX, minY, cw, ch, 0, 0, cw, ch);
+            pv.width = cw; pv.height = ch;
+            pctx.clearRect(0, 0, cw, ch);
+            pctx.drawImage(sigCut, 0, 0);
+        }
+        var threshTimer = null;
+        $('cbThresh').addEventListener('input', function () {
+            $('cbThreshOut').textContent = this.value;
+            clearTimeout(threshTimer);
+            threshTimer = setTimeout(function () { extractSignature(); renderCombo(); }, 120);
+        });
+
+        /* ----- compose ----- */
+        function outDims() {
+            if (outMode === 'passport') return { w: 413, h: 531 };
+            if (outMode === 'small') return { w: 240, h: 320 };
+            if (photoImg) return { w: photoImg.naturalWidth, h: photoImg.naturalHeight };
+            return { w: 600, h: 760 };
+        }
+        function sigRect(W, H) {
+            if (!sigCut) return null;
+            var sw = sigWfrac * W;
+            var sh = sw * (sigCut.height / sigCut.width);
+            var x = (posFX === null) ? (W - sw) / 2 : posFX * W;
+            var y = (posFY === null) ? H - sh - 0.03 * H : posFY * H;
+            x = clamp(x, 0, Math.max(0, W - sw));
+            y = clamp(y, 0, Math.max(0, H - sh));
+            return { x: x, y: y, w: sw, h: sh };
+        }
+        function renderCombo() {
+            var dims = outDims();
+            if (cv.width !== dims.w || cv.height !== dims.h) { cv.width = dims.w; cv.height = dims.h; }
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, dims.w, dims.h);
+            if (!photoImg) {
+                ctx.fillStyle = '#eef2f5';
+                ctx.fillRect(0, 0, dims.w, dims.h);
+                ctx.fillStyle = '#8494a7';
+                ctx.font = '700 22px "Hind Siliguri", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('আগে ছবি আপলোড করুন', dims.w / 2, dims.h / 2);
+                updateInfo();
+                return;
+            }
+            var pw = photoImg.naturalWidth, ph = photoImg.naturalHeight;
+            var scale = Math.max(dims.w / pw, dims.h / ph);
+            var dw = pw * scale, dh = ph * scale;
+            ctx.drawImage(photoImg, (dims.w - dw) / 2, (dims.h - dh) / 2, dw, dh);
+            if (sigCut) {
+                var r = sigRect(dims.w, dims.h);
+                if (r) ctx.drawImage(sigCut, r.x, r.y, r.w, r.h);
+            }
+            updateInfo();
+        }
+        function updateInfo() {
+            var dims = outDims();
+            if (!photoImg) {
+                $('cbOutInfo').textContent = 'আগে ছবি ও সইয়ের ছবি আপলোড করুন';
+            } else {
+                $('cbOutInfo').textContent = 'চূড়ান্ত ছবির মাপ: ' + dims.w + ' × ' + dims.h + ' px' + (sigCut ? '' : ' — সই এখনো যোগ হয়নি');
+            }
+        }
+
+        /* ----- drag the signature ----- */
+        var drag = null;
+        function canvasPoint(e) {
+            var r = cv.getBoundingClientRect();
+            return {
+                x: (e.clientX - r.left) * cv.width / r.width,
+                y: (e.clientY - r.top) * cv.height / r.height
+            };
+        }
+        cv.addEventListener('pointerdown', function (e) {
+            if (!photoImg) { toast('⚠️ আগে ছবি আপলোড করুন'); return; }
+            if (!sigCut) { toast('⚠️ আগে সইয়ের ছবি আপলোড করুন'); return; }
+            var p = canvasPoint(e);
+            var r = sigRect(cv.width, cv.height);
+            if (r && p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h) {
+                drag = { dx: p.x - r.x, dy: p.y - r.y };
+                try { cv.setPointerCapture(e.pointerId); } catch (err) {}
+                e.preventDefault();
+            }
+        });
+        cv.addEventListener('pointermove', function (e) {
+            if (!drag) return;
+            var p = canvasPoint(e);
+            posFX = (p.x - drag.dx) / cv.width;
+            posFY = (p.y - drag.dy) / cv.height;
+            setActivePill($('cbPosRow'), null);
+            renderCombo();
+        });
+        function endDrag() { drag = null; }
+        cv.addEventListener('pointerup', endDrag);
+        cv.addEventListener('pointercancel', endDrag);
+
+        /* ----- controls ----- */
+        function setActivePill(row, val) {
+            Array.prototype.forEach.call(row.querySelectorAll('.pill-btn'), function (b) {
+                var v = b.getAttribute('data-cpos') || b.getAttribute('data-cout');
+                b.classList.toggle('active', v === val);
+            });
+        }
+        $('cbSize').addEventListener('input', function () {
+            sigWfrac = (parseInt(this.value, 10) || 38) / 100;
+            $('cbSizeOut').textContent = this.value + '%';
+            renderCombo();
+        });
+        $('cbPosRow').addEventListener('click', function (e) {
+            var b = e.target.closest('[data-cpos]');
+            if (!b) return;
+            var mode = b.getAttribute('data-cpos');
+            setActivePill($('cbPosRow'), mode);
+            if (!sigCut) { posFX = null; posFY = null; renderCombo(); return; }
+            var dims = outDims();
+            var sw = sigWfrac * dims.w;
+            var sh = sw * (sigCut.height / sigCut.width);
+            var m = 0.03;
+            if (mode === 'bc') { posFX = null; posFY = null; }
+            else if (mode === 'bl') { posFX = m; posFY = (dims.h - sh - m * dims.h) / dims.h; }
+            else if (mode === 'br') { posFX = (dims.w - sw - m * dims.w) / dims.w; posFY = (dims.h - sh - m * dims.h) / dims.h; }
+            renderCombo();
+        });
+        $('cbOutRow').addEventListener('click', function (e) {
+            var b = e.target.closest('[data-cout]');
+            if (!b) return;
+            outMode = b.getAttribute('data-cout');
+            setActivePill($('cbOutRow'), outMode);
+            renderCombo();
+        });
+
+        /* ----- downloads ----- */
+        function needImages() {
+            if (!photoImg) { toast('⚠️ আগে ছবি আপলোড করুন'); return false; }
+            if (!sigCut) { toast('⚠️ আগে সইয়ের ছবি আপলোড করুন'); return false; }
+            return true;
+        }
+        $('cbDlJpg').addEventListener('click', function () {
+            if (!needImages()) return;
+            renderCombo();
+            cv.toBlob(function (b) {
+                if (!b) { toast('⚠️ ছবি তৈরি হয়নি — আবার চেষ্টা করুন'); return; }
+                saveBlob(b, 'photo-with-signature.jpg');
+                toast('✅ ডাউনলোড হচ্ছে — photo-with-signature.jpg (' + cv.width + '×' + cv.height + ' px)');
+            }, 'image/jpeg', 0.92);
+        });
+        $('cbDlPng').addEventListener('click', function () {
+            if (!needImages()) return;
+            renderCombo();
+            cv.toBlob(function (b) {
+                if (!b) { toast('⚠️ ছবি তৈরি হয়নি — আবার চেষ্টা করুন'); return; }
+                saveBlob(b, 'photo-with-signature.png');
+                toast('✅ ডাউনলোড হচ্ছে — photo-with-signature.png (' + cv.width + '×' + cv.height + ' px)');
+            }, 'image/png');
+        });
+
+        window.__cbRefresh = renderCombo;
+        window.__cb = {
+            state: function () {
+                return {
+                    hasPhoto: !!photoImg, hasSig: !!sigCut,
+                    sigW: sigCut ? sigCut.width : 0, sigH: sigCut ? sigCut.height : 0,
+                    sigWfrac: sigWfrac, posFX: posFX, posFY: posFY, outMode: outMode,
+                    outW: cv.width, outH: cv.height
+                };
+            }
+        };
+        renderCombo();
     })();
     </script>
 </body>
