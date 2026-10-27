@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Tags Extractor — যেকোনো ভিডিওর আসল ট্যাগ | DAFADAR ONLINE SEVA</title>
+    <meta name="description" content="ফ্রি অনলাইন YouTube Tags Extractor — যেকোনো YouTube ভিডিওর লিংক পেস্ট করলেই ভিডিওতে সত্যিকারের সেট করা ট্যাগগুলি এক ক্লিকে বের করে কপি করুন। কোনো সাইন-আপ লাগে না।">
+    <link rel="canonical" href="https://aicombo90.github.io/dafadar-online-seva/youtube-tag-extractor.html">
+    <meta property="og:title" content="YouTube Tags Extractor — ভিডিওর আসল ট্যাগ বের করুন">
+    <meta property="og:description" content="যেকোনো YouTube ভিডিওর আসল ট্যাগ এক ক্লিকে বের করুন — লিংক পেস্ট করুন, ট্যাগ কপি করুন। সম্পূর্ণ ফ্রি।">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aicombo90.github.io/dafadar-online-seva/youtube-tag-extractor.html">
+    <meta property="og:image" content="https://aicombo90.github.io/dafadar-online-seva/assets/og-image.jpg">
+    <link rel="icon" type="image/png" href="assets/favicon-64.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: #eef2ee; color: #1e2433; line-height: 1.6; }
+        .navbar { background: #07100d; color: #fff; padding: 14px 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .navbar a { color: #fff; text-decoration: none; }
+        .logo { font-weight: 800; font-size: 18px; }
+        footer { background: #07100d; color: #9fb3a8; text-align: center; padding: 24px 5%; font-size: 14px; margin-top: 40px; }
+        footer a { color: #1fc64c; text-decoration: none; }
+        .footnav { margin-bottom: 10px; font-size: 14px; }
+        .footnav a { margin: 0 6px; white-space: nowrap; }
+        .page-head { max-width: 900px; margin: 22px auto 6px; padding: 0 4%; }
+        .page-head h1 { font-size: 28px; color: #10231c; font-weight: 800; }
+        .page-head p { color: #51606a; font-size: 16px; max-width: 900px; }
+        .privacy-note { display: inline-block; background: #e6f9ec; color: #057a55; font-weight: 700; font-size: 13.5px; padding: 5px 14px; border-radius: 20px; margin-top: 8px; }
+
+        .wrap { max-width: 900px; margin: 14px auto; padding: 0 4%; }
+        .panel { background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,.07); padding: 20px; }
+        .flabel { display: block; font-size: 13.5px; font-weight: 600; color: #44536b; margin: 8px 0 4px; }
+        .tin { width: 100%; padding: 12px 14px; border: 1.5px solid #cbd5e1; border-radius: 9px; font-size: 15.5px; font-family: inherit; background: #fff; color: #1e2433; }
+        .tin:focus { outline: none; border-color: #1fc64c; box-shadow: 0 0 0 3px rgba(31,198,76,.15); }
+        .hint { font-size: 12.5px; color: #8494a7; margin-top: 6px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #0e9f4e; color: #fff; border: none; font-weight: 700; font-size: 15.5px; padding: 12px 22px; border-radius: 10px; cursor: pointer; font-family: inherit; }
+        .btn:hover { background: #0b8a42; }
+        .btn.blue { background: #1d4ed8; } .btn.blue:hover { background: #1e40af; }
+        .btn:disabled { opacity: .45; cursor: not-allowed; }
+        .btnrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+        .extract-btn { width: 100%; font-size: 17px; padding: 14px 22px; }
+        .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(80px); background: #0e3b2e; color: #fff; padding: 12px 22px; border-radius: 30px; font-weight: 700; font-size: 15px; z-index: 999; opacity: 0; transition: all .3s; max-width: 92vw; text-align: center; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        .spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.35); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -4px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-box { display: none; text-align: center; padding: 26px 10px; color: #0e3b2e; font-weight: 700; font-size: 16px; }
+        .loading-box .spinner { border-color: rgba(14,159,78,.25); border-top-color: #0e9f4e; width: 30px; height: 30px; border-width: 4px; }
+
+        .result { display: none; margin-top: 18px; }
+        .video-head { display: flex; gap: 16px; align-items: flex-start; }
+        .video-head img { width: 220px; max-width: 42%; aspect-ratio: 4/3; object-fit: cover; border-radius: 10px; border: 1.5px solid #dbe4f0; background: #f1f5f9; flex-shrink: 0; }
+        .video-head h3 { font-size: 18px; color: #10231c; line-height: 1.4; }
+        .channel-line { color: #51606a; font-size: 14.5px; margin-top: 4px; font-weight: 600; }
+        @media (max-width: 560px) { .video-head { flex-direction: column; } .video-head img { max-width: 100%; width: 100%; } }
+        .tag-meta { background: #e6f9ec; color: #0e3b2e; border-radius: 10px; padding: 10px 14px; font-weight: 700; font-size: 14.5px; margin-top: 16px; }
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .chip { background: #eef4ff; color: #1e40af; border: 1.5px solid #c7dbff; padding: 7px 13px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .15s; }
+        .chip:hover { background: #dbeafe; border-color: #93c5fd; }
+        .chip:active { transform: scale(.96); }
+        .copy-all { width: 100%; margin-top: 16px; font-size: 16.5px; }
+        .msg-box { display: none; margin-top: 18px; border-radius: 10px; padding: 14px 16px; font-weight: 700; font-size: 15.5px; text-align: center; }
+        .msg-box.warn { background: #fff7e6; border: 1.5px solid #f5c26b; color: #7a4a00; }
+        .msg-box.error { background: #fef2f2; border: 1.5px solid #fca5a5; color: #991b1b; }
+        .how-box { margin-top: 18px; }
+        .how-box h2 { font-size: 17px; color: #0e3b2e; margin-bottom: 8px; font-weight: 700; }
+        .how-box ol { padding-left: 22px; color: #44536b; font-size: 15px; }
+        .how-box li { margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="logo" href="index.html"><i class="fa-solid fa-laptop-code"></i> DAFADAR ONLINE SEVA</a>
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> সব টুল</a>
+    </nav>
+
+    <div class="page-head">
+        <h1>🏷️ YouTube Tags Extractor — ভিডিওর আসল ট্যাগ বের করুন</h1>
+        <p>যেকোনো YouTube ভিডিওর লিংক পেস্ট করুন — সেই ভিডিওতে <b>সত্যিকারে সেট করা ট্যাগগুলি</b> এক ক্লিকে বের হয়ে আসবে। যেকোনো ট্যাগে ক্লিক করলেই কপি, আর এক বোতামে সব ট্যাগ একসাথে কপি করা যাবে।</p>
+        <span class="privacy-note">🔒 কোনো সাইন-আপ লাগে না — সম্পূর্ণ ফ্রি</span>
+    </div>
+
+    <div class="wrap">
+        <div class="panel">
+            <label class="flabel" for="urlInput">YouTube ভিডিওর লিংক (URL) পেস্ট করুন</label>
+            <input class="tin" id="urlInput" type="url" inputmode="url" autocomplete="off" spellcheck="false"
+                   placeholder="যেমন: https://www.youtube.com/watch?v=XXXXXXXXXXX">
+            <p class="hint">সাপোর্ট করে: youtube.com/watch?v=…, youtu.be/…, youtube.com/shorts/…, music.youtube.com — এমনকি শুধু ভিডিও ID দিলেও চলবে।</p>
+            <div class="btnrow">
+                <button class="btn extract-btn" id="extractBtn" type="button"><i class="fa-solid fa-tags"></i> Extract Tags — ট্যাগ বের করুন</button>
+            </div>
+
+            <div class="loading-box" id="loadingBox">
+                <span class="spinner"></span><br>লোড হচ্ছে... ভিডিওর ট্যাগ আনা হচ্ছে, একটু অপেক্ষা করুন
+            </div>
+
+            <div class="msg-box warn" id="noTagsBox">এই ভিডিওতে কোনো ট্যাগ সেট করা নেই</div>
+            <div class="msg-box error" id="errorBox">⚠️ এখন সার্ভার থেকে আনা যাচ্ছে না — কিছুক্ষণ পরে আবার চেষ্টা করুন</div>
+
+            <div class="result" id="resultBox">
+                <div class="video-head">
+                    <img id="thumbImg" alt="ভিডিওর থাম্বনেইল">
+                    <div>
+                        <h3 id="videoTitle"></h3>
+                        <div class="channel-line" id="channelLine"></div>
+                    </div>
+                </div>
+                <div class="tag-meta" id="tagMeta"></div>
+                <div class="chips" id="chipsBox"></div>
+                <p class="hint">👆 যেকোনো একটা ট্যাগে ক্লিক করলে শুধু সেই ট্যাগটাই কপি হবে।</p>
+                <button class="btn blue copy-all" id="copyAllBtn" type="button">📋 Copy All Tags — সব ট্যাগ একসাথে কপি করুন</button>
+            </div>
+        </div>
+
+        <div class="panel how-box">
+            <h2>📖 কীভাবে ব্যবহার করবেন?</h2>
+            <ol>
+                <li>YouTube অ্যাপ/ওয়েবসাইট থেকে ভিডিওটির লিংক কপি করুন (Share → Copy link)।</li>
+                <li>উপরের বাক্সে লিংকটা পেস্ট করে <b>Extract Tags</b> বোতামে চাপ দিন।</li>
+                <li>ভিডিওর আসল ট্যাগগুলি এসে যাবে — একটা একটা করে, বা সব একসাথে কপি করে নিন।</li>
+            </ol>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footnav">
+            <a href="index.html">সব টুল</a> · <a href="biodata-maker.html">Biodata Maker</a> · <a href="resume-maker.html">Resume Maker</a> · <a href="blog.html">ব্লগ</a>
+        </div>
+        © DAFADAR ONLINE SEVA — সব টুল সম্পূর্ণ ফ্রি। আপনার তথ্য আপনার ডিভাইসেই থাকে।
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+    (function () {
+        'use strict';
+        var $ = function (id) { return document.getElementById(id); };
+        var urlInput = $('urlInput'), extractBtn = $('extractBtn'), loadingBox = $('loadingBox'),
+            resultBox = $('resultBox'), noTagsBox = $('noTagsBox'), errorBox = $('errorBox'),
+            thumbImg = $('thumbImg'), videoTitle = $('videoTitle'), channelLine = $('channelLine'),
+            tagMeta = $('tagMeta'), chipsBox = $('chipsBox'), copyAllBtn = $('copyAllBtn'),
+            toastEl = $('toast');
+        var currentTags = [];
+        var toastTimer = null;
+
+        function toast(msg) {
+            toastEl.textContent = msg;
+            toastEl.classList.add('show');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2600);
+        }
+
+        function extractVideoId(raw) {
+            if (!raw) return null;
+            var s = String(raw).trim();
+            if (/^[A-Za-z0-9_-]{11}$/.test(s)) return s;
+            var url;
+            try { url = new URL(s); } catch (e) {
+                try { url = new URL('https://' + s); } catch (e2) { return null; }
+            }
+            var host = url.hostname.toLowerCase().replace(/^www\./, '').replace(/^m\./, '');
+            var id = null;
+            if (host === 'youtu.be') {
+                id = url.pathname.split('/').filter(Boolean)[0] || null;
+            } else if (host === 'youtube.com' || host === 'music.youtube.com' || host === 'youtube-nocookie.com') {
+                if (url.pathname === '/watch') {
+                    id = url.searchParams.get('v');
+                } else {
+                    var m = url.pathname.match(/^\/(?:shorts|embed|live|v)\/([A-Za-z0-9_-]{11})/);
+                    if (m) id = m[1];
+                }
+            }
+            return (id && /^[A-Za-z0-9_-]{11}$/.test(id)) ? id : null;
+        }
+
+        function decodeEntities(str) {
+            if (!str) return '';
+            var ta = document.createElement('textarea');
+            ta.innerHTML = str;
+            return ta.value;
+        }
+
+        function getMeta(html, names) {
+            for (var i = 0; i < names.length; i++) {
+                var n = names[i];
+                var re1 = new RegExp('<meta[^>]+(?:name|property)=["\']' + n + '["\'][^>]+content=["\']([^"\']*)["\']', 'i');
+                var re2 = new RegExp('<meta[^>]+content=["\']([^"\']*)["\'][^>]+(?:name|property)=["\']' + n + '["\']', 'i');
+                var m = html.match(re1) || html.match(re2);
+                if (m) return decodeEntities(m[1]);
+            }
+            return '';
+        }
+
+        // Find a "keywords":[...] array in the raw page HTML and JSON-parse it safely.
+        function parseKeywordsArray(html) {
+            var idx = 0;
+            while (true) {
+                var pos = html.indexOf('"keywords"', idx);
+                if (pos === -1) return null;
+                var bracket = html.indexOf('[', pos);
+                if (bracket === -1) return null;
+                // Only accept an array that starts right after "keywords":
+                var between = html.slice(pos + 10, bracket);
+                if (!/^\s*:\s*$/.test(between)) { idx = pos + 10; continue; }
+                // Balance-scan the array, respecting strings and escapes.
+                var depth = 0, inStr = false, esc = false, end = -1;
+                for (var i = bracket; i < html.length; i++) {
+                    var c = html[i];
+                    if (inStr) {
+                        if (esc) esc = false;
+                        else if (c === '\\') esc = true;
+                        else if (c === '"') inStr = false;
+                    } else {
+                        if (c === '"') inStr = true;
+                        else if (c === '[') depth++;
+                        else if (c === ']') { depth--; if (depth === 0) { end = i; break; } }
+                    }
+                }
+                if (end === -1) return null;
+                try {
+                    var arr = JSON.parse(html.slice(bracket, end + 1));
+                    if (Array.isArray(arr) && arr.length && arr.every(function (x) { return typeof x === 'string'; })) {
+                        return arr.map(function (x) { return x.trim(); }).filter(Boolean);
+                    }
+                } catch (e) { /* try the next "keywords" occurrence */ }
+                idx = pos + 10;
+            }
+        }
+
+        function parseChannel(html) {
+            var vd = html.indexOf('"videoDetails"');
+            if (vd === -1) return '';
+            var slice = html.slice(vd, vd + 4000);
+            var m = slice.match(/"author"\s*:\s*"((?:[^"\\]|\\.)*)"/);
+            if (!m) return '';
+            try { return JSON.parse('"' + m[1] + '"'); } catch (e) { return m[1]; }
+        }
+
+        // YouTube serves this generic site-wide value in <meta name="keywords"> on
+        // every watch page — it is NOT the video's own tags, so never use it.
+        var GENERIC_META_KW = 'video,sharing,camera phone,video phone,free,upload';
+
+        function parseWatchPage(html) {
+            var tags = parseKeywordsArray(html);
+            if (!tags || !tags.length) {
+                var metaKw = getMeta(html, ['keywords']);
+                if (metaKw) {
+                    var parts = metaKw.split(',').map(function (x) { return x.trim(); }).filter(Boolean);
+                    var norm = parts.map(function (x) { return x.toLowerCase(); }).join(',');
+                    if (parts.length && norm !== GENERIC_META_KW) tags = parts;
+                }
+            }
+            return {
+                tags: tags || [],
+                title: getMeta(html, ['title', 'og:title']),
+                channel: parseChannel(html)
+            };
+        }
+
+        function fetchVia(url, timeoutMs) {
+            return new Promise(function (resolve, reject) {
+                var ctrl = ('AbortController' in window) ? new AbortController() : null;
+                var timer = setTimeout(function () { if (ctrl) ctrl.abort(); reject(new Error('timeout')); }, timeoutMs);
+                fetch(url, ctrl ? { signal: ctrl.signal } : {})
+                    .then(function (r) {
+                        clearTimeout(timer);
+                        if (!r.ok) throw new Error('HTTP ' + r.status);
+                        return r.text();
+                    })
+                    .then(resolve, reject);
+            });
+        }
+
+        function fetchTags(id) {
+            var watch = 'https://www.youtube.com/watch?v=' + id;
+            var enc = encodeURIComponent(watch);
+            var proxies = [
+                'https://api.allorigins.win/raw?url=' + enc,
+                'https://corsproxy.io/?url=' + enc,
+                'https://api.codetabs.com/v1/proxy?quest=' + enc
+            ];
+            var fetchedOk = false;
+            var emptyResult = null;
+            var i = 0;
+            function next() {
+                if (i >= proxies.length) {
+                    if (emptyResult) return { status: 'notags', data: emptyResult };
+                    if (fetchedOk) return { status: 'notags', data: { tags: [], title: '', channel: '' } };
+                    return { status: 'failed' };
+                }
+                var p = proxies[i++];
+                return fetchVia(p, 25000).then(function (html) {
+                    if (!html || html.length < 2000) return next();
+                    // Reject interstitial/shell pages that are not real watch pages.
+                    var looksReal = html.indexOf('ytInitialPlayerResponse') !== -1 ||
+                                    html.indexOf('"videoDetails"') !== -1 ||
+                                    html.indexOf('og:video') !== -1;
+                    if (!looksReal) return next();
+                    var parsed = parseWatchPage(html);
+                    // A LOGIN_REQUIRED stub means YouTube refused to serve the data —
+                    // treat it as a failed fetch, never as "the video has no tags".
+                    if (!parsed.tags.length && html.indexOf('LOGIN_REQUIRED') !== -1) return next();
+                    fetchedOk = true;
+                    if (parsed.tags.length) return { status: 'ok', data: parsed };
+                    if (!emptyResult) emptyResult = parsed;
+                    return next();
+                }).catch(function () { return next(); });
+            }
+            return Promise.resolve().then(next);
+        }
+
+        function copyText(text, okMsg) {
+            function done() { toast(okMsg); }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+            } else { fallback(); }
+            function fallback() {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed'; ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); done(); }
+                catch (e) { toast('⚠️ কপি হয়নি — আবার চেষ্টা করুন'); }
+                document.body.removeChild(ta);
+            }
+        }
+
+        function setLoading(on) {
+            loadingBox.style.display = on ? 'block' : 'none';
+            extractBtn.disabled = on;
+            extractBtn.innerHTML = on
+                ? '<span class="spinner"></span> লোড হচ্ছে...'
+                : '<i class="fa-solid fa-tags"></i> Extract Tags — ট্যাগ বের করুন';
+        }
+
+        function hideAll() {
+            resultBox.style.display = 'none';
+            noTagsBox.style.display = 'none';
+            errorBox.style.display = 'none';
+        }
+
+        function renderResult(id, data) {
+            currentTags = data.tags;
+            thumbImg.onerror = function () {
+                if (thumbImg.src.indexOf('hqdefault') !== -1) thumbImg.src = 'https://i.ytimg.com/vi/' + id + '/mqdefault.jpg';
+            };
+            thumbImg.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+            videoTitle.textContent = data.title || '';
+            channelLine.textContent = data.channel ? '📺 ' + data.channel : '';
+            var joined = currentTags.join(', ');
+            tagMeta.textContent = '🏷️ মোট ট্যাগ: ' + currentTags.length + 'টি · মোট অক্ষর: ' + joined.length + ' (কমাসহ)';
+            chipsBox.innerHTML = '';
+            currentTags.forEach(function (tag) {
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'chip';
+                b.textContent = tag;
+                b.title = 'কপি করতে ক্লিক করুন';
+                b.addEventListener('click', function () { copyText(tag, '✅ ট্যাগ কপি হয়েছে: ' + tag); });
+                chipsBox.appendChild(b);
+            });
+            resultBox.style.display = 'block';
+        }
+
+        function doExtract() {
+            var id = extractVideoId(urlInput.value);
+            hideAll();
+            if (!id) {
+                toast('⚠️ সঠিক YouTube লিংক বা ভিডিও ID দিন');
+                urlInput.focus();
+                return;
+            }
+            setLoading(true);
+            fetchTags(id).then(function (res) {
+                setLoading(false);
+                if (res.status === 'ok') {
+                    renderResult(id, res.data);
+                    toast('✅ ' + res.data.tags.length + 'টি ট্যাগ পাওয়া গেছে');
+                } else if (res.status === 'notags') {
+                    noTagsBox.style.display = 'block';
+                } else {
+                    errorBox.style.display = 'block';
+                }
+            }).catch(function () {
+                setLoading(false);
+                errorBox.style.display = 'block';
+            });
+        }
+
+        extractBtn.addEventListener('click', doExtract);
+        urlInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') doExtract(); });
+        urlInput.addEventListener('paste', function () { setTimeout(function () { /* allow manual click */ }, 0); });
+        copyAllBtn.addEventListener('click', function () {
+            if (!currentTags.length) { toast('⚠️ আগে ট্যাগ বের করুন'); return; }
+            copyText(currentTags.join(', '), '✅ সব ট্যাগ কপি হয়েছে (' + currentTags.length + 'টি)');
+        });
+    })();
+    </script>
+</body>
+</html>
