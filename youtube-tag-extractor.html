@@ -93,7 +93,7 @@
             </div>
 
             <div class="loading-box" id="loadingBox">
-                <span class="spinner"></span><br>লোড হচ্ছে... ভিডিওর ট্যাগ আনা হচ্ছে, একটু অপেক্ষা করুন
+                <span class="spinner"></span><br><span id="loadingText">লোড হচ্ছে... ভিডিওর ট্যাগ আনা হচ্ছে, একটু অপেক্ষা করুন</span>
             </div>
 
             <div class="msg-box warn" id="noTagsBox">এই ভিডিওতে কোনো ট্যাগ সেট করা নেই</div>
@@ -138,6 +138,7 @@
         'use strict';
         var $ = function (id) { return document.getElementById(id); };
         var urlInput = $('urlInput'), extractBtn = $('extractBtn'), loadingBox = $('loadingBox'),
+            loadingText = $('loadingText'),
             resultBox = $('resultBox'), noTagsBox = $('noTagsBox'), errorBox = $('errorBox'),
             thumbImg = $('thumbImg'), videoTitle = $('videoTitle'), channelLine = $('channelLine'),
             tagMeta = $('tagMeta'), chipsBox = $('chipsBox'), copyAllBtn = $('copyAllBtn'),
@@ -273,25 +274,52 @@
             });
         }
 
-        function fetchTags(id) {
-            var watch = 'https://www.youtube.com/watch?v=' + id;
-            var enc = encodeURIComponent(watch);
-            var proxies = [
-                'https://api.allorigins.win/raw?url=' + enc,
-                'https://corsproxy.io/?url=' + enc,
-                'https://api.codetabs.com/v1/proxy?quest=' + enc
-            ];
+        function bnDigits(n) {
+            return String(n).replace(/[0-9]/g, function (d) { return '০১২৩৪৫৬৭৮৯'[+d]; });
+        }
+
+        function identityText(text) { return text; }
+
+        function unwrapJsonContents(text) {
+            // allorigins /get wraps the page in JSON: { "contents": "<html>..." }
+            try {
+                var j = JSON.parse(text);
+                return (j && typeof j.contents === 'string') ? j.contents : '';
+            } catch (e) { return ''; }
+        }
+
+        // Fetch routes, tried in order until one returns a real watch page.
+        // { buildUrl(id), unwrap(responseText) -> html }
+        var ROUTES = [
+            { buildUrl: function (id) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(watchUrl(id)); }, unwrap: identityText },
+            { buildUrl: function (id) { return 'https://test.cors.workers.dev/?' + watchUrl(id); }, unwrap: identityText },
+            { buildUrl: function (id) { return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(watchUrl(id)); }, unwrap: identityText },
+            { buildUrl: function (id) { return 'https://api.allorigins.win/get?url=' + encodeURIComponent(watchUrl(id)); }, unwrap: unwrapJsonContents },
+            { buildUrl: function (id) { return 'https://api.cors.lol/?url=' + encodeURIComponent(watchUrl(id)); }, unwrap: identityText },
+            { buildUrl: function (id) { return 'https://corsproxy.org/?url=' + encodeURIComponent(watchUrl(id)); }, unwrap: identityText },
+            { buildUrl: function (id) { return 'https://corsproxy.io/?url=' + encodeURIComponent(watchUrl(id)); }, unwrap: identityText },
+            { buildUrl: function (id) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.youtube.com/embed/' + id); }, unwrap: identityText }
+        ];
+
+        function watchUrl(id) {
+            return 'https://www.youtube.com/watch?v=' + id + '&hl=en&gl=US';
+        }
+
+        function fetchTags(id, onProgress) {
+            var total = ROUTES.length;
             var fetchedOk = false;
             var emptyResult = null;
             var i = 0;
             function next() {
-                if (i >= proxies.length) {
+                if (i >= total) {
                     if (emptyResult) return { status: 'notags', data: emptyResult };
                     if (fetchedOk) return { status: 'notags', data: { tags: [], title: '', channel: '' } };
                     return { status: 'failed' };
                 }
-                var p = proxies[i++];
-                return fetchVia(p, 25000).then(function (html) {
+                var route = ROUTES[i++];
+                if (onProgress) onProgress(i, total);
+                return fetchVia(route.buildUrl(id), 10000).then(function (text) {
+                    var html = route.unwrap(text || '');
                     if (!html || html.length < 2000) return next();
                     // Reject interstitial/shell pages that are not real watch pages.
                     var looksReal = html.indexOf('ytInitialPlayerResponse') !== -1 ||
@@ -330,6 +358,7 @@
 
         function setLoading(on) {
             loadingBox.style.display = on ? 'block' : 'none';
+            if (on) loadingText.textContent = 'লোড হচ্ছে... ভিডিওর ট্যাগ আনা হচ্ছে, একটু অপেক্ষা করুন';
             extractBtn.disabled = on;
             extractBtn.innerHTML = on
                 ? '<span class="spinner"></span> লোড হচ্ছে...'
@@ -374,7 +403,9 @@
                 return;
             }
             setLoading(true);
-            fetchTags(id).then(function (res) {
+            fetchTags(id, function (n, total) {
+                loadingText.textContent = 'চেষ্টা চলছে… (রুট ' + bnDigits(n) + '/' + bnDigits(total) + ')';
+            }).then(function (res) {
                 setLoading(false);
                 if (res.status === 'ok') {
                     renderResult(id, res.data);
