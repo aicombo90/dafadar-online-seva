@@ -305,7 +305,41 @@
             return 'https://www.youtube.com/watch?v=' + id + '&hl=en&gl=US';
         }
 
+        // Primary source: YouTube Data API v3 with this website's own API key.
+        // The key is locked in Google Cloud Console to this site's domain
+        // (aicombo90.github.io) and to YouTube Data API v3 only.
+        var YT_API_KEY = 'AIzaSyByxpijcXDPYTnM4tkNpxXOOvE5vLKvJS8';
+
+        function fetchViaApi(id) {
+            var url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' +
+                encodeURIComponent(id) + '&key=' + YT_API_KEY;
+            return fetchVia(url, 12000).then(function (text) {
+                var j = JSON.parse(text);
+                var items = (j && j.items) || [];
+                if (!items.length) return null; // unknown/private video: fall back to page routes
+                var sn = items[0].snippet || {};
+                return {
+                    tags: (sn.tags || []).map(function (x) { return String(x).trim(); }).filter(Boolean),
+                    title: sn.title || '',
+                    channel: sn.channelTitle || ''
+                };
+            });
+        }
+
         function fetchTags(id, onProgress) {
+            return fetchViaApi(id).then(function (apiData) {
+                if (apiData) {
+                    return apiData.tags.length
+                        ? { status: 'ok', data: apiData }
+                        : { status: 'notags', data: apiData };
+                }
+                return fetchViaProxies(id, onProgress);
+            }).catch(function () {
+                return fetchViaProxies(id, onProgress);
+            });
+        }
+
+        function fetchViaProxies(id, onProgress) {
             var total = ROUTES.length;
             var fetchedOk = false;
             var emptyResult = null;
