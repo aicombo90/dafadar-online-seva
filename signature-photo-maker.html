@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature & Photo Maker — সই ও ছবি তৈরি করুন | DAFADAR ONLINE SEVA</title>
+    <meta name="description" content="ফ্রি অনলাইন Signature & Photo Maker — একই টুলে সই আঁকুন (Transparent/White PNG/JPG) এবং অনলাইন ফর্মের জন্য ছবি ক্রপ, রিসাইজ ও KB অনুযায়ী কমপ্রেস করুন। কোনো সার্ভার নয়, সব কাজ আপনার ফোনেই হয়।">
+    <link rel="canonical" href="https://aicombo90.github.io/dafadar-online-seva/signature-photo-maker.html">
+    <meta property="og:title" content="Signature & Photo Maker — ফ্রি সই ও ফটো মেকার">
+    <meta property="og:description" content="সই আঁকুন, ছবির সাইজ বদলান — অনলাইন ফর্মের জন্য তৈরি ছবি ও সই ডাউনলোড করুন, সম্পূর্ণ ফ্রি।">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aicombo90.github.io/dafadar-online-seva/signature-photo-maker.html">
+    <meta property="og:image" content="https://aicombo90.github.io/dafadar-online-seva/assets/og-image.jpg">
+    <link rel="icon" type="image/png" href="assets/favicon-64.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: #eef2ee; color: #1e2433; line-height: 1.6; }
+        .navbar { background: #07100d; color: #fff; padding: 14px 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .navbar a { color: #fff; text-decoration: none; }
+        .logo { font-weight: 800; font-size: 18px; }
+        footer { background: #07100d; color: #9fb3a8; text-align: center; padding: 24px 5%; font-size: 14px; margin-top: 40px; }
+        footer a { color: #1fc64c; text-decoration: none; }
+        .footnav { margin-bottom: 10px; font-size: 14px; }
+        .footnav a { margin: 0 6px; white-space: nowrap; }
+        .page-head { max-width: 1400px; margin: 22px auto 6px; padding: 0 4%; }
+        .page-head h1 { font-size: 28px; color: #10231c; font-weight: 800; }
+        .page-head p { color: #51606a; font-size: 16px; max-width: 900px; }
+        .privacy-note { display: inline-block; background: #e6f9ec; color: #057a55; font-weight: 700; font-size: 13.5px; padding: 5px 14px; border-radius: 20px; margin-top: 8px; }
+
+        .maker { max-width: 1400px; margin: 14px auto; padding: 0 4%; display: grid; grid-template-columns: 7fr minmax(320px, 5fr); gap: 22px; align-items: start; }
+        .maker > * { min-width: 0; }
+        @media (max-width: 980px) { .maker { grid-template-columns: 1fr; } }
+
+        .panel { background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,.07); padding: 20px; }
+        .panel h2.sec { font-size: 17px; color: #0e3b2e; margin: 20px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #e0e7ff; font-weight: 700; }
+        .panel h2.sec:first-child { margin-top: 0; }
+        .flabel { display: block; font-size: 13.5px; font-weight: 600; color: #44536b; margin: 8px 0 4px; }
+        .tin { width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 9px; font-size: 15px; font-family: inherit; background: #fff; color: #1e2433; }
+        .tin:focus { outline: none; border-color: #1fc64c; box-shadow: 0 0 0 3px rgba(31,198,76,.15); }
+        .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .hint { font-size: 12.5px; color: #8494a7; margin-top: 4px; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; background: #0e9f4e; color: #fff; border: none; font-weight: 700; font-size: 15.5px; padding: 12px 22px; border-radius: 10px; cursor: pointer; font-family: inherit; }
+        .btn:hover { background: #0b8a42; }
+        .btn.blue { background: #1d4ed8; } .btn.blue:hover { background: #1e40af; }
+        .btn.outline { background: #fff; color: #0e3b2e; border: 1.5px solid #0e9f4e; }
+        .btn.danger { background: #fff; color: #b91c1c; border: 1.5px solid #fca5a5; }
+        .btn.small { padding: 8px 14px; font-size: 14px; border-radius: 8px; }
+        .btn:disabled { opacity: .45; cursor: not-allowed; }
+        .btnrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+        .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
+        .pill-btn { padding: 8px 14px; border: 1.5px solid #cbd5e1; background: #fff; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .pill-btn.active { background: #0e3b2e; color: #fff; border-color: #0e3b2e; }
+        input[type="range"] { width: 100%; accent-color: #0e9f4e; }
+        .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(80px); background: #0e3b2e; color: #fff; padding: 12px 22px; border-radius: 30px; font-weight: 700; font-size: 15px; z-index: 999; opacity: 0; transition: all .3s; max-width: 92vw; text-align: center; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* Tabs */
+        .tabbar { max-width: 1400px; margin: 16px auto 0; padding: 0 4%; display: flex; gap: 10px; }
+        .tab-btn { flex: 1; padding: 14px 10px; font-size: 17px; font-weight: 800; font-family: inherit; border: 2px solid #0e3b2e; border-radius: 14px; background: #fff; color: #0e3b2e; cursor: pointer; }
+        .tab-btn.active { background: #0e3b2e; color: #fff; }
+        @media (max-width: 560px) { .tab-btn { font-size: 15px; padding: 12px 6px; } }
+
+        /* Drawing area */
+        .canvas-wrap { background: #fff; border: 2px dashed #b6c4b0; border-radius: 12px; overflow: hidden; position: relative; }
+        #sigCanvas { display: block; width: 100%; height: auto; background: #ffffff; touch-action: none; cursor: crosshair; }
+        .canvas-hint { text-align: center; color: #8494a7; font-size: 13.5px; margin-top: 8px; }
+        .swatches { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+        .swatch { width: 40px; height: 40px; border-radius: 50%; border: 3px solid #e2e8f0; cursor: pointer; padding: 0; }
+        .swatch.active { border-color: #0e9f4e; box-shadow: 0 0 0 3px rgba(31,198,76,.25); }
+        .custom-color { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #44536b; }
+        input[type="color"] { width: 44px; height: 40px; border: 1.5px solid #cbd5e1; border-radius: 9px; background: #fff; padding: 2px; cursor: pointer; }
+        .range-row { display: flex; align-items: center; gap: 12px; }
+        .range-row output { font-weight: 800; color: #0e3b2e; min-width: 52px; text-align: right; }
+        /* Preview */
+        .preview-box { border: 1.5px solid #dbe4f0; border-radius: 12px; min-height: 130px; display: flex; align-items: center; justify-content: center; padding: 14px; background: #fff; transition: box-shadow .3s; }
+        .preview-box.checker { background-color: #f8fafc; background-image: linear-gradient(45deg, #e2e8f0 25%, transparent 25%), linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e2e8f0 75%), linear-gradient(-45deg, transparent 75%, #e2e8f0 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0; }
+        .preview-box.flash { box-shadow: 0 0 0 4px rgba(31,198,76,.35); }
+        .preview-box img { max-width: 100%; height: auto; }
+        .preview-empty { color: #8494a7; font-size: 14.5px; text-align: center; }
+        .dl-btn { width: 100%; justify-content: center; margin-top: 10px; }
+
+        /* Photo Maker */
+        .crop-stage { position: relative; overflow: hidden; border-radius: 12px; border: 2px dashed #b6c4b0; background: #f8fafc; line-height: 0; }
+        .crop-stage img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+        .crop-box { position: absolute; border: 2px solid #1fc64c; box-shadow: 0 0 0 9999px rgba(7,16,13,.45); cursor: move; touch-action: none; box-sizing: border-box; }
+        .crop-handle { position: absolute; right: -12px; bottom: -12px; width: 24px; height: 24px; border-radius: 50%; background: #0e9f4e; border: 3px solid #fff; box-shadow: 0 1px 5px rgba(0,0,0,.4); cursor: nwse-resize; touch-action: none; }
+        #phPreview { max-width: 100%; height: auto; display: block; margin: 0 auto; border: 1.5px solid #dbe4f0; border-radius: 8px; background: #fff; }
+        .ph-info { background: #e6f9ec; color: #0e3b2e; border-radius: 10px; padding: 10px 14px; font-weight: 700; font-size: 14.5px; margin-top: 12px; }
+        .warn-note { background: #fff7e6; border: 1.5px solid #f5c26b; color: #7a4a00; border-radius: 10px; padding: 9px 13px; font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+        .check-row { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; color: #44536b; margin-top: 8px; }
+        .check-row input { width: 18px; height: 18px; accent-color: #0e9f4e; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="logo" href="index.html"><i class="fa-solid fa-laptop-code"></i> DAFADAR ONLINE SEVA</a>
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> সব টুল</a>
+    </nav>
+
+    <div class="page-head">
+        <h1>✍️📷 Signature &amp; Photo Maker — সই ও ছবি তৈরি করুন</h1>
+        <p>একই টুলে দুটি সুবিধা — <b>সই আঁকুন</b> আর অনলাইন ফর্মের জন্য <b>ছবির সাইজ ঠিক করুন</b>। নিচের বোতাম দিয়ে যেকোনো একটা বেছে নিন।</p>
+        <span class="privacy-note">🔒 আপনার সই ও ছবি কোথাও পাঠানো হয় না — সব কাজ আপনার ফোন/কম্পিউটারেই হয়</span>
+    </div>
+
+    <div class="tabbar" role="tablist">
+        <button class="tab-btn active" id="tabBtnSig" type="button">✍️ Signature Maker</button>
+        <button class="tab-btn" id="tabBtnPhoto" type="button">📷 Photo Maker</button>
+    </div>
+
+    <!-- ================= SIGNATURE TAB ================= -->
+    <section id="tab-signature">
+    <div class="maker">
+        <!-- LEFT: drawing area -->
+        <div class="panel">
+            <h2 class="sec">✍️ এখানে সই করুন</h2>
+            <div class="canvas-wrap">
+                <canvas id="sigCanvas" width="1600" height="720" aria-label="সই আঁকার জায়গা"></canvas>
+            </div>
+            <p class="canvas-hint">আঙুল বা মাউস চেপে ধরে আঁকুন — লাইন অটোমেটিক মসৃণ হবে</p>
+            <div class="btnrow">
+                <button class="btn outline small" id="undoBtn" type="button" disabled><i class="fa-solid fa-rotate-left"></i> Undo</button>
+                <button class="btn outline small" id="redoBtn" type="button" disabled><i class="fa-solid fa-rotate-right"></i> Redo</button>
+                <button class="btn outline small" id="previewBtn" type="button"><i class="fa-solid fa-eye"></i> Preview</button>
+                <button class="btn danger small" id="clearBtn" type="button"><i class="fa-solid fa-trash"></i> Clear</button>
+            </div>
+
+            <h2 class="sec">🖊️ কলমের রং (Pen Color)</h2>
+            <div class="swatches">
+                <button class="swatch active" type="button" data-color="#000000" style="background:#000000" aria-label="কালো"></button>
+                <button class="swatch" type="button" data-color="#1d4ed8" style="background:#1d4ed8" aria-label="নীল"></button>
+                <button class="swatch" type="button" data-color="#dc2626" style="background:#dc2626" aria-label="লাল"></button>
+                <span class="custom-color">নিজের রং: <input type="color" id="customColor" value="#7c3aed"></span>
+            </div>
+
+            <h2 class="sec">📏 কলমের মোটা (Pen Thickness)</h2>
+            <div class="pill-row" id="thickPresets">
+                <button class="pill-btn" type="button" data-size="3">পাতলা (Thin)</button>
+                <button class="pill-btn active" type="button" data-size="6">মাঝারি (Medium)</button>
+                <button class="pill-btn" type="button" data-size="11">মোটা (Thick)</button>
+            </div>
+            <div class="range-row">
+                <input type="range" id="thickRange" min="1" max="20" step="1" value="6">
+                <output id="thickOut">6 px</output>
+            </div>
+        </div>
+
+        <!-- RIGHT: background, size, preview, download -->
+        <div>
+            <div class="panel">
+                <h2 class="sec">🎨 ব্যাকগ্রাউন্ড (Background)</h2>
+                <div class="pill-row" id="bgRow">
+                    <button class="pill-btn" type="button" data-bg="transparent">Transparent (স্বচ্ছ)</button>
+                    <button class="pill-btn active" type="button" data-bg="white">White (সাদা)</button>
+                </div>
+                <p class="hint">Transparent বেছে নিলে PNG ছবির পেছনে কিছুই থাকবে না — যেকোনো ডকুমেন্টের ওপর সই বসানো যাবে।</p>
+
+                <h2 class="sec">📐 ছবির সাইজ (Download Size)</h2>
+                <div class="pill-row" id="sizeRow">
+                    <button class="pill-btn" type="button" data-size-mode="small">Small (400px)</button>
+                    <button class="pill-btn active" type="button" data-size-mode="medium">Medium (800px)</button>
+                    <button class="pill-btn" type="button" data-size-mode="large">Large (1200px)</button>
+                    <button class="pill-btn" type="button" data-size-mode="custom">Custom</button>
+                </div>
+                <div id="customSizeBox" style="display:none;">
+                    <div class="grid2">
+                        <div>
+                            <label class="flabel" for="customW">Width (px)</label>
+                            <input class="tin" type="number" id="customW" min="50" max="4000" placeholder="যেমন: 600">
+                        </div>
+                        <div>
+                            <label class="flabel" for="customH">Height (px)</label>
+                            <input class="tin" type="number" id="customH" min="50" max="4000" placeholder="যেমন: 250">
+                        </div>
+                    </div>
+                    <p class="hint">সইয়ের অনুপাত সবসময় ঠিক থাকবে — ছবি চ্যাপ্টা বা লম্বা হবে না। দুটো ঘর ভরলে তার মধ্যে ফিট করে সাইজ হবে।</p>
+                </div>
+
+                <h2 class="sec">👁️ Preview (Auto Crop সহ)</h2>
+                <div class="preview-box" id="previewBox">
+                    <span class="preview-empty" id="previewEmpty">সই আঁকলেই এখানে তৈরি ছবিটা দেখা যাবে</span>
+                    <img id="previewImg" alt="সইয়ের প্রিভিউ" style="display:none;">
+                </div>
+                <p class="hint" id="outInfo">চারপাশের ফাঁকা জায়গা অটোমেটিক কেটে (Auto Crop) শুধু সইটুকুই ডাউনলোড হবে।</p>
+
+                <h2 class="sec">⬇️ ডাউনলোড (Download)</h2>
+                <button class="btn dl-btn" id="dlPng" type="button"><i class="fa-solid fa-download"></i> Download PNG</button>
+                <button class="btn blue dl-btn" id="dlPngT" type="button"><i class="fa-solid fa-download"></i> Download Transparent PNG</button>
+                <button class="btn outline dl-btn" id="dlJpg" type="button"><i class="fa-solid fa-download"></i> Download JPG (সাদা ব্যাকগ্রাউন্ড)</button>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- ================= PHOTO TAB ================= -->
+    <section id="tab-photo" style="display:none;">
+    <div class="maker">
+        <!-- LEFT: upload + crop -->
+        <div class="panel">
+            <h2 class="sec">📷 ছবি আপলোড করুন</h2>
+            <input type="file" id="phFile" accept="image/jpeg,image/png" hidden>
+            <button class="btn" id="phUploadBtn" type="button"><i class="fa-solid fa-upload"></i> <span id="phUploadLabel">ছবি বাছুন (JPG / PNG)</span></button>
+            <p class="hint">ছবি কোনো সার্ভারে যায় না — সব কাজ আপনার ফোন/কম্পিউটারেই হয়। অন্য ছবি দিতে আবার এই বোতামে চাপ দিন (নতুন ছবি)।</p>
+
+            <div id="phEditor" style="display:none;">
+                <h2 class="sec">✂️ ক্রপ (Crop) — যতটুকু রাখতে চান</h2>
+                <div class="crop-stage" id="cropStage">
+                    <img id="phImg" alt="আপলোড করা ছবি">
+                    <div class="crop-box" id="cropBox"><div class="crop-handle" id="cropHandle"></div></div>
+                </div>
+                <p class="canvas-hint">সবুজ বাক্সটা টেনে সরান — কোণার গোল হ্যান্ডল টেনে বা নিচের স্লাইডার দিয়ে ছোট-বড় করুন। বাক্সের বাইরের অংশ বাদ যাবে, ভেতরের অংশই থাকবে।</p>
+                <label class="flabel">ক্রপের অনুপাত (Aspect Ratio)</label>
+                <div class="pill-row" id="cropAspectRow">
+                    <button class="pill-btn active" type="button" data-aspect="0">Free</button>
+                    <button class="pill-btn" type="button" data-aspect="1">1 : 1</button>
+                    <button class="pill-btn" type="button" data-aspect="0.7778">পাসপোর্ট 3.5 : 4.5</button>
+                    <button class="pill-btn" type="button" data-aspect="0.75">3 : 4</button>
+                </div>
+                <label class="flabel" for="cropScale">ক্রপ বাক্সের মাপ</label>
+                <input type="range" id="cropScale" min="25" max="100" step="1" value="100">
+                <div class="btnrow">
+                    <button class="btn outline small" id="cropReset" type="button"><i class="fa-solid fa-rotate-left"></i> Reset Crop (পুরো ছবি)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: resize / background / quality / download -->
+        <div>
+            <div class="panel" id="phControls" style="display:none;">
+                <h2 class="sec">📐 ছবির সাইজ (Resize)</h2>
+                <div class="pill-row" id="phPresetRow">
+                    <button class="pill-btn" type="button" data-preset="passport">Passport Photo — 413 × 531 px</button>
+                    <button class="pill-btn" type="button" data-preset="small">Small Photo — 240 × 320 px</button>
+                    <button class="pill-btn" type="button" data-preset="custom">Custom Size</button>
+                </div>
+                <div class="grid2">
+                    <div>
+                        <label class="flabel" for="phW">Width (px)</label>
+                        <input class="tin" type="number" id="phW" min="10" max="8000">
+                    </div>
+                    <div>
+                        <label class="flabel" for="phH">Height (px)</label>
+                        <input class="tin" type="number" id="phH" min="10" max="8000">
+                    </div>
+                </div>
+                <label class="check-row"><input type="checkbox" id="phLock" checked> Aspect Ratio ঠিক রাখুন (ছবি চ্যাপ্টা হবে না)</label>
+
+                <h2 class="sec">🎨 ব্যাকগ্রাউন্ড (Background)</h2>
+                <div class="pill-row" id="phBgRow">
+                    <button class="pill-btn active" type="button" data-pbg="original">Original (আসল)</button>
+                    <button class="pill-btn" type="button" data-pbg="white">White (সাদা)</button>
+                    <button class="pill-btn" type="button" data-pbg="blue">Blue (নীল)</button>
+                </div>
+                <div id="phTolBox" style="display:none;">
+                    <label class="flabel" for="phTol">ব্যাকগ্রাউন্ড মেলানোর মাত্রা (Tolerance)</label>
+                    <div class="range-row">
+                        <input type="range" id="phTol" min="5" max="150" step="1" value="45">
+                        <output id="phTolOut">45</output>
+                    </div>
+                </div>
+                <p class="warn-note">⚠️ এই ব্যাকগ্রাউন্ড বদল শুধু <b>সাধারণ (একরঙা) ব্যাকগ্রাউন্ডের</b> ছবির জন্য — ছবির ধার থেকে একই রঙের অংশটুকুই বদলায়, মানুষের গায়ে রং পড়ে না। জটিল/রঙিন ব্যাকগ্রাউন্ডে ঠিকমতো কাজ নাও করতে পারে।</p>
+
+                <h2 class="sec">🗜️ ফাইল সাইজ (File Size)</h2>
+                <label class="flabel" for="phQuality">JPG Quality</label>
+                <div class="range-row">
+                    <input type="range" id="phQuality" min="10" max="100" step="1" value="85">
+                    <output id="phQualityOut">85%</output>
+                </div>
+                <label class="flabel" for="phTargetKb">Target File Size (KB) — অনেক ফর্মে ছবির KB সীমা থাকে</label>
+                <div class="grid2">
+                    <input class="tin" type="number" id="phTargetKb" min="1" max="5000" placeholder="যেমন: 50">
+                    <button class="btn blue" id="phTargetBtn" type="button" style="justify-content:center;">Target অনুযায়ী তৈরি করুন</button>
+                </div>
+                <p class="hint">বোতামে চাপ দিলে Quality কমিয়ে (দরকার হলে মাপ সামান্য কমিয়ে) Target KB-এর মধ্যে আনার চেষ্টা করা হবে। নিচে সবসময় <b>আসল</b> তৈরি সাইজটাই দেখানো হয়।</p>
+
+                <div class="ph-info" id="phOutInfo">ছবি আপলোড করলেই আসল সাইজ এখানে দেখা যাবে</div>
+
+                <h2 class="sec">⬇️ ডাউনলোড (Download)</h2>
+                <button class="btn dl-btn" id="phDlJpg" type="button"><i class="fa-solid fa-download"></i> Download JPG</button>
+                <button class="btn outline dl-btn" id="phDlPng" type="button"><i class="fa-solid fa-download"></i> Download PNG</button>
+            </div>
+
+            <div class="panel" id="phPreviewPanel" style="display:none; margin-top:22px;">
+                <h2 class="sec">👁️ Preview (তৈরি ছবি)</h2>
+                <canvas id="phPreview" width="300" height="300"></canvas>
+                <p class="hint">উপরের Preview-তেই ডাউনলোড হওয়া ছবিটা হুবহু দেখা যাচ্ছে।</p>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <footer>
+        <div class="footnav">
+            <a href="index.html">সব টুল</a> · <a href="biodata-maker.html">Biodata Maker</a> · <a href="resume-maker.html">Resume Maker</a> · <a href="blog.html">ব্লগ</a>
+        </div>
+        © DAFADAR ONLINE SEVA — সব টুল সম্পূর্ণ ফ্রি। আপনার তথ্য আপনার ডিভাইসেই থাকে।
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+    /* ---------- tabs ---------- */
+    (function () {
+        'use strict';
+        var btnSig = document.getElementById('tabBtnSig');
+        var btnPhoto = document.getElementById('tabBtnPhoto');
+        var secSig = document.getElementById('tab-signature');
+        var secPhoto = document.getElementById('tab-photo');
+        function show(which) {
+            var sig = which === 'sig';
+            secSig.style.display = sig ? '' : 'none';
+            secPhoto.style.display = sig ? 'none' : '';
+            btnSig.classList.toggle('active', sig);
+            btnPhoto.classList.toggle('active', !sig);
+            if (!sig && window.__pmPositionCrop) window.__pmPositionCrop();
+        }
+        btnSig.addEventListener('click', function () { show('sig'); });
+        btnPhoto.addEventListener('click', function () { show('photo'); });
+        window.__showTab = show;
+    })();
+    </script>
+
+    <script>
+    /* ---------- Signature Maker (আগের পরীক্ষিত কোড হুবহু) ---------- */
+    (function () {
+        'use strict';
+        var canvas = document.getElementById('sigCanvas');
+        var ctx = canvas.getContext('2d');
+        var SCALE = canvas.width / 800; // internal px per "display" px (canvas internal = 1600 wide)
+
+        var penColor = '#000000';
+        var penSize = 6;               // slider units (1-20)
+        var bgMode = 'white';          // 'white' | 'transparent'
+        var sizeMode = 'medium';       // small | medium | large | custom
+        var SIZE_WIDTHS = { small: 400, medium: 800, large: 1200 };
+
+        var strokes = [];              // {color, width (internal px), points:[{x,y}]}
+        var redoStack = [];
+        var current = null;
+
+        var undoBtn = document.getElementById('undoBtn');
+        var redoBtn = document.getElementById('redoBtn');
+        var toastEl = document.getElementById('toast');
+        var toastTimer = null;
+        function toast(msg) {
+            toastEl.textContent = msg;
+            toastEl.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 3200);
+        }
+
+        /* ---------- drawing ---------- */
+        function strokePath(c, s) {
+            c.strokeStyle = s.color;
+            c.fillStyle = s.color;
+            c.lineWidth = s.width;
+            c.lineCap = 'round';
+            c.lineJoin = 'round';
+            var pts = s.points;
+            if (pts.length === 1) {
+                c.beginPath();
+                c.arc(pts[0].x, pts[0].y, s.width / 2, 0, Math.PI * 2);
+                c.fill();
+                return;
+            }
+            c.beginPath();
+            c.moveTo(pts[0].x, pts[0].y);
+            for (var i = 1; i < pts.length - 1; i++) {
+                var mx = (pts[i].x + pts[i + 1].x) / 2;
+                var my = (pts[i].y + pts[i + 1].y) / 2;
+                c.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+            }
+            c.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+            c.stroke();
+        }
+        function redraw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < strokes.length; i++) strokePath(ctx, strokes[i]);
+            updateButtons();
+        }
+        function updateButtons() {
+            undoBtn.disabled = strokes.length === 0;
+            redoBtn.disabled = redoStack.length === 0;
+        }
+        function toInternal(e) {
+            var r = canvas.getBoundingClientRect();
+            return {
+                x: (e.clientX - r.left) * (canvas.width / r.width),
+                y: (e.clientY - r.top) * (canvas.height / r.height)
+            };
+        }
+        canvas.addEventListener('pointerdown', function (e) {
+            if (e.button !== undefined && e.button > 0) return;
+            e.preventDefault();
+            try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
+            current = { color: penColor, width: penSize * SCALE, points: [toInternal(e)] };
+            strokes.push(current);
+            redoStack = [];
+            redraw();
+        });
+        canvas.addEventListener('pointermove', function (e) {
+            if (!current) return;
+            e.preventDefault();
+            var events = (e.getCoalescedEvents && e.pointerType !== 'touch') ? e.getCoalescedEvents() : [e];
+            for (var i = 0; i < events.length; i++) current.points.push(toInternal(events[i]));
+            redraw();
+        });
+        function endStroke() {
+            if (!current) return;
+            current = null;
+            updateButtons();
+            updatePreview();
+        }
+        canvas.addEventListener('pointerup', endStroke);
+        canvas.addEventListener('pointercancel', endStroke);
+
+        /* ---------- edit buttons ---------- */
+        undoBtn.addEventListener('click', function () {
+            if (!strokes.length) return;
+            redoStack.push(strokes.pop());
+            redraw(); updatePreview();
+        });
+        redoBtn.addEventListener('click', function () {
+            if (!redoStack.length) return;
+            strokes.push(redoStack.pop());
+            redraw(); updatePreview();
+        });
+        document.getElementById('clearBtn').addEventListener('click', function () {
+            if (!strokes.length) { toast('ক্যানভাস এমনিতেই ফাঁকা আছে'); return; }
+            if (!confirm('সইটা পুরোপুরি মুছে ফেলবেন?')) return;
+            strokes = []; redoStack = []; current = null;
+            redraw(); updatePreview();
+            toast('সই মোছা হয়েছে — নতুন করে আঁকুন');
+        });
+        document.getElementById('previewBtn').addEventListener('click', function () {
+            if (!strokes.length) { toast('⚠️ আগে ক্যানভাসে সই করুন'); return; }
+            updatePreview();
+            var box = document.getElementById('previewBox');
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            box.classList.add('flash');
+            setTimeout(function () { box.classList.remove('flash'); }, 900);
+        });
+        document.addEventListener('keydown', function (e) {
+            if (document.getElementById('tab-signature').style.display === 'none') return;
+            var tag = (e.target && e.target.tagName) || '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+                e.preventDefault();
+                if (e.shiftKey) redoBtn.click(); else undoBtn.click();
+            }
+        });
+
+        /* ---------- pen settings ---------- */
+        var swatches = document.querySelectorAll('.swatch');
+        function setColor(hex, fromCustom) {
+            penColor = hex;
+            swatches.forEach(function (s) { s.classList.toggle('active', s.getAttribute('data-color').toLowerCase() === hex.toLowerCase()); });
+            if (!fromCustom) document.getElementById('customColor').value = hex;
+        }
+        swatches.forEach(function (s) {
+            s.addEventListener('click', function () { setColor(s.getAttribute('data-color'), false); });
+        });
+        document.getElementById('customColor').addEventListener('input', function () { setColor(this.value, true); });
+
+        var thickRange = document.getElementById('thickRange');
+        var thickOut = document.getElementById('thickOut');
+        var presets = document.querySelectorAll('#thickPresets .pill-btn');
+        function setSize(v) {
+            penSize = Math.max(1, Math.min(20, parseInt(v, 10) || 6));
+            thickRange.value = penSize;
+            thickOut.textContent = penSize + ' px';
+            presets.forEach(function (b) { b.classList.toggle('active', parseInt(b.getAttribute('data-size'), 10) === penSize); });
+        }
+        thickRange.addEventListener('input', function () { setSize(this.value); });
+        presets.forEach(function (b) {
+            b.addEventListener('click', function () { setSize(b.getAttribute('data-size')); });
+        });
+
+        /* ---------- background & size ---------- */
+        document.querySelectorAll('#bgRow .pill-btn').forEach(function (b) {
+            b.addEventListener('click', function () {
+                bgMode = b.getAttribute('data-bg');
+                document.querySelectorAll('#bgRow .pill-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+                updatePreview();
+            });
+        });
+        document.querySelectorAll('#sizeRow .pill-btn').forEach(function (b) {
+            b.addEventListener('click', function () {
+                sizeMode = b.getAttribute('data-size-mode');
+                document.querySelectorAll('#sizeRow .pill-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+                document.getElementById('customSizeBox').style.display = sizeMode === 'custom' ? 'block' : 'none';
+                updatePreview();
+            });
+        });
+        document.getElementById('customW').addEventListener('input', updatePreview);
+        document.getElementById('customH').addEventListener('input', updatePreview);
+
+        /* ---------- auto crop + export ---------- */
+        var CROP_PAD = 10 * SCALE; // ~10 display px safe margin, never cuts a stroke pixel
+        function croppedCanvas() {
+            if (!strokes.length) return null;
+            var img;
+            try { img = ctx.getImageData(0, 0, canvas.width, canvas.height); }
+            catch (err) { return null; }
+            var d = img.data, w = canvas.width, h = canvas.height;
+            var minX = w, minY = h, maxX = -1, maxY = -1;
+            for (var y = 0; y < h; y++) {
+                for (var x = 0; x < w; x++) {
+                    if (d[(y * w + x) * 4 + 3] > 10) {
+                        if (x < minX) minX = x;
+                        if (x > maxX) maxX = x;
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
+                    }
+                }
+            }
+            if (maxX < 0) return null;
+            minX = Math.max(0, minX - CROP_PAD); minY = Math.max(0, minY - CROP_PAD);
+            maxX = Math.min(w - 1, maxX + CROP_PAD); maxY = Math.min(h - 1, maxY + CROP_PAD);
+            var cw = maxX - minX + 1, ch = maxY - minY + 1;
+            var c2 = document.createElement('canvas');
+            c2.width = cw; c2.height = ch;
+            c2.getContext('2d').drawImage(canvas, minX, minY, cw, ch, 0, 0, cw, ch);
+            return c2;
+        }
+        function targetDims(cropW, cropH) {
+            if (sizeMode !== 'custom') {
+                var tw = SIZE_WIDTHS[sizeMode] || 800;
+                var s = tw / cropW;
+                return { w: Math.round(cropW * s), h: Math.round(cropH * s) };
+            }
+            var cw = parseInt(document.getElementById('customW').value, 10);
+            var ch = parseInt(document.getElementById('customH').value, 10);
+            cw = (cw >= 50 && cw <= 4000) ? cw : 0;
+            ch = (ch >= 50 && ch <= 4000) ? ch : 0;
+            var scale;
+            if (cw && ch) scale = Math.min(cw / cropW, ch / cropH);
+            else if (cw) scale = cw / cropW;
+            else if (ch) scale = ch / cropH;
+            else scale = 800 / cropW;
+            return { w: Math.max(1, Math.round(cropW * scale)), h: Math.max(1, Math.round(cropH * scale)) };
+        }
+        function buildExport(bg) { // bg: 'white' | 'transparent'
+            var crop = croppedCanvas();
+            if (!crop) return null;
+            var dims = targetDims(crop.width, crop.height);
+            var out = document.createElement('canvas');
+            out.width = dims.w; out.height = dims.h;
+            var octx = out.getContext('2d');
+            if (bg === 'white') { octx.fillStyle = '#ffffff'; octx.fillRect(0, 0, out.width, out.height); }
+            octx.imageSmoothingEnabled = true;
+            octx.imageSmoothingQuality = 'high';
+            octx.drawImage(crop, 0, 0, out.width, out.height);
+            return out;
+        }
+        function saveCanvas(out, filename, type) {
+            var a = document.createElement('a');
+            a.download = filename;
+            a.href = out.toDataURL(type, 0.92);
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
+        function doDownload(kind) {
+            if (!strokes.length) { toast('⚠️ আগে ক্যানভাসে সই করুন, তারপর ডাউনলোড করুন'); return; }
+            var out, name;
+            if (kind === 'png') { out = buildExport(bgMode); name = 'signature.png'; }
+            else if (kind === 'pngT') { out = buildExport('transparent'); name = 'signature-transparent.png'; }
+            else { out = buildExport('white'); name = 'signature.jpg'; }
+            if (!out) { toast('⚠️ আগে ক্যানভাসে সই করুন, তারপর ডাউনলোড করুন'); return; }
+            saveCanvas(out, name, kind === 'jpg' ? 'image/jpeg' : 'image/png');
+            toast('✅ ডাউনলোড হচ্ছে — ' + name + ' (' + out.width + '×' + out.height + ' px)');
+        }
+        document.getElementById('dlPng').addEventListener('click', function () { doDownload('png'); });
+        document.getElementById('dlPngT').addEventListener('click', function () { doDownload('pngT'); });
+        document.getElementById('dlJpg').addEventListener('click', function () { doDownload('jpg'); });
+
+        /* ---------- live preview (auto-cropped) ---------- */
+        var previewImg = document.getElementById('previewImg');
+        var previewEmpty = document.getElementById('previewEmpty');
+        var previewBox = document.getElementById('previewBox');
+        var outInfo = document.getElementById('outInfo');
+        function updatePreview() {
+            var crop = croppedCanvas();
+            if (!crop) {
+                previewImg.style.display = 'none';
+                previewEmpty.style.display = 'block';
+                previewBox.classList.remove('checker');
+                outInfo.textContent = 'চারপাশের ফাঁকা জায়গা অটোমেটিক কেটে (Auto Crop) শুধু সইটুকুই ডাউনলোড হবে।';
+                return;
+            }
+            var dims = targetDims(crop.width, crop.height);
+            var out = buildExport(bgMode);
+            previewImg.src = out.toDataURL('image/png');
+            previewImg.style.display = 'block';
+            previewEmpty.style.display = 'none';
+            previewBox.classList.toggle('checker', bgMode === 'transparent');
+            outInfo.textContent = 'ডাউনলোড সাইজ: ' + dims.w + ' × ' + dims.h + ' px · ব্যাকগ্রাউন্ড: ' + (bgMode === 'transparent' ? 'Transparent' : 'White');
+        }
+
+        updateButtons();
+        updatePreview();
+    })();
+    </script>
+
+    <script>
+    /* ---------- Photo Maker ---------- */
+    (function () {
+        'use strict';
+        function $(id) { return document.getElementById(id); }
+        var phFile = $('phFile'), phImg = $('phImg'), cropBox = $('cropBox'), cropHandle = $('cropHandle'), cropStage = $('cropStage');
+        var toastEl = $('toast'), toastTimer = null;
+        function toast(msg) {
+            toastEl.textContent = msg;
+            toastEl.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 3400);
+        }
+
+        var srcCanvas = document.createElement('canvas');
+        var hasPhoto = false, natW = 0, natH = 0;
+        var crop = { x: 0, y: 0, w: 0, h: 0 };      // source-image px
+        var cropAspect = 0;                          // 0 = free, else w/h
+        var pbg = 'original';                        // original | white | blue
+        var tol = 45, quality = 0.85;
+        var outW = 0, outH = 0;
+        var lastCanvas = null, lastJpgBlob = null, lastW = 0, lastH = 0;
+        phImg.draggable = false;
+
+        /* ---------- upload ---------- */
+        $('phUploadBtn').addEventListener('click', function () { phFile.click(); });
+        phFile.addEventListener('change', function () {
+            var file = phFile.files && phFile.files[0];
+            if (!file) return;
+            var url = URL.createObjectURL(file);
+            var img = new Image();
+            img.onload = function () {
+                natW = img.naturalWidth; natH = img.naturalHeight;
+                srcCanvas.width = natW; srcCanvas.height = natH;
+                srcCanvas.getContext('2d').drawImage(img, 0, 0);
+                phImg.src = url;
+                hasPhoto = true;
+                crop = { x: 0, y: 0, w: natW, h: natH };
+                cropAspect = 0;
+                document.querySelectorAll('#cropAspectRow .pill-btn').forEach(function (x, i) { x.classList.toggle('active', i === 0); });
+                outW = natW; outH = natH;
+                $('phW').value = natW; $('phH').value = natH;
+                document.querySelectorAll('#phPresetRow .pill-btn').forEach(function (x) { x.classList.remove('active'); });
+                $('phEditor').style.display = '';
+                $('phControls').style.display = '';
+                $('phPreviewPanel').style.display = '';
+                $('phUploadLabel').textContent = 'নতুন ছবি আপলোড করুন';
+                setTimeout(function () { positionCropBox(); process(); }, 40);
+                toast('✅ ছবি আপলোড হয়েছে (' + natW + ' × ' + natH + ' px)');
+            };
+            img.onerror = function () { toast('⚠️ এই ছবিটা খোলা যাচ্ছে না — JPG বা PNG ছবি দিন'); };
+            img.src = url;
+        });
+
+        /* ---------- crop box ---------- */
+        function dispScale() { return phImg.clientWidth / natW; }
+        function positionCropBox() {
+            if (!hasPhoto || !phImg.clientWidth) return;
+            var s = dispScale();
+            cropBox.style.left = (crop.x * s) + 'px';
+            cropBox.style.top = (crop.y * s) + 'px';
+            cropBox.style.width = (crop.w * s) + 'px';
+            cropBox.style.height = (crop.h * s) + 'px';
+            $('cropScale').value = Math.max(25, Math.min(100, Math.round(crop.w / natW * 100)));
+        }
+        window.__pmPositionCrop = positionCropBox;
+        window.addEventListener('resize', positionCropBox);
+        function clampCrop() {
+            crop.w = Math.max(20, Math.min(crop.w, natW));
+            crop.h = Math.max(20, Math.min(crop.h, natH));
+            crop.x = Math.max(0, Math.min(crop.x, natW - crop.w));
+            crop.y = Math.max(0, Math.min(crop.y, natH - crop.h));
+            crop.x = Math.round(crop.x); crop.y = Math.round(crop.y);
+            crop.w = Math.round(crop.w); crop.h = Math.round(crop.h);
+        }
+        function afterCropChanged() {
+            clampCrop();
+            positionCropBox();
+            if ($('phLock').checked && crop.w > 0) {
+                outH = Math.max(1, Math.round(outW / (crop.w / crop.h)));
+                $('phH').value = outH;
+            }
+            processSoon();
+        }
+        function stagePoint(e) {
+            var r = phImg.getBoundingClientRect();
+            var s = dispScale();
+            return { x: (e.clientX - r.left) / s, y: (e.clientY - r.top) / s };
+        }
+        var drag = null;
+        cropBox.addEventListener('pointerdown', function (e) {
+            if (e.target === cropHandle) return;
+            e.preventDefault();
+            try { cropBox.setPointerCapture(e.pointerId); } catch (err) {}
+            drag = { mode: 'move', start: stagePoint(e), crop0: { x: crop.x, y: crop.y, w: crop.w, h: crop.h } };
+        });
+        cropHandle.addEventListener('pointerdown', function (e) {
+            e.preventDefault(); e.stopPropagation();
+            try { cropHandle.setPointerCapture(e.pointerId); } catch (err) {}
+            drag = { mode: 'resize', start: stagePoint(e), crop0: { x: crop.x, y: crop.y, w: crop.w, h: crop.h } };
+        });
+        function onDragMove(e) {
+            if (!drag) return;
+            e.preventDefault();
+            var p = stagePoint(e), dx = p.x - drag.start.x, dy = p.y - drag.start.y;
+            if (drag.mode === 'move') {
+                crop.x = drag.crop0.x + dx;
+                crop.y = drag.crop0.y + dy;
+            } else {
+                var nw = drag.crop0.w + dx;
+                nw = Math.max(20, Math.min(nw, natW - drag.crop0.x));
+                if (cropAspect > 0) {
+                    var nh = nw / cropAspect;
+                    if (nh > natH - drag.crop0.y) { nh = natH - drag.crop0.y; nw = nh * cropAspect; }
+                    crop.w = nw; crop.h = nh;
+                } else {
+                    crop.w = nw;
+                    crop.h = Math.max(20, Math.min(drag.crop0.h + dy, natH - drag.crop0.y));
+                }
+            }
+            clampCrop();
+            positionCropBox();
+        }
+        function onDragEnd() { if (drag) { drag = null; afterCropChanged(); } }
+        cropBox.addEventListener('pointermove', onDragMove);
+        cropHandle.addEventListener('pointermove', onDragMove);
+        cropBox.addEventListener('pointerup', onDragEnd);
+        cropBox.addEventListener('pointercancel', onDragEnd);
+        cropHandle.addEventListener('pointerup', onDragEnd);
+        cropHandle.addEventListener('pointercancel', onDragEnd);
+
+        document.querySelectorAll('#cropAspectRow .pill-btn').forEach(function (b) {
+            b.addEventListener('click', function () {
+                document.querySelectorAll('#cropAspectRow .pill-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+                cropAspect = parseFloat(b.getAttribute('data-aspect')) || 0;
+                if (cropAspect > 0 && hasPhoto) refitCropToAspect(cropAspect);
+                afterCropChanged();
+            });
+        });
+        function refitCropToAspect(r) {
+            var cx = crop.x + crop.w / 2, cy = crop.y + crop.h / 2;
+            var w = crop.w, h = w / r;
+            if (h > natH) { h = natH; w = h * r; }
+            if (w > natW) { w = natW; h = w / r; }
+            crop.w = w; crop.h = h;
+            crop.x = cx - w / 2; crop.y = cy - h / 2;
+            clampCrop();
+        }
+        $('cropScale').addEventListener('input', function () {
+            if (!hasPhoto) return;
+            var pct = parseInt(this.value, 10) / 100;
+            var cx = crop.x + crop.w / 2, cy = crop.y + crop.h / 2;
+            var w = Math.max(20, natW * pct);
+            var h = cropAspect > 0 ? w / cropAspect : crop.h * (w / crop.w);
+            if (h > natH) { h = natH; if (cropAspect > 0) w = h * cropAspect; }
+            crop.w = w; crop.h = h;
+            crop.x = cx - w / 2; crop.y = cy - h / 2;
+            clampCrop();
+            positionCropBox();
+            if ($('phLock').checked) { outH = Math.max(1, Math.round(outW / (crop.w / crop.h))); $('phH').value = outH; }
+            processSoon();
+        });
+        $('cropReset').addEventListener('click', function () {
+            if (!hasPhoto) return;
+            crop = { x: 0, y: 0, w: natW, h: natH };
+            cropAspect = 0;
+            document.querySelectorAll('#cropAspectRow .pill-btn').forEach(function (x, i) { x.classList.toggle('active', i === 0); });
+            afterCropChanged();
+            toast('↺ Crop রিসেট — পুরো ছবি');
+        });
+
+        /* ---------- resize ---------- */
+        document.querySelectorAll('#phPresetRow .pill-btn').forEach(function (b) {
+            b.addEventListener('click', function () {
+                if (!hasPhoto) { toast('⚠️ আগে ছবি আপলোড করুন'); return; }
+                document.querySelectorAll('#phPresetRow .pill-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+                var p = b.getAttribute('data-preset');
+                if (p === 'passport') setOutputSize(413, 531, 413 / 531);
+                else if (p === 'small') setOutputSize(240, 320, 240 / 320);
+                else $('phW').focus();
+            });
+        });
+        function setOutputSize(w, h, aspectR) {
+            cropAspect = aspectR;
+            document.querySelectorAll('#cropAspectRow .pill-btn').forEach(function (x) {
+                x.classList.toggle('active', Math.abs((parseFloat(x.getAttribute('data-aspect')) || 0) - aspectR) < 0.001);
+            });
+            refitCropToAspect(aspectR);
+            clampCrop(); positionCropBox();
+            outW = w; outH = h;
+            $('phW').value = w; $('phH').value = h;
+            process();
+        }
+        $('phW').addEventListener('input', function () {
+            var v = parseInt(this.value, 10);
+            if (!(v >= 10 && v <= 8000)) return;
+            outW = v;
+            if ($('phLock').checked && hasPhoto && crop.h > 0) {
+                outH = Math.max(1, Math.round(v / (crop.w / crop.h)));
+                $('phH').value = outH;
+            }
+            processSoon();
+        });
+        $('phH').addEventListener('input', function () {
+            var v = parseInt(this.value, 10);
+            if (!(v >= 10 && v <= 8000)) return;
+            outH = v;
+            if ($('phLock').checked && hasPhoto && crop.w > 0) {
+                outW = Math.max(1, Math.round(v * (crop.w / crop.h)));
+                $('phW').value = outW;
+            }
+            processSoon();
+        });
+        $('phLock').addEventListener('change', function () {
+            if (this.checked && hasPhoto && crop.h > 0) {
+                outH = Math.max(1, Math.round(outW / (crop.w / crop.h)));
+                $('phH').value = outH;
+                process();
+            }
+        });
+
+        /* ---------- background: ধার-থেকে flood fill (শুধু একরঙা ব্যাকগ্রাউন্ডে) ---------- */
+        function floodReplace(cnv, rgb, tolerance) {
+            var w = cnv.width, h = cnv.height, c = cnv.getContext('2d');
+            var img = c.getImageData(0, 0, w, h), d = img.data;
+            function pix(x, y) { var i = (y * w + x) * 4; return [d[i], d[i + 1], d[i + 2]]; }
+            // reference colour = average of the 4 corner patches
+            var ref = [0, 0, 0], cnt = 0, S = 5, corners = [[0, 0], [w - S, 0], [0, h - S], [w - S, h - S]];
+            corners.forEach(function (cn) {
+                for (var yy = cn[1]; yy < cn[1] + S; yy++) for (var xx = cn[0]; xx < cn[0] + S; xx++) {
+                    var p = pix(xx, yy); ref[0] += p[0]; ref[1] += p[1]; ref[2] += p[2]; cnt++;
+                }
+            });
+            ref = [ref[0] / cnt, ref[1] / cnt, ref[2] / cnt];
+            function isBg(i) {
+                return (Math.abs(d[i] - ref[0]) + Math.abs(d[i + 1] - ref[1]) + Math.abs(d[i + 2] - ref[2])) / 3 <= tolerance;
+            }
+            var visited = new Uint8Array(w * h);
+            var stack = [];
+            var x, y, idx;
+            for (x = 0; x < w; x++) { stack.push(x); stack.push((h - 1) * w + x); }
+            for (y = 0; y < h; y++) { stack.push(y * w); stack.push(y * w + (w - 1)); }
+            while (stack.length) {
+                idx = stack.pop();
+                if (visited[idx]) continue;
+                visited[idx] = 1;
+                var i = idx * 4;
+                if (!isBg(i)) continue;
+                d[i] = rgb[0]; d[i + 1] = rgb[1]; d[i + 2] = rgb[2]; d[i + 3] = 255;
+                var px = idx % w, py = (idx / w) | 0;
+                if (px > 0) stack.push(idx - 1);
+                if (px < w - 1) stack.push(idx + 1);
+                if (py > 0) stack.push(idx - w);
+                if (py < h - 1) stack.push(idx + w);
+            }
+            c.putImageData(img, 0, 0);
+        }
+        document.querySelectorAll('#phBgRow .pill-btn').forEach(function (b) {
+            b.addEventListener('click', function () {
+                document.querySelectorAll('#phBgRow .pill-btn').forEach(function (x) { x.classList.toggle('active', x === b); });
+                pbg = b.getAttribute('data-pbg');
+                $('phTolBox').style.display = pbg === 'original' ? 'none' : '';
+                process();
+            });
+        });
+        $('phTol').addEventListener('input', function () {
+            tol = parseInt(this.value, 10);
+            $('phTolOut').textContent = tol;
+            processSoon();
+        });
+
+        /* ---------- processing pipeline ---------- */
+        function buildProcessedCanvas(tw, th) {
+            var cc = document.createElement('canvas');
+            cc.width = crop.w; cc.height = crop.h;
+            cc.getContext('2d').drawImage(srcCanvas, crop.x, crop.y, crop.w, crop.h, 0, 0, crop.w, crop.h);
+            if (pbg !== 'original') floodReplace(cc, pbg === 'white' ? [255, 255, 255] : [53, 116, 200], tol);
+            var oc = document.createElement('canvas');
+            oc.width = tw; oc.height = th;
+            var o = oc.getContext('2d');
+            o.imageSmoothingEnabled = true;
+            o.imageSmoothingQuality = 'high';
+            o.drawImage(cc, 0, 0, tw, th);
+            return oc;
+        }
+        function commitOutput(oc, blob) {
+            lastCanvas = oc;
+            lastJpgBlob = blob;
+            lastW = oc.width; lastH = oc.height;
+            var pv = $('phPreview');
+            pv.width = oc.width; pv.height = oc.height;
+            pv.getContext('2d').drawImage(oc, 0, 0);
+            updateInfo();
+            window.__pm = { crop: { x: crop.x, y: crop.y, w: crop.w, h: crop.h }, outW: lastW, outH: lastH, jpgBytes: blob ? blob.size : 0, quality: quality, pbg: pbg };
+        }
+        function process() {
+            if (!hasPhoto) return;
+            var tw = Math.max(1, Math.round(outW || crop.w));
+            var th = Math.max(1, Math.round(outH || crop.h));
+            var oc = buildProcessedCanvas(tw, th);
+            oc.toBlob(function (blob) { commitOutput(oc, blob); }, 'image/jpeg', quality);
+        }
+        var procTimer = null;
+        function processSoon() {
+            clearTimeout(procTimer);
+            procTimer = setTimeout(process, 90);
+        }
+        function fmtBytes(b) { return b + ' বাইট (' + (b / 1024).toFixed(1) + ' KB)'; }
+        function updateInfo() {
+            if (!lastJpgBlob) return;
+            $('phOutInfo').textContent = 'আসল তৈরি সাইজ: ' + lastW + ' × ' + lastH + ' px · JPG ফাইল সাইজ: ' + fmtBytes(lastJpgBlob.size) + ' · Quality: ' + Math.round(quality * 100) + '%';
+        }
+
+        /* ---------- quality ---------- */
+        $('phQuality').addEventListener('input', function () {
+            quality = parseInt(this.value, 10) / 100;
+            $('phQualityOut').textContent = this.value + '%';
+            processSoon();
+        });
+
+        /* ---------- target KB ---------- */
+        function encodeAt(w, h, q) {
+            var oc = buildProcessedCanvas(w, h);
+            return new Promise(function (res) { oc.toBlob(function (b) { res({ canvas: oc, blob: b }); }, 'image/jpeg', q); });
+        }
+        $('phTargetBtn').addEventListener('click', async function () {
+            if (!hasPhoto) { toast('⚠️ আগে ছবি আপলোড করুন'); return; }
+            var target = parseFloat($('phTargetKb').value);
+            if (!(target > 0)) { toast('⚠️ আগে Target KB লিখুন (যেমন: 50)'); return; }
+            var targetBytes = Math.round(target * 1024);
+            var btn = this;
+            btn.disabled = true;
+            var oldText = btn.textContent;
+            btn.textContent = '⏳ তৈরি হচ্ছে...';
+            var baseW = Math.max(1, Math.round(outW || crop.w));
+            var baseH = Math.max(1, Math.round(outH || crop.h));
+            var scales = [1, 0.85, 0.7, 0.55, 0.45, 0.35, 0.28];
+            var chosen = null, smallest = null;
+            for (var si = 0; si < scales.length && !chosen; si++) {
+                var w = Math.max(10, Math.round(baseW * scales[si]));
+                var h = Math.max(10, Math.round(baseH * scales[si]));
+                var lo = await encodeAt(w, h, 0.08);
+                smallest = { w: w, h: h, q: 0.08, canvas: lo.canvas, blob: lo.blob };
+                if (!lo.blob || lo.blob.size > targetBytes) continue; // even lowest quality too big → shrink more
+                var hi = await encodeAt(w, h, 0.97);
+                if (hi.blob && hi.blob.size <= targetBytes) { chosen = { w: w, h: h, q: 0.97, canvas: hi.canvas, blob: hi.blob }; break; }
+                var a = 0.08, bq = 0.97, best = { w: w, h: h, q: 0.08, canvas: lo.canvas, blob: lo.blob };
+                for (var it = 0; it < 7; it++) {
+                    var mid = (a + bq) / 2;
+                    var r = await encodeAt(w, h, mid);
+                    if (r.blob && r.blob.size <= targetBytes) { best = { w: w, h: h, q: mid, canvas: r.canvas, blob: r.blob }; a = mid; }
+                    else bq = mid;
+                }
+                chosen = best;
+            }
+            var use = chosen || smallest;
+            if (use) {
+                quality = use.q;
+                $('phQuality').value = Math.round(use.q * 100);
+                $('phQualityOut').textContent = Math.round(use.q * 100) + '%';
+                outW = use.w; outH = use.h;
+                $('phW').value = use.w; $('phH').value = use.h;
+                commitOutput(use.canvas, use.blob);
+                if (chosen) toast('✅ Target অনুযায়ী তৈরি — আসল সাইজ: ' + fmtBytes(use.blob.size) + ' (Target ছিল ' + target + ' KB)');
+                else toast('⚠️ ' + target + ' KB-এ নামানো যায়নি — সবচেয়ে কাছের আসল সাইজ: ' + fmtBytes(use.blob.size));
+            }
+            btn.disabled = false;
+            btn.textContent = oldText;
+        });
+
+        /* ---------- downloads ---------- */
+        function saveBlob(blob, name) {
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+        }
+        $('phDlJpg').addEventListener('click', function () {
+            if (!hasPhoto || !lastCanvas) { toast('⚠️ আগে ছবি আপলোড করুন'); return; }
+            lastCanvas.toBlob(function (b) {
+                if (!b) return;
+                saveBlob(b, 'photo.jpg');
+                toast('✅ ডাউনলোড হচ্ছে — photo.jpg (' + lastW + '×' + lastH + ' px, ' + fmtBytes(b.size) + ')');
+            }, 'image/jpeg', quality);
+        });
+        $('phDlPng').addEventListener('click', function () {
+            if (!hasPhoto || !lastCanvas) { toast('⚠️ আগে ছবি আপলোড করুন'); return; }
+            lastCanvas.toBlob(function (b) {
+                if (!b) return;
+                saveBlob(b, 'photo.png');
+                toast('✅ ডাউনলোড হচ্ছে — photo.png (' + lastW + '×' + lastH + ' px, ' + fmtBytes(b.size) + ')');
+            }, 'image/png');
+        });
+    })();
+    </script>
+</body>
+</html>
