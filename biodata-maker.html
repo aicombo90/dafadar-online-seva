@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="assets/html2canvas.min.js"></script>
     <script src="assets/jspdf.umd.min.js"></script>
     <style>
@@ -467,6 +467,76 @@
         .tl-item::before { content: ''; position: absolute; left: calc(-23px * var(--fit,1)); top: calc(11px * var(--fit,1)); width: calc(9px * var(--fit,1)); height: calc(9px * var(--fit,1)); border-radius: 50%; background: #a68a4b; }
         .tl-item b { color: #3d3120; }
     </style>
+    <style>
+        /* ===== ELEGANT REDESIGN — Special ক্যাটাগরি বদলে Elegant (x1–x5 সম্পূর্ণ নতুন রূপ) ===== */
+        /* Elegant 1 — Ivory Gold (classic, centered) */
+        .tpl-x1 { border: 1.5px solid #c3a35f; font-family: Georgia, 'Noto Serif Bengali', serif; color: #33302a; }
+        .tpl-x1 .sheet-inner { background: #fffdf6; }
+        .tpl-x1 .bd-head { text-align: center; border-bottom: 3px double #c3a35f; padding-bottom: calc(12px * var(--fit,1)); }
+        .tpl-x1 .bd-head h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; letter-spacing: calc(7px * var(--fit,1)); color: #8a6d2f; }
+        .tpl-x1 .bd-name { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: calc(30px * var(--fit,1)); color: #6e5622; }
+        .tpl-x1 .bd-sub { color: #b08d3e; letter-spacing: 2.5px; text-transform: uppercase; font-size: calc(11px * var(--fit,1)); }
+        .tpl-x1 .sec { text-align: center; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: calc(17px * var(--fit,1)); letter-spacing: 3px; text-transform: uppercase; color: #8a6d2f; background: transparent; border: none; border-top: 1px solid #e3d5ae; border-bottom: 1px solid #e3d5ae; padding: calc(6px * var(--fit,1)) 0; border-radius: 0; }
+        .tpl-x1 .row { border-bottom: 1px solid #f0e7cd; } .tpl-x1 .row b { color: #8a6d2f; }
+        .tpl-x1 .bd-photo, .tpl-x1 .bd-photo-empty { border: 2px solid #fff; outline: 1.5px solid #c3a35f; border-radius: 2px; }
+        .tpl-x1 .foot { color: #b08d3e; border-top: 1px solid #e3d5ae; }
+        .tpl-x1 table.edu th { background: #b08d3e; color: #fff; } .tpl-x1 table.edu td { border-bottom: 1px solid #eee3c2; }
+
+        /* Elegant 2 — Charcoal Champagne (band) */
+        .tpl-x2 { border: none; font-family: 'Inter', 'Hind Siliguri', sans-serif; color: #33302a; }
+        .tpl-x2 .sheet-inner { background: #ffffff; }
+        .tpl-x2 .band-wrap { border-bottom: 1.5px solid #c8a96a; padding-bottom: calc(14px * var(--fit,1)); }
+        .tpl-x2 .band-over { color: #a5854d; }
+        .tpl-x2 .bd-name { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: calc(32px * var(--fit,1)); color: #26221c; }
+        .tpl-x2 .bd-sub { color: #a5854d; letter-spacing: 2px; text-transform: uppercase; font-size: calc(11px * var(--fit,1)); }
+        .tpl-x2 .contact-line { color: #6b6250; }
+        .tpl-x2 .band-wrap .bd-photo, .tpl-x2 .band-wrap .bd-photo-empty { border: 1.5px solid #c8a96a; border-radius: 4px; }
+        .tpl-x2 .sec { color: #33302a; text-transform: uppercase; letter-spacing: 2.5px; font-size: calc(13.5px * var(--fit,1)); border-bottom: 1.5px solid #c8a96a; padding-bottom: calc(5px * var(--fit,1)); background: transparent; border-radius: 0; }
+        .tpl-x2 .row { border-bottom: 1px solid #f1ead9; } .tpl-x2 .row b { color: #57534a; }
+        .tpl-x2 .foot { color: #a5854d; }
+        .tpl-x2 table.edu th { background: #33302a; color: #e9d9ae; } .tpl-x2 table.edu td { border-bottom: 1px solid #eee5cf; }
+
+        /* Elegant 3 — Sapphire Mist (band) */
+        .tpl-x3 .band-wrap { background: linear-gradient(100deg, #f7f9fd, #e9eff8 60%, #f3eefb); }
+        .tpl-x3 .band-over { color: #54749e; }
+        .tpl-x3 .bd-name { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; color: #274b7a; }
+        .tpl-x3 .bd-sub { color: #7d9cc4; letter-spacing: 2px; text-transform: uppercase; font-size: calc(11px * var(--fit,1)); }
+        .tpl-x3 .contact-line { color: #54749e; }
+        .tpl-x3 .sec { background: #e9eff8; color: #274b7a; }
+        .tpl-x3 .row b { color: #3c5a86; }
+        .tpl-x3 table.edu th { background: #33567f; color: #fff; } .tpl-x3 table.edu td { border-bottom: 1px solid #dbe5f2; }
+        .tpl-x3 .foot { color: #9db4d2; }
+
+        /* Elegant 4 — Rosewood (classic) */
+        .tpl-x4 { border: 1.5px solid #c99a8a; font-family: Georgia, 'Noto Serif Bengali', serif; color: #40333a; }
+        .tpl-x4 .sheet-inner { background: #fff9f6; }
+        .tpl-x4 .bd-head { text-align: center; border-bottom: 3px double #c99a8a; padding-bottom: calc(12px * var(--fit,1)); }
+        .tpl-x4 .bd-head h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; letter-spacing: calc(6px * var(--fit,1)); color: #96586c; }
+        .tpl-x4 .bd-name { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: calc(30px * var(--fit,1)); color: #7c4256; }
+        .tpl-x4 .bd-sub { color: #c08a97; letter-spacing: 2px; text-transform: uppercase; font-size: calc(11px * var(--fit,1)); }
+        .tpl-x4 .sec { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: calc(17px * var(--fit,1)); letter-spacing: 2.5px; text-transform: uppercase; color: #96586c; border-bottom: 1.5px solid #e5c4b8; padding-bottom: calc(5px * var(--fit,1)); }
+        .tpl-x4 .sec::before { content: none; }
+        .tpl-x4 .row { border-bottom: 1px solid #f6e3da; } .tpl-x4 .row b { color: #96586c; }
+        .tpl-x4 .bd-photo, .tpl-x4 .bd-photo-empty { border: 1.5px solid #c99a8a; border-radius: 6px; }
+        .tpl-x4 .foot { color: #c08a97; }
+        .tpl-x4 table.edu th { background: #a05f72; color: #fff; } .tpl-x4 table.edu td { border-bottom: 1px solid #f0dcd2; }
+
+        /* Elegant 5 — Emerald Timeline */
+        .tpl-x5 { border: 1.5px solid #14532d; }
+        .tpl-x5 .sheet-inner { background: #fdfefb; }
+        .tpl-x5 .bd-head { border-top: 3px double #14532d; border-bottom: 3px double #14532d; }
+        .tpl-x5 .bd-head h2 { color: #14532d; }
+        .tpl-x5 .bd-name { color: #14532d; }
+        .tpl-x5 .bd-sub { color: #6f9a7d; }
+        .tpl-x5 .sec { color: #14532d; border-bottom: 1.5px solid #c9a227; }
+        .tpl-x5 .row { border-bottom: 1px solid #e6efe7; } .tpl-x5 .row b { color: #14532d; }
+        .tpl-x5 .bd-photo, .tpl-x5 .bd-photo-empty { border: 1.5px solid #14532d; filter: none; }
+        .tpl-x5 .tl { border-left-color: #c9a227; }
+        .tpl-x5 .tl-item::before { background: #14532d; }
+        .tpl-x5 .tl-item .tl-year { color: #14532d; }
+        .tpl-x5 .foot { color: #8fae9b; }
+        .tpl-x5 table.edu th { background: #14532d; color: #f3e5bb; } .tpl-x5 table.edu td { border-bottom: 1px solid #e6efe7; }
+    </style>
     <script>
     (function(){
     'use strict';
@@ -489,11 +559,11 @@
         { id:'p3', name:'Professional 3', bn:'কর্পোরেট বক্স', cat:'Professional — প্রফেশনাল', layout:'table', cls:'tpl-p3', boxed:true, bar:'#475569', bord:'2px solid #475569' },
         { id:'p4', name:'Professional 4', bn:'টিল ট্যাব', cat:'Professional — প্রফেশনাল', layout:'classic', cls:'tpl-p4', bar:'#0f766e', bord:'2px solid #0f766e' },
         { id:'p5', name:'Professional 5', bn:'ফরমাল ব্ল্যাক গ্রিড', cat:'Professional — প্রফেশনাল', layout:'duo', cls:'tpl-p5', bar:'#111111', bord:'2px solid #111' },
-        { id:'x1', name:'Special 1', bn:'রয়েল পার্পল-গোল্ড', cat:'Special — বিশেষ', layout:'classic', cls:'tpl-x1', bar:'#6d28d9', bord:'3px double #6d28d9' },
-        { id:'x2', name:'Special 2', bn:'বাঙালি ঐতিহ্য', cat:'Special — বিশেষ', layout:'classic', cls:'tpl-x2', bar:'#9d2235', bord:'4px solid #9d2235' },
-        { id:'x3', name:'Special 3', bn:'মডার্ন গ্রেডিয়েন্ট ব্যান্ড', cat:'Special — বিশেষ', layout:'band', cls:'tpl-x3', bar:'#4f46e5', bord:'2px solid #4f46e5' },
-        { id:'x4', name:'Special 4', bn:'রোজ ফ্লোরাল', cat:'Special — বিশেষ', layout:'classic', cls:'tpl-x4', bar:'#db2777', bord:'2px solid #f472b6' },
-        { id:'x5', name:'Special 5', bn:'ভিনটেজ টাইমলাইন', cat:'Special — বিশেষ', layout:'timeline', cls:'tpl-x5', bar:'#a68a4b', bord:'2px solid #a68a4b' }
+        { id:'x1', name:'Elegant 1', bn:'আইভরি গোল্ড', cat:'Elegant — এলিগ্যান্ট', layout:'classic', cls:'tpl-x1', bar:'#b08d3e', bord:'2px solid #c3a35f' },
+        { id:'x2', name:'Elegant 2', bn:'চারকোল শ্যাম্পেন', cat:'Elegant — এলিগ্যান্ট', layout:'band', cls:'tpl-x2', bar:'#c8a96a', bord:'2px solid #c8a96a' },
+        { id:'x3', name:'Elegant 3', bn:'স্যাফায়ার মিস্ট', cat:'Elegant — এলিগ্যান্ট', layout:'band', cls:'tpl-x3', bar:'#33567f', bord:'2px solid #33567f' },
+        { id:'x4', name:'Elegant 4', bn:'রোজউড', cat:'Elegant — এলিগ্যান্ট', layout:'classic', cls:'tpl-x4', bar:'#a05f72', bord:'2px solid #c99a8a' },
+        { id:'x5', name:'Elegant 5', bn:'এমারল্ড টাইমলাইন', cat:'Elegant — এলিগ্যান্ট', layout:'timeline', cls:'tpl-x5', bar:'#14532d', bord:'2px solid #14532d' }
     ];
     function tplById(id){ for (var i=0;i<TEMPLATES.length;i++) if (TEMPLATES[i].id===id) return TEMPLATES[i]; return TEMPLATES[0]; }
 
@@ -552,12 +622,12 @@
         '<select class="tsel e-board-sel" style="' + (bm==='list'?'':'display:none') + '"><option value="">Select Board / University</option>' + opts(BOARDS, data.boardSel) + '</select>' +
         '<input class="tin e-board-txt" placeholder="নিজে লিখুন — বোর্ড/বিশ্ববিদ্যালয়ের নাম" value="' + esc(data.boardTxt||'') + '" style="' + (bm==='manual'?'':'display:none') + '">' +
         '<div class="grid2">' +
-            '<input class="tin e-inst" placeholder="School / College Name" value="' + esc(data.inst||'') + '" style="margin-top:10px;">' +
-            '<input class="tin e-year" placeholder="Passing Year — যেমন: 2021" value="' + esc(data.year||'') + '" style="margin-top:10px;">' +
-            '<input class="tin e-marks" type="number" placeholder="Marks obtained — প্রাপ্ত নম্বর" value="' + esc(data.marks||'') + '">' +
-            '<input class="tin e-total" type="number" placeholder="Total marks — মোট নম্বর" value="' + esc(data.total||'') + '">' +
-            '<input class="tin e-perc" placeholder="% / CGPA / Grade — সরাসরি লিখলেও হবে" value="' + esc(data.perc||'') + '">' +
-            '<input class="tin e-div" placeholder="Division / Grade — যেমন: First" value="' + esc(data.div||'') + '">' +
+            '<div><label class="flabel">School / College Name</label><input class="tin e-inst" placeholder="প্রতিষ্ঠানের নাম" value="' + esc(data.inst||'') + '"></div>' +
+            '<div><label class="flabel">Passing Year (পাসের বছর)</label><input class="tin e-year" placeholder="যেমন: 2021" value="' + esc(data.year||'') + '"></div>' +
+            '<div><label class="flabel">Marks Obtained (প্রাপ্ত নম্বর)</label><input class="tin e-marks" type="number" placeholder="যেমন: 432" value="' + esc(data.marks||'') + '"></div>' +
+            '<div><label class="flabel">Total Marks (মোট নম্বর)</label><input class="tin e-total" type="number" placeholder="যেমন: 500" value="' + esc(data.total||'') + '"></div>' +
+            '<div><label class="flabel">% / CGPA / Grade (সরাসরি লিখলেও হবে)</label><input class="tin e-perc" placeholder="যেমন: 78% বা A" value="' + esc(data.perc||'') + '"></div>' +
+            '<div><label class="flabel">Division / Grade</label><input class="tin e-div" placeholder="যেমন: First" value="' + esc(data.div||'') + '"></div>' +
         '</div>' +
         '<div class="perc-out"></div>';
         card.dataset.qualMode = qm; card.dataset.boardMode = bm;
@@ -907,7 +977,7 @@
         render(); toast('ফর্ম রিসেট হয়েছে');
     });
     $('sampleBtn').addEventListener('click', function(){
-        var s = { p_name: 'Rahul Sharma', p_dob: '1995-08-15', p_height: "5'8\"", p_weight: '65 kg', p_religion: 'Hindu',
+        var s = { p_name: 'Demo Biodata', p_dob: '1995-08-15', p_height: "5'8\"", p_weight: '65 kg', p_religion: 'Hindu',
             p_nationality: 'Indian', p_caste: 'Brahmin', p_gotra: 'Kashyap', p_rashi: 'Simha', p_languages: 'Bengali, Hindi, English',
             p_address: 'Kolkata, West Bengal', p_phone: '+91 98765 43210', p_email: 'rahul@example.com',
             p_occ: 'Software Engineer', p_income: 'Rs. 8 LPA', p_father: 'Amit Sharma (Businessman)',
