@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Maker — প্রফেশনাল রিজিউম তৈরি করুন | Dafadar Online Seva</title>
+    <meta name="description" content="নিজের তথ্য দিয়ে সহজেই প্রফেশনাল Resume তৈরি করুন — ৬টি প্রিমিয়াম টেমপ্লেট, লাইভ প্রিভিউ, এক ক্লিকে A4 PDF ডাউনলোড। সম্পূর্ণ ফ্রি।">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{ --green:#057a55; --green-d:#046c4e; --ink:#10231c; --mut:#5b6478; --line:#e2e8f0; --bg:#eef4f1; --red:#dc2626; --blue:#2563eb; }
+        *{ margin:0; padding:0; box-sizing:border-box; }
+        body{ font-family:'Hind Siliguri',sans-serif; background:var(--bg); color:var(--ink); }
+        .navbar{ background:#07100d; color:#fff; padding:14px 20px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:50; }
+        .navbar .brand{ font-weight:700; font-size:19px; letter-spacing:.5px; }
+        .navbar a{ color:#fff; text-decoration:none; font-weight:600; font-size:15px; background:rgba(255,255,255,.12); padding:7px 16px; border-radius:20px; }
+        .wrap{ max-width:1280px; margin:0 auto; padding:22px 16px 60px; }
+        .page-head{ text-align:center; margin-bottom:20px; }
+        .page-head h1{ font-size:clamp(24px,4vw,34px); font-weight:700; }
+        .page-head p{ color:var(--mut); margin-top:6px; font-size:15.5px; }
+        .maker{ display:grid; grid-template-columns:5fr 7fr; gap:22px; align-items:start; }
+        .maker > *{ min-width:0; }
+        @media (max-width: 900px){ .maker{ grid-template-columns:1fr; } }
+        .card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:0 2px 10px rgba(16,35,28,.05); }
+        .card h3{ font-size:17px; margin-bottom:14px; }
+        .fsec{ border-top:1px dashed var(--line); padding-top:14px; margin-top:16px; }
+        .fsec:first-of-type{ border-top:none; padding-top:0; margin-top:0; }
+        .fsec > h4{ font-size:15.5px; color:var(--ink); margin-bottom:10px; }
+        .fsec .hint{ font-size:12.5px; color:var(--mut); margin:-6px 0 10px; }
+        label.flabel{ display:block; font-size:13px; font-weight:600; color:#334155; margin:10px 0 4px; }
+        .tin, .tsel, .ttxt{ width:100%; padding:10px 12px; border:1.5px solid var(--line); border-radius:10px; font-size:15px; font-family:inherit; background:#fbfdfc; color:var(--ink); }
+        .tin:focus, .tsel:focus, .ttxt:focus{ outline:none; border-color:var(--green); background:#fff; }
+        .ttxt{ min-height:74px; resize:vertical; }
+        .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:0 12px; }
+        @media (max-width: 480px){ .grid2{ grid-template-columns:1fr; } }
+        .photo-row{ display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap; }
+        .photo-box{ width:105px; height:131px; border:2px dashed #b6c2cc; border-radius:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#f4f7f5; flex:none; }
+        .photo-box img{ width:100%; height:100%; object-fit:cover; }
+        .photo-box span{ font-size:12px; color:var(--mut); text-align:center; padding:6px; }
+        .small-note{ font-size:12.5px; color:var(--mut); margin-top:6px; }
+        .file-btn{ display:inline-block; background:#eef4ff; color:var(--blue); border:1.5px solid #c7dbff; padding:9px 14px; border-radius:10px; font-weight:600; font-size:14px; cursor:pointer; }
+        .selwrap{ position:relative; }
+        .mode-toggle{ font-size:12px; color:var(--blue); background:none; border:none; cursor:pointer; font-weight:600; padding:2px 0; font-family:inherit; }
+        .edu-card, .exp-card{ border:1.5px solid var(--line); border-radius:12px; padding:14px; margin-bottom:12px; background:#fcfefd; }
+        .edu-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+        .edu-head b{ font-size:14.5px; }
+        .edu-tools button{ background:none; border:1px solid var(--line); border-radius:7px; width:28px; height:28px; cursor:pointer; font-size:14px; margin-left:4px; color:#334155; }
+        .edu-tools button.del{ color:var(--red); border-color:#fecaca; }
+        .add-btn{ width:100%; padding:11px; border:2px dashed #9fd8c0; background:#f2fbf6; color:var(--green-d); border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; }
+        .chip-area{ display:flex; flex-wrap:wrap; gap:7px; margin-top:9px; }
+        .chip{ background:#eef4ff; color:#1e40af; border:1px solid #c7dbff; padding:5px 8px 5px 12px; border-radius:20px; font-size:13.5px; font-weight:600; display:inline-flex; align-items:center; gap:6px; }
+        .chip button{ background:none; border:none; color:#1e40af; font-size:15px; cursor:pointer; line-height:1; padding:0; }
+        .chip-add{ display:flex; gap:8px; }
+        .chip-add .tin{ flex:1; }
+        .chip-add button{ flex:none; padding:0 18px; border:none; border-radius:10px; background:var(--blue); color:#fff; font-weight:700; font-size:14.5px; cursor:pointer; font-family:inherit; }
+        .sugg-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+        .sugg-row button{ background:#fff7ed; border:1.5px solid #fed7aa; color:#9a3412; padding:7px 13px; border-radius:20px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:inherit; }
+        .check-row{ display:flex; align-items:center; gap:9px; font-size:14.5px; font-weight:600; margin-top:4px; }
+        .check-row input{ width:18px; height:18px; accent-color:var(--green); }
+        .tpl-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(118px,1fr)); gap:12px; }
+        .tpl-cat{ grid-column:1/-1; font-size:14px; font-weight:700; margin-top:8px; }
+        .tpl-card{ border:2px solid var(--line); border-radius:12px; padding:8px; cursor:pointer; background:#fff; text-align:center; transition:border-color .15s, box-shadow .15s; }
+        .tpl-card:hover{ border-color:#9fd8c0; }
+        .tpl-card.sel{ border-color:var(--green); box-shadow:0 0 0 3px rgba(5,122,85,.15); }
+        .tpl-thumb{ height:74px; border-radius:7px; border:1px solid #e5e7eb; overflow:hidden; position:relative; margin-bottom:7px; }
+        .tpl-thumb .bar{ position:absolute; left:0; right:0; top:0; height:20px; }
+        .tpl-thumb .side{ position:absolute; left:0; top:0; bottom:0; width:30px; }
+        .tpl-thumb .ln{ height:5px; border-radius:3px; background:#dbe2ea; margin:6px 8px 0; }
+        .tpl-card b{ font-size:13.5px; display:block; }
+        .tpl-card small{ font-size:12px; color:var(--mut); }
+        .actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+        .btn{ border:none; border-radius:12px; padding:13px 18px; font-size:15.5px; font-weight:700; cursor:pointer; font-family:inherit; }
+        .btn-pdf{ background:var(--green); color:#fff; flex:1; min-width:190px; }
+        .btn-pdf:hover{ background:var(--green-d); }
+        .btn-pdf:disabled{ opacity:.6; cursor:wait; }
+        .btn-sample{ background:#fff7ed; color:#9a3412; border:1.5px solid #fed7aa; }
+        .btn-ghost{ background:#fff; color:#334155; border:1.5px solid var(--line); }
+        .btn-danger{ background:#fff; color:var(--red); border:1.5px solid #fecaca; }
+        .preview-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:10px; flex-wrap:wrap; }
+        .preview-head h3{ margin:0; }
+        .page-info{ font-size:13px; color:var(--mut); font-weight:600; }
+        .sheet-scroll{ overflow:hidden; background:#dfe7e2; border-radius:10px; padding:14px 8px; display:flex; justify-content:center; }
+        .sheet-scale{ transform-origin:top left; flex:none; position:relative; }
+        .page-guide{ position:absolute; left:0; right:0; border-top:2px dashed rgba(220,38,38,.55); z-index:5; pointer-events:none; }
+        .page-guide span{ position:absolute; right:6px; top:-21px; background:rgba(220,38,38,.85); color:#fff; font-size:10.5px; font-weight:700; padding:1px 8px; border-radius:8px; font-family:'Hind Siliguri',sans-serif; }
+        .toast{ position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(80px); background:#10231c; color:#fff; padding:12px 22px; border-radius:30px; font-size:15px; font-weight:600; opacity:0; transition:all .3s; z-index:99; max-width:92vw; text-align:center; }
+        .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+        #pdfHost{ position:fixed; left:-10000px; top:0; z-index:-1; }
+        .to-preview{ display:none; width:100%; text-align:center; margin-top:14px; color:var(--green-d); font-weight:700; text-decoration:none; font-size:15px; }
+        @media (max-width: 900px){ .to-preview{ display:block; } }
+
+        /* ================= RESUME SHEET (A4, 794px) ================= */
+        .sheet{ width:794px; background:#fff; color:#23272e; font-family:'Inter','Hind Siliguri',sans-serif; font-size:14.5px; line-height:1.55; box-shadow:0 4px 24px rgba(0,0,0,.18); }
+        .sheet-inner{ padding:44px 48px; }
+        .rs-name{ line-height:1.15; }
+        .rs-photo{ object-fit:cover; background:#e8edf2; }
+        .rs-photo-empty{ display:flex; align-items:center; justify-content:center; background:#e8edf2; color:#8a93a8; font-size:11px; }
+        .rs-sec{ margin-top:20px; }
+        .rs-item{ margin-bottom:11px; }
+        .rs-item:last-child{ margin-bottom:0; }
+        .rs-item-t{ font-weight:700; font-size:15px; }
+        .rs-item-s{ color:#4b5563; font-size:13.5px; }
+        .rs-desc{ color:#374151; font-size:13.8px; margin-top:2px; white-space:pre-line; }
+        .rs-lines div{ margin-bottom:3px; }
+        table.rs-edu{ width:100%; border-collapse:collapse; font-size:13.3px; }
+        table.rs-edu th{ text-align:left; padding:6px 8px; font-size:12px; letter-spacing:.4px; }
+        table.rs-edu td{ padding:6px 8px; vertical-align:top; }
+        .rs-sign{ text-align:right; margin-top:8px; }
+        .rs-sign .sig-name{ font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-weight:600; font-size:21px; }
+        .rs-sign .sig-cap{ font-size:11.5px; color:#6b7280; border-top:1px solid #9ca3af; display:inline-block; padding-top:3px; margin-top:2px; min-width:150px; text-align:center; }
+        .rs-decl{ font-size:13.5px; color:#374151; white-space:pre-line; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="brand">DAFADAR ONLINE SEVA</div>
+        <a href="index.html">সব টুল</a>
+    </nav>
+    <div class="wrap">
+        <div class="page-head">
+            <h1>📄 Resume Maker — প্রফেশনাল রিজিউম তৈরি করুন</h1>
+            <p>নিজের তথ্য দিয়ে সহজেই প্রফেশনাল Resume তৈরি করুন — তথ্য লিখুন, ডিজাইন বাছুন, এক ক্লিকে PDF ডাউনলোড করুন। সম্পূর্ণ ফ্রি, কোনো সাইন-আপ লাগবে না।</p>
+        </div>
+        <div class="maker">
+            <form class="card" id="resumeForm" onsubmit="return false;">
+                <h3>✍️ আপনার তথ্য লিখুন</h3>
+
+                <div class="fsec">
+                    <h4>👤 Personal Information</h4>
+                    <div class="photo-row">
+                        <div class="photo-box" id="photoBox"><span>ছবি নেই<br>(ঐচ্ছিক)</span></div>
+                        <div>
+                            <label class="file-btn" for="photoInput">📷 ছবি যোগ করুন (ঐচ্ছিক)</label>
+                            <input type="file" id="photoInput" accept="image/*" hidden>
+                            <div class="small-note">পাসপোর্ট সাইজ ছবি হলে ভালো দেখাবে।</div>
+                        </div>
+                    </div>
+                    <label class="flabel">Full Name (পুরো নাম) *</label>
+                    <input class="tin" id="p_name" placeholder="যেমন: Arif Hossain">
+                    <div class="grid2">
+                        <div><label class="flabel">Mobile Number</label><input class="tin" id="p_phone" placeholder="যেমন: 98765 43210"></div>
+                        <div><label class="flabel">Email Address</label><input class="tin" id="p_email" placeholder="যেমন: name@email.com"></div>
+                    </div>
+                    <label class="flabel">Full Address (পুরো ঠিকানা)</label>
+                    <textarea class="ttxt" id="p_address" style="min-height:52px;" placeholder="Vill, P.O, P.S, Dist, State — PIN"></textarea>
+                    <div class="grid2">
+                        <div><label class="flabel">Date of Birth</label><input class="tin" id="p_dob" type="date"></div>
+                        <div><label class="flabel">Gender</label>
+                            <select class="tsel" id="p_gender"><option value="">— বাছুন —</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+                    </div>
+                    <div class="grid2">
+                        <div><label class="flabel">Nationality</label><input class="tin" id="p_nationality" value="Indian"></div>
+                        <div><label class="flabel">Marital Status</label>
+                            <select class="tsel" id="p_marital"><option value="">— বাছুন —</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
+                    </div>
+                </div>
+
+                <div class="fsec">
+                    <h4>🎯 Career Objective</h4>
+                    <textarea class="ttxt" id="p_objective" placeholder="আপনার ক্যারিয়ারের লক্ষ্য ২–৩ লাইনে লিখুন..."></textarea>
+                    <div class="sugg-row">
+                        <span style="font-size:13px;color:var(--mut);font-weight:600;">সাজেশন ব্যবহার করুন:</span>
+                        <button type="button" data-obj="fresher">🎓 Fresher</button>
+                        <button type="button" data-obj="experienced">💼 Experienced</button>
+                        <button type="button" data-obj="general">⭐ সাধারণ</button>
+                    </div>
+                </div>
+
+                <div class="fsec">
+                    <h4>🎓 Education Details</h4>
+                    <p class="hint">যতগুলো যোগ্যতা আছে, একে একে যোগ করুন।</p>
+                    <div id="eduList"></div>
+                    <button type="button" class="add-btn" id="addEduBtn">＋ Add Education</button>
+                </div>
+
+                <div class="fsec">
+                    <h4>💼 Work Experience</h4>
+                    <p class="hint">Fresher হলে এই অংশ ফাঁকা রাখুন — কোনো বাধ্যবাধকতা নেই।</p>
+                    <div id="expList"></div>
+                    <button type="button" class="add-btn" id="addExpBtn">＋ Add Experience</button>
+                </div>
+
+                <div class="fsec">
+                    <h4>🛠️ Skills</h4>
+                    <div class="chip-add"><input class="tin" id="skillInput" placeholder="যেমন: Computer, MS Excel, Typing..."><button type="button" id="addSkillBtn">Add</button></div>
+                    <div class="chip-area" id="skillChips"></div>
+                </div>
+
+                <div class="fsec">
+                    <h4>🌐 Languages Known</h4>
+                    <div class="chip-add"><input class="tin" id="langInput" placeholder="যেমন: Bengali, Hindi, English..."><button type="button" id="addLangBtn">Add</button></div>
+                    <div class="chip-area" id="langChips"></div>
+                </div>
+
+                <div class="fsec">
+                    <h4>📎 Additional Details (ঐচ্ছিক)</h4>
+                    <label class="flabel">Certifications (প্রতি লাইনে একটি)</label>
+                    <textarea class="ttxt" id="p_certs" placeholder="যেমন: CCC Computer Course — NIELIT, 2023"></textarea>
+                    <label class="flabel">Projects (প্রতি লাইনে একটি)</label>
+                    <textarea class="ttxt" id="p_projects" placeholder="যেমন: School Management Website — HTML, CSS, JavaScript"></textarea>
+                    <label class="flabel">Hobbies / Interests</label>
+                    <input class="tin" id="p_hobbies" placeholder="যেমন: Reading, Football, Music">
+                </div>
+
+                <div class="fsec">
+                    <h4>📜 Declaration ও Signature (ঐচ্ছিক)</h4>
+                    <label class="check-row"><input type="checkbox" id="p_decl_on" checked> Declaration যোগ করুন</label>
+                    <textarea class="ttxt" id="p_decl" style="margin-top:8px;">I hereby declare that the above information is true and correct to the best of my knowledge and belief.</textarea>
+                    <label class="flabel">Signature-এর নাম</label>
+                    <input class="tin" id="p_sign" placeholder="সইয়ের জায়গায় যে নাম দেখাবে">
+                </div>
+
+                <a class="to-preview" href="#previewCard">👇 নিচে Preview দেখুন</a>
+            </form>
+
+            <div>
+                <div class="card">
+                    <h3>🎨 ডিজাইন বাছুন (Choose Template — ৬টি)</h3>
+                    <div class="tpl-grid" id="tplGrid"></div>
+                    <div class="actions">
+                        <button class="btn btn-pdf" id="downloadBtn" type="button">📥 Download Resume PDF</button>
+                        <button class="btn btn-sample" id="sampleBtn" type="button">✨ নমুনা তথ্য</button>
+                    </div>
+                    <div class="actions">
+                        <button class="btn btn-ghost" id="clearDraftBtn" type="button">🗑️ সেভ করা তথ্য মুছুন</button>
+                        <button class="btn btn-danger" id="resetBtn" type="button">↺ ফর্ম রিসেট</button>
+                    </div>
+                    <p class="small-note">আপনার লেখা তথ্য এই ব্রাউজারেই অটো-সেভ থাকে — কারো কাছে যায় না।</p>
+                </div>
+                <div class="card" id="previewCard" style="margin-top:22px;">
+                    <div class="preview-head">
+                        <h3>👁️ লাইভ প্রিভিউ (A4)</h3>
+                        <span class="page-info" id="pageInfo"></span>
+                    </div>
+                    <div class="sheet-scroll" id="sheetScroll">
+                        <div class="sheet-scale" id="sheetScale">
+                            <div class="sheet" id="sheet"></div>
+                        </div>
+                    </div>
+                    <p class="small-note" style="margin-top:10px;">লাল ড্যাশ লাইন = এখানে এক পাতা শেষ। তথ্য বেশি হলে PDF অটোমেটিক ২ পাতা হবে — কোনো তথ্য বাদ পড়বে না, লেখাও ছোট হবে না।</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="pdfHost"></div>
+    <div class="toast" id="toast"></div>
+    <script src="assets/html2canvas.min.js"></script>
+    <script src="assets/jspdf.umd.min.js"></script>
+    <style>
+        /* ============ TEMPLATE r1 — Modern Sidebar ============ */
+        .tpl-r1 .layout{ display:grid; grid-template-columns:248px 1fr; min-height:900px; }
+        .tpl-r1 .side{ background:#1f3a5f; color:#e8eefc; padding:38px 26px; }
+        .tpl-r1 .main{ padding:38px 40px; }
+        .tpl-r1 .rs-photo, .tpl-r1 .rs-photo-empty{ width:128px; height:128px; border-radius:50%; border:3px solid rgba(255,255,255,.45); margin:0 auto 18px; display:flex; }
+        .tpl-r1 .side-t{ font-size:12.5px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#9fc1ff; border-bottom:1px solid rgba(255,255,255,.25); padding-bottom:5px; margin:20px 0 9px; }
+        .tpl-r1 .side div.line{ font-size:13.3px; margin-bottom:6px; word-break:break-word; }
+        .tpl-r1 .side .rs-chips span{ display:inline-block; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3); padding:3px 10px; border-radius:14px; font-size:12.3px; margin:0 5px 6px 0; }
+        .tpl-r1 .rs-name{ font-size:29px; font-weight:800; color:#16283f; }
+        .tpl-r1 .rs-role{ color:#2f6db3; font-weight:600; font-size:14.5px; margin-top:2px; }
+        .tpl-r1 .rs-sec-t{ font-size:14px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:#1f3a5f; border-bottom:2px solid #2f6db3; padding-bottom:5px; margin-bottom:11px; }
+
+        /* ============ TEMPLATE r2 — Classic Serif ============ */
+        .tpl-r2{ font-family:Georgia,'Noto Serif Bengali',serif; color:#26221c; }
+        .tpl-r2 .rs-name{ font-family:'Playfair Display',Georgia,serif; font-size:31px; font-weight:700; text-align:center; letter-spacing:.5px; }
+        .tpl-r2 .rs-contact{ text-align:center; color:#57534a; font-size:13.3px; margin-top:5px; }
+        .tpl-r2 .head-rule{ border:none; border-top:3px double #8a6d2f; margin:14px 0 4px; }
+        .tpl-r2 .rs-sec-t{ font-family:'Playfair Display',Georgia,serif; font-size:16.5px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#6e5622; border-bottom:1px solid #d8c48d; padding-bottom:4px; margin-bottom:10px; }
+        .tpl-r2 table.rs-edu th{ background:#f3ecd9; color:#6e5622; border-bottom:1.5px solid #c3a35f; }
+        .tpl-r2 table.rs-edu td{ border-bottom:1px solid #eee3c2; }
+        .tpl-r2 .rs-photo, .tpl-r2 .rs-photo-empty{ width:96px; height:120px; border:1.5px solid #c3a35f; float:right; margin-left:16px; }
+
+        /* ============ TEMPLATE r3 — Minimal ATS ============ */
+        .tpl-r3{ font-size:14px; }
+        .tpl-r3 .sheet-inner{ padding:40px 46px; }
+        .tpl-r3 .rs-name{ font-size:26px; font-weight:800; color:#111827; }
+        .tpl-r3 .rs-contact{ color:#4b5563; font-size:13px; margin-top:3px; }
+        .tpl-r3 .rs-sec-t{ font-size:12px; font-weight:700; letter-spacing:2.2px; text-transform:uppercase; color:#374151; border-bottom:1px solid #d1d5db; padding-bottom:4px; margin-bottom:9px; }
+        .tpl-r3 .rs-item-t{ font-size:14.5px; }
+
+        /* ============ TEMPLATE r4 — Corporate Band ============ */
+        .tpl-r4 .band{ background:#0b3c5d; color:#fff; padding:30px 48px; display:flex; justify-content:space-between; gap:20px; align-items:center; }
+        .tpl-r4 .rs-name{ font-size:28px; font-weight:800; }
+        .tpl-r4 .band .rs-sub{ color:#a8cdea; font-size:13.5px; margin-top:3px; }
+        .tpl-r4 .band .rs-contact{ text-align:right; font-size:13px; color:#dcebf7; line-height:1.7; }
+        .tpl-r4 .rs-photo, .tpl-r4 .rs-photo-empty{ width:86px; height:86px; border-radius:50%; border:2.5px solid rgba(255,255,255,.5); flex:none; }
+        .tpl-r4 .cols{ display:grid; grid-template-columns:1.9fr 1fr; gap:30px; padding:30px 48px 40px; }
+        .tpl-r4 .rs-sec-t{ font-size:13.5px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:#0b3c5d; border-bottom:2px solid #3282b8; padding-bottom:5px; margin-bottom:10px; }
+        .tpl-r4 .rs-chips span{ display:inline-block; background:#e8f1f8; color:#0b3c5d; padding:3px 11px; border-radius:13px; font-size:12.5px; font-weight:600; margin:0 5px 6px 0; }
+        .tpl-r4 table.rs-edu th{ background:#0b3c5d; color:#fff; }
+        .tpl-r4 table.rs-edu td{ border-bottom:1px solid #dbe7f0; }
+
+        /* ============ TEMPLATE r5 — Elegant Ivory ============ */
+        .tpl-r5{ font-family:Georgia,'Noto Serif Bengali',serif; background:#fffdf6; color:#33302a; }
+        .tpl-r5 .sheet-inner{ border:1.5px solid #c3a35f; margin:14px; padding:34px 42px; }
+        .tpl-r5 .rs-name{ font-family:'Cormorant Garamond',Georgia,serif; font-size:33px; font-weight:700; text-align:center; color:#6e5622; }
+        .tpl-r5 .rs-over{ text-align:center; letter-spacing:5px; font-size:11px; color:#b08d3e; text-transform:uppercase; margin-bottom:4px; }
+        .tpl-r5 .rs-contact{ text-align:center; color:#7a7263; font-size:13.3px; margin-top:5px; }
+        .tpl-r5 .rs-sec-t{ font-family:'Cormorant Garamond',Georgia,serif; text-align:center; font-size:18px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#8a6d2f; border-top:1px solid #e3d5ae; border-bottom:1px solid #e3d5ae; padding:5px 0; margin-bottom:11px; }
+        .tpl-r5 .rs-photo, .tpl-r5 .rs-photo-empty{ width:96px; height:120px; border:2px solid #fff; outline:1.5px solid #c3a35f; float:right; margin-left:16px; }
+
+        /* ============ TEMPLATE r6 — Teal Split ============ */
+        .tpl-r6 .layout{ display:grid; grid-template-columns:1fr 236px; min-height:900px; }
+        .tpl-r6 .main{ padding:38px 40px; }
+        .tpl-r6 .rail{ background:#f0faf8; border-left:3px solid #0f766e; padding:38px 24px; }
+        .tpl-r6 .rs-name{ font-size:28px; font-weight:800; color:#134e4a; }
+        .tpl-r6 .rs-contact{ color:#4b5563; font-size:13.3px; margin-top:4px; }
+        .tpl-r6 .rs-sec-t{ font-size:13.5px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:#0f766e; border-bottom:1.5px solid #99d5cd; padding-bottom:5px; margin-bottom:10px; }
+        .tpl-r6 .rail .rs-sec-t{ font-size:12.5px; }
+        .tpl-r6 .rs-photo, .tpl-r6 .rs-photo-empty{ width:104px; height:130px; border-radius:8px; border:2px solid #0f766e; margin-bottom:14px; }
+        .tpl-r6 .rs-chips span{ display:block; font-size:13.3px; padding:4px 0; border-bottom:1px dashed #c4e3dd; }
+        .tpl-r6 table.rs-edu th{ background:#0f766e; color:#fff; }
+        .tpl-r6 table.rs-edu td{ border-bottom:1px solid #d7eae6; }
+        .sheet-scale > .sheet{ position:absolute; left:0; top:0; }
+        .rs-per div{ margin-bottom:5px; font-size:13.5px; }
+    </style>
+    <script>
+    (function(){
+    'use strict';
+    function $(id){ return document.getElementById(id); }
+    function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    function nl2lines(t){ return String(t || '').split('\n').map(function(x){ return x.trim(); }).filter(Boolean); }
+    var toastTimer = null;
+    function toast(msg){ var t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3400); }
+
+    var QUALS = ['Madhyamik (10th)','Higher Secondary (12th)','ITI','Diploma in Engineering','B.A.','B.Sc.','B.Com','B.Tech / B.E.','BCA','BBA','B.Ed','M.A.','M.Sc.','M.Com','M.Tech','MCA','MBA','Ph.D'];
+    var BOARDS = ['WBBSE — West Bengal Board','WBCHSE — West Bengal Council','CBSE','ICSE / ISC','NIOS','MAKAUT (WBUT)','University of Calcutta','University of Burdwan','University of Kalyani','Vidyasagar University','North Bengal University','IGNOU','State Council of Technical Education'];
+    var YEARS = []; for (var y = 2030; y >= 1990; y--) YEARS.push(String(y));
+
+    /* ---------- repeatable cards ---------- */
+    function selHtml(cls, options, mode, value){
+        var opts = options.map(function(o){ return '<option ' + (o === value ? 'selected' : '') + '>' + esc(o) + '</option>'; }).join('');
+        if (mode === 'list') return '<select class="tsel ' + cls + '-sel">' + opts + '</select>';
+        return '<input class="tin ' + cls + '-man" placeholder="নিজে লিখুন" value="' + esc(value || '') + '">';
+    }
+    function selModeWrap(cls, label, options, data, key){
+        return '<div><label class="flabel">' + label + '</label><div class="selwrap" data-selwrap="' + cls + '">' +
+            selHtml(cls, options, data[key + 'Mode'] || 'list', data[key]) + '</div>' +
+            '<button type="button" class="mode-toggle" data-mode-for="' + cls + '">' + ((data[key + 'Mode'] || 'list') === 'list' ? '✏️ তালিকায় নেই? নিজে লিখুন' : '📋 তালিকা থেকে বাছুন') + '</button></div>';
+    }
+    function eduCard(data, idx){
+        data = data || {};
+        return '<div class="edu-card" data-edu-card>' +
+            '<div class="edu-head"><b>Education ' + (idx + 1) + '</b><span class="edu-tools">' +
+            '<button type="button" data-act="up" title="উপরে">↑</button><button type="button" data-act="down" title="নিচে">↓</button><button type="button" data-act="del" class="del" title="মুছুন">✕</button></span></div>' +
+            '<div class="grid2">' + selModeWrap('e-qual', 'Qualification', QUALS, data, 'qual') + selModeWrap('e-board', 'Board / University', BOARDS, data, 'board') + '</div>' +
+            '<div class="grid2">' +
+                '<div><label class="flabel">Course / Stream</label><input class="tin e-course" placeholder="যেমন: Science, Commerce, Arts" value="' + esc(data.course || '') + '"></div>' +
+                selModeWrap('e-year', 'Passing Year', YEARS, data, 'year') +
+            '</div>' +
+            '<div class="grid2">' +
+                '<div><label class="flabel">School / College / Institution Name</label><input class="tin e-inst" placeholder="প্রতিষ্ঠানের নাম" value="' + esc(data.inst || '') + '"></div>' +
+                '<div><label class="flabel">Marks / Percentage / CGPA</label><input class="tin e-marks" placeholder="যেমন: 78% / CGPA 8.5 / First" value="' + esc(data.marks || '') + '"></div>' +
+            '</div>' +
+        '</div>';
+    }
+    function renderEduList(list){
+        $('eduList').innerHTML = (list && list.length ? list : [{}]).map(function(d, i){ return eduCard(d, i); }).join('');
+    }
+    function bindCardControls(container){
+        container.addEventListener('click', function(e){
+            var mt = e.target.closest('[data-mode-for]');
+            if (mt) {
+                var card = mt.closest('[data-edu-card]');
+                var idx = Array.prototype.indexOf.call($('eduList').querySelectorAll('[data-edu-card]'), card);
+                flipMode(idx, mt.getAttribute('data-mode-for'));
+                return;
+            }
+            var btn = e.target.closest('[data-act]');
+            if (!btn) return;
+            var c = btn.closest('[data-edu-card]') || btn.closest('[data-exp-card]');
+            var isEdu = !!c.getAttribute('data-edu-card') || c.hasAttribute('data-edu-card');
+            var listEl = isEdu ? $('eduList') : $('expList');
+            var items = Array.prototype.slice.call(listEl.children);
+            var i = items.indexOf(c);
+            var data = isEdu ? collectEdu() : collectExp();
+            var act = btn.getAttribute('data-act');
+            if (act === 'del') { if (data.length > 1) data.splice(i, 1); else data = [{}]; }
+            if (act === 'up' && i > 0) { var t = data[i-1]; data[i-1] = data[i]; data[i] = t; }
+            if (act === 'down' && i < data.length - 1) { var t2 = data[i+1]; data[i+1] = data[i]; data[i] = t2; }
+            if (isEdu) renderEduList(data); else renderExpList(data);
+            render();
+        });
+    }
+    function flipMode(idx, cls){
+        var list = collectEdu();
+        var item = list[idx]; if (!item) return;
+        var key = cls.replace('e-', '');
+        item[key + 'Mode'] = (item[key + 'Mode'] === 'manual') ? 'list' : 'manual';
+        renderEduList(list); render();
+    }
+    function cardField(card, cls){
+        var s = card.querySelector('.' + cls + '-sel'); if (s) return s.value;
+        var m = card.querySelector('.' + cls + '-man'); if (m) return m.value.trim();
+        return '';
+    }
+    function cardMode(card, cls){
+        if (card.querySelector('.' + cls + '-sel')) return 'list';
+        if (card.querySelector('.' + cls + '-man')) return 'manual';
+        return 'list';
+    }
+    function collectEdu(){
+        return Array.prototype.map.call($('eduList').querySelectorAll('[data-edu-card]'), function(card){
+            return {
+                qual: cardField(card, 'e-qual'), qualMode: cardMode(card, 'e-qual'),
+                board: cardField(card, 'e-board'), boardMode: cardMode(card, 'e-board'),
+                year: cardField(card, 'e-year'), yearMode: cardMode(card, 'e-year'),
+                course: card.querySelector('.e-course').value.trim(),
+                inst: card.querySelector('.e-inst').value.trim(),
+                marks: card.querySelector('.e-marks').value.trim()
+            };
+        });
+    }
+    function expCard(data, idx){
+        data = data || {};
+        return '<div class="exp-card" data-exp-card>' +
+            '<div class="edu-head"><b>Experience ' + (idx + 1) + '</b><span class="edu-tools">' +
+            '<button type="button" data-act="up" title="উপরে">↑</button><button type="button" data-act="down" title="নিচে">↓</button><button type="button" data-act="del" class="del" title="মুছুন">✕</button></span></div>' +
+            '<div class="grid2">' +
+                '<div><label class="flabel">Job Title</label><input class="tin x-title" placeholder="যেমন: Data Entry Operator" value="' + esc(data.title || '') + '"></div>' +
+                '<div><label class="flabel">Company / Organization Name</label><input class="tin x-comp" placeholder="কোম্পানির নাম" value="' + esc(data.comp || '') + '"></div>' +
+            '</div>' +
+            '<label class="flabel">Duration (সময়কাল)</label><input class="tin x-dur" placeholder="যেমন: Jan 2022 — Present / 2 Years" value="' + esc(data.dur || '') + '">' +
+            '<label class="flabel">Work Description</label><textarea class="ttxt x-desc" placeholder="কী কাজ করতেন, দায়িত্ব...">' + esc(data.desc || '') + '</textarea>' +
+        '</div>';
+    }
+    function renderExpList(list){
+        $('expList').innerHTML = (list && list.length ? list : [{}]).map(function(d, i){ return expCard(d, i); }).join('');
+    }
+    function collectExp(){
+        return Array.prototype.map.call($('expList').querySelectorAll('[data-exp-card]'), function(card){
+            return {
+                title: card.querySelector('.x-title').value.trim(),
+                comp: card.querySelector('.x-comp').value.trim(),
+                dur: card.querySelector('.x-dur').value.trim(),
+                desc: card.querySelector('.x-desc').value.trim()
+            };
+        });
+    }
+    /* ---------- chips (skills / languages) ---------- */
+    var skills = [], langs = [];
+    function renderChips(){
+        $('skillChips').innerHTML = skills.map(function(s, i){ return '<span class="chip">' + esc(s) + '<button type="button" data-chip="skill" data-i="' + i + '">×</button></span>'; }).join('');
+        $('langChips').innerHTML = langs.map(function(s, i){ return '<span class="chip">' + esc(s) + '<button type="button" data-chip="lang" data-i="' + i + '">×</button></span>'; }).join('');
+    }
+    function addChip(kind){
+        var inp = kind === 'skill' ? $('skillInput') : $('langInput');
+        var parts = inp.value.split(',').map(function(x){ return x.trim(); }).filter(Boolean);
+        var arr = kind === 'skill' ? skills : langs;
+        parts.forEach(function(p){ if (arr.indexOf(p) < 0) arr.push(p); });
+        inp.value = ''; renderChips(); render();
+    }
+    /* ---------- templates ---------- */
+    var TEMPLATES = [
+        { id:'r1', name:'Resume 1', bn:'মডার্ন সাইডবার', layout:'sidebar', cls:'tpl-r1', bar:'#1f3a5f' },
+        { id:'r2', name:'Resume 2', bn:'ক্লাসিক সেরিফ', layout:'classic', cls:'tpl-r2', bar:'#8a6d2f' },
+        { id:'r3', name:'Resume 3', bn:'মিনিমাল ATS', layout:'ats', cls:'tpl-r3', bar:'#374151' },
+        { id:'r4', name:'Resume 4', bn:'কর্পোরেট ব্যান্ড', layout:'band', cls:'tpl-r4', bar:'#0b3c5d' },
+        { id:'r5', name:'Resume 5', bn:'এলিগ্যান্ট আইভরি', layout:'elegant', cls:'tpl-r5', bar:'#b08d3e' },
+        { id:'r6', name:'Resume 6', bn:'টিল স্প্লিট', layout:'split', cls:'tpl-r6', bar:'#0f766e' }
+    ];
+    var cur = TEMPLATES[0];
+    var photoData = '';
+
+    function fmtDOB(v){
+        if (!v) return '';
+        var dt = new Date(v + 'T00:00:00');
+        if (isNaN(dt)) return v;
+        return dt.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+    }
+    function collectAll(){
+        var edu = collectEdu().filter(function(e){ return e.qual || e.course || e.inst; });
+        var exp = collectExp().filter(function(x){ return x.title || x.comp || x.desc; });
+        return {
+            name: $('p_name').value.trim(), phone: $('p_phone').value.trim(), email: $('p_email').value.trim(),
+            address: $('p_address').value.trim(), dob: fmtDOB($('p_dob').value), gender: $('p_gender').value,
+            nationality: $('p_nationality').value.trim(), marital: $('p_marital').value,
+            objective: $('p_objective').value.trim(), edu: edu, exp: exp,
+            skills: skills.slice(), langs: langs.slice(),
+            certs: $('p_certs').value.trim(), projects: $('p_projects').value.trim(), hobbies: $('p_hobbies').value.trim(),
+            declOn: $('p_decl_on').checked, decl: $('p_decl').value.trim(), sign: $('p_sign').value.trim()
+        };
+    }
+    function photoHtml(cls){
+        if (photoData) return '<img class="rs-photo ' + (cls || '') + '" src="' + photoData + '" alt="">';
+        return '<div class="rs-photo-empty ' + (cls || '') + '">Photo</div>';
+    }
+    function sec(title, inner){ return inner ? '<div class="rs-sec"><div class="rs-sec-t">' + title + '</div>' + inner + '</div>' : ''; }
+    function contactParts(d){
+        var p = [];
+        if (d.phone) p.push('📞 ' + esc(d.phone));
+        if (d.email) p.push('✉ ' + esc(d.email));
+        if (d.address) p.push('📍 ' + esc(d.address));
+        return p;
+    }
+    function eduLines(es){
+        if (!es.length) return '';
+        return es.map(function(e){
+            var t = esc(e.qual) + (e.course ? ' — ' + esc(e.course) : '');
+            var s = [esc(e.inst) + (e.board ? ' (' + esc(e.board) + ')' : ''), esc(e.year), esc(e.marks)].filter(Boolean).join(' • ');
+            return '<div class="rs-item"><div class="rs-item-t">' + t + '</div><div class="rs-item-s">' + s + '</div></div>';
+        }).join('');
+    }
+    function eduTable(es){
+        if (!es.length) return '';
+        var rows = es.map(function(e){
+            return '<tr><td><b>' + esc(e.qual) + '</b>' + (e.course ? '<br>' + esc(e.course) : '') + '</td><td>' + esc(e.inst) + '</td><td>' + esc(e.board) + '</td><td>' + esc(e.year) + '</td><td>' + esc(e.marks) + '</td></tr>';
+        }).join('');
+        return '<table class="rs-edu"><tr><th style="width:24%">Qualification</th><th style="width:30%">Institution</th><th style="width:24%">Board / University</th><th style="width:9%">Year</th><th style="width:13%">Result</th></tr>' + rows + '</table>';
+    }
+    function expItems(xs){
+        if (!xs.length) return '';
+        return xs.map(function(x){
+            var t = esc(x.title) + (x.comp ? ' — ' + esc(x.comp) : '');
+            var s = x.dur ? '<div class="rs-item-s">' + esc(x.dur) + '</div>' : '';
+            var ds = x.desc ? '<div class="rs-desc">' + esc(x.desc) + '</div>' : '';
+            return '<div class="rs-item"><div class="rs-item-t">' + t + '</div>' + s + ds + '</div>';
+        }).join('');
+    }
+    function chipsHtml(arr){ return arr.length ? '<div class="rs-chips">' + arr.map(function(s){ return '<span>' + esc(s) + '</span>'; }).join('') + '</div>' : ''; }
+    function commaLine(arr){ return arr.length ? '<div>' + arr.map(esc).join(', ') + '</div>' : ''; }
+    function linesHtml(text){
+        var ls = nl2lines(text);
+        return ls.length ? '<div class="rs-lines">' + ls.map(function(l){ return '<div>' + esc(l) + '</div>'; }).join('') + '</div>' : '';
+    }
+    function personalHtml(d){
+        var rows = [];
+        if (d.dob) rows.push(['Date of Birth', d.dob]);
+        if (d.gender) rows.push(['Gender', d.gender]);
+        if (d.nationality) rows.push(['Nationality', d.nationality]);
+        if (d.marital) rows.push(['Marital Status', d.marital]);
+        if (!rows.length) return '';
+        return '<div class="rs-per">' + rows.map(function(r){ return '<div><b>' + r[0] + ':</b> ' + esc(r[1]) + '</div>'; }).join('') + '</div>';
+    }
+    function declSignHtml(d){
+        var h = '';
+        if (d.declOn && d.decl) h += sec('Declaration', '<p class="rs-decl">' + esc(d.decl) + '</p>');
+        if (d.sign) h += '<div class="rs-sign"><div class="sig-name">' + esc(d.sign) + '</div><div><span class="sig-cap">Signature</span></div></div>';
+        return h;
+    }
+    function nameOrPlaceholder(d){ return esc(d.name || 'Your Name'); }
+
+    var LAYOUTS = {
+        sidebar: function(d){
+            var side = photoHtml() +
+                (contactParts(d).length ? '<div class="side-t">Contact</div>' + contactParts(d).map(function(p){ return '<div class="line">' + p + '</div>'; }).join('') : '') +
+                (personalHtml(d) ? '<div class="side-t">Personal Details</div>' + personalHtml(d) : '') +
+                (d.skills.length ? '<div class="side-t">Skills</div>' + chipsHtml(d.skills) : '') +
+                (d.langs.length ? '<div class="side-t">Languages</div>' + d.langs.map(function(l){ return '<div class="line">' + esc(l) + '</div>'; }).join('') : '');
+            var main = '<div class="rs-name">' + nameOrPlaceholder(d) + '</div>' +
+                sec('Career Objective', d.objective ? '<div class="rs-desc">' + esc(d.objective) + '</div>' : '') +
+                sec('Work Experience', expItems(d.exp)) +
+                sec('Education', eduLines(d.edu)) +
+                sec('Certifications', linesHtml(d.certs)) +
+                sec('Projects', linesHtml(d.projects)) +
+                sec('Hobbies & Interests', d.hobbies ? '<div>' + esc(d.hobbies) + '</div>' : '') +
+                declSignHtml(d);
+            return '<div class="layout"><div class="side">' + side + '</div><div class="main">' + main + '</div></div>';
+        },
+        classic: function(d){
+            var inner = (photoData ? photoHtml() : '') +
+                '<div class="rs-name">' + nameOrPlaceholder(d) + '</div>' +
+                '<div class="rs-contact">' + contactParts(d).join(' &nbsp;|&nbsp; ') + '</div><hr class="head-rule">' +
+                sec('Career Objective', d.objective ? '<div class="rs-desc">' + esc(d.objective) + '</div>' : '') +
+                sec('Education', eduTable(d.edu)) +
+                sec('Work Experience', expItems(d.exp)) +
+                sec('Skills', commaLine(d.skills)) +
+                sec('Languages Known', commaLine(d.langs)) +
+                sec('Personal Details', personalHtml(d)) +
+                sec('Certifications', linesHtml(d.certs)) +
+                sec('Projects', linesHtml(d.projects)) +
+                sec('Hobbies & Interests', d.hobbies ? '<div>' + esc(d.hobbies) + '</div>' : '') +
+                declSignHtml(d);
+            return '<div class="sheet-inner">' + inner + '</div>';
+        },
+        ats: function(d){
+            var inner = '<div class="rs-name">' + nameOrPlaceholder(d) + '</div>' +
+                '<div class="rs-contact">' + contactParts(d).join(' | ') + '</div>' +
+                sec('Career Objective', d.objective ? '<div class="rs-desc">' + esc(d.objective) + '</div>' : '') +
+                sec('Work Experience', expItems(d.exp)) +
+                sec('Education', eduLines(d.edu)) +
+                sec('Skills', commaLine(d.skills)) +
+                sec('Languages Known', commaLine(d.langs)) +
+                sec('Certifications', linesHtml(d.certs)) +
+                sec('Projects', linesHtml(d.projects)) +
+                sec('Personal Details', personalHtml(d)) +
+                sec('Hobbies & Interests', d.hobbies ? '<div>' + esc(d.hobbies) + '</div>' : '') +
+                declSignHtml(d);
+            return '<div class="sheet-inner">' + inner + '</div>';
+        },
+        band: function(d){
+            var band = '<div class="band"><div><div class="rs-name">' + nameOrPlaceholder(d) + '</div>' +
+                '<div class="rs-sub">' + (d.exp.length && d.exp[0].title ? esc(d.exp[0].title) : 'Curriculum Vitae') + '</div></div>' +
+                '<div style="display:flex;gap:16px;align-items:center;"><div class="rs-contact">' +
+                [d.phone, d.email, d.address].filter(Boolean).map(esc).join('<br>') + '</div>' + (photoData ? photoHtml() : '') + '</div></div>';
+            var left = sec('Career Objective', d.objective ? '<div class="rs-desc">' + esc(d.objective) + '</div>' : '') +
+                sec('Work Experience', expItems(d.exp)) +
+                sec('Education', eduTable(d.edu)) +
+                sec('Projects', linesHtml(d.projects)) +
+                sec('Certifications', linesHtml(d.certs));
+            var right = sec('Skills', chipsHtml(d.skills)) +
+                sec('Languages', commaLine(d.langs)) +
+                sec('Personal Details', personalHtml(d)) +
+                sec('Hobbies', d.hobbies ? '<div>' + esc(d.hobbies) + '</div>' : '');
+            return band + '<div class="cols"><div>' + left + '</div><div>' + right + '</div></div>' +
+                '<div style="padding:0 48px 40px;">' + declSignHtml(d) + '</div>';
+        },
+        elegant: function(d){
+            var inner = '<div class="rs-over">Resume</div>' +
+                (photoData ? photoHtml() : '') +
+                '<div class="rs-name">' + nameOrPlaceholder(d) + '</div>' +
+                '<div class="rs-contact">' + contactParts(d).join(' &nbsp;•&nbsp; ') + '</div>' +
+                sec('Career Objective', d.objective ? '<div class="rs-desc">' + esc(d.objective) + '</div>' : '') +
+                sec('Education', eduLines(d.edu)) +
+                sec('Work Experience', expItems(d.exp)) +
+                sec('Skills', commaLine(d.skills)) +
+                sec('Languages Known', commaLine(d.langs)) +
+                sec('Personal Details', personalHtml(d)) +
+                sec('Certifications', linesHtml(d.certs)) +
+                sec('Projects', linesHtml(d.projects)) +
+                sec('Hobbies & Interests', d.hobbies ? '<div>' + esc(d.hobbies) + '</div>' : '') +
+                declSignHtml(d);
+            return '<div class="sheet-inner">' + inner + '</div>';
+        },
+        split: function(d){
+            var main = '<div class="rs-name">' + nameOrPlaceholder(d) + '</div>' +
+                '<div class="rs-contact">' + contactParts(d).join(' &nbsp;|&nbsp; ') + '</div>' +
+                sec('Career Objective', d.objective ? '<div class="rs-desc">' + esc(d.objective) + '</div>' : '') +
+                sec('Work Experience', expItems(d.exp)) +
+                sec('Education', eduTable(d.edu)) +
+                sec('Projects', linesHtml(d.projects)) +
+                declSignHtml(d);
+            var rail = (photoData ? photoHtml() : '') +
+                sec('Personal Details', personalHtml(d)) +
+                sec('Skills', chipsHtml(d.skills)) +
+                sec('Languages', commaLine(d.langs)) +
+                sec('Certifications', linesHtml(d.certs)) +
+                sec('Hobbies', d.hobbies ? '<div>' + esc(d.hobbies) + '</div>' : '');
+            return '<div class="layout"><div class="main">' + main + '</div><div class="rail">' + rail + '</div></div>';
+        }
+    };
+
+    /* ---------- render + fit + guides ---------- */
+    function render(){
+        var d = collectAll();
+        var sheet = $('sheet');
+        sheet.className = 'sheet ' + cur.cls;
+        sheet.innerHTML = LAYOUTS[cur.layout](d);
+        fitPreview();
+    }
+    function fitPreview(){
+        var scroll = $('sheetScroll'), scale = $('sheetScale'), sheet = $('sheet');
+        if (!scroll || !sheet) return;
+        var h = sheet.offsetHeight;
+        var avail = Math.max(280, scroll.clientWidth - 16);
+        var sc = Math.min(1, avail / 794);
+        sheet.style.transform = 'scale(' + sc + ')';
+        scale.style.width = (794 * sc) + 'px';
+        scale.style.height = (h * sc) + 'px';
+        var old = scale.querySelectorAll('.page-guide');
+        Array.prototype.forEach.call(old, function(g){ g.remove(); });
+        var pages = Math.max(1, Math.ceil(h / 1123));
+        for (var i = 1; i < pages; i++){
+            var g = document.createElement('div');
+            g.className = 'page-guide';
+            g.style.top = (1123 * i * sc) + 'px';
+            g.innerHTML = '<span>পাতা ' + i + ' শেষ — পাতা ' + (i + 1) + '</span>';
+            scale.appendChild(g);
+        }
+        $('pageInfo').textContent = 'আনুমানিক ' + pages + ' পাতা';
+    }
+    /* ---------- template picker ---------- */
+    function renderTplGrid(){
+        $('tplGrid').innerHTML = TEMPLATES.map(function(t){
+            return '<div class="tpl-card' + (t.id === cur.id ? ' sel' : '') + '" data-tpl="' + t.id + '">' +
+                '<div class="tpl-thumb"><div class="bar" style="background:' + t.bar + '"></div><div class="ln" style="margin-top:28px"></div><div class="ln"></div><div class="ln" style="width:55%"></div></div>' +
+                '<b>' + t.name + '</b><small>' + t.bn + '</small></div>';
+        }).join('');
+    }
+    /* ---------- PDF (multi-page, smart cuts) ---------- */
+    function rowBlank(ctx, W, y){
+        var img = ctx.getImageData(0, y, W, 1).data;
+        for (var x = 0; x < W; x += 6){ var i = x * 4; if (img[i] < 246 || img[i+1] < 246 || img[i+2] < 246) return false; }
+        return true;
+    }
+    async function downloadPDF(){
+        var btn = $('downloadBtn');
+        if (!window.html2canvas || !window.jspdf || !window.jspdf.jsPDF){ toast('⚠️ PDF লাইব্রেরি লোড হয়নি — ইন্টারনেট চেক করে আবার চেষ্টা করুন'); return; }
+        btn.disabled = true; var oldText = btn.textContent; btn.textContent = '⏳ PDF তৈরি হচ্ছে...';
+        try {
+            var d = collectAll();
+            var host = $('pdfHost'); host.innerHTML = '';
+            var clone = document.createElement('div');
+            clone.className = 'sheet ' + cur.cls;
+            clone.style.boxShadow = 'none';
+            clone.innerHTML = $('sheet').innerHTML;
+            host.appendChild(clone);
+            await new Promise(function(r){ setTimeout(r, 450); });
+            var canvas = await html2canvas(clone, { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false });
+            var W = canvas.width, H = canvas.height;
+            var pageH = Math.floor(W * 297 / 210);
+            var ctx = canvas.getContext('2d');
+            var cuts = [0], y = 0, guard = 0;
+            while (H - y > pageH && guard++ < 12){
+                var target = y + pageH, cut = target;
+                for (var yy = target; yy > target - 180 && yy > y + 240; yy -= 2){ if (rowBlank(ctx, W, yy)){ cut = yy; break; } }
+                cuts.push(cut); y = cut;
+            }
+            cuts.push(H);
+            var pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+            for (var p = 0; p < cuts.length - 1; p++){
+                var sh = cuts[p + 1] - cuts[p];
+                var c2 = document.createElement('canvas'); c2.width = W; c2.height = sh;
+                c2.getContext('2d').drawImage(canvas, 0, cuts[p], W, sh, 0, 0, W, sh);
+                if (p > 0) pdf.addPage();
+                pdf.addImage(c2.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 210, sh * 210 / W);
+            }
+            pdf.save('Resume' + (d.name ? '-' + d.name : '') + '.pdf');
+            toast('✅ Resume ডাউনলোড হয়েছে — মোট ' + (cuts.length - 1) + ' পাতা');
+            host.innerHTML = '';
+        } catch (err) {
+            toast('⚠️ PDF তৈরি হয়নি — আবার চেষ্টা করুন');
+        }
+        btn.disabled = false; btn.textContent = oldText;
+    }
+    /* ---------- draft ---------- */
+    var KEY = 'rm_draft_v1', PKEY = 'rm_draft_v1_photo', saveT = null;
+    function saveDraft(){
+        clearTimeout(saveT);
+        saveT = setTimeout(function(){
+            try {
+                var d = {
+                    tpl: cur.id,
+                    fields: {}, edu: collectEdu(), exp: collectExp(), skills: skills, langs: langs
+                };
+                ['p_name','p_phone','p_email','p_address','p_dob','p_gender','p_nationality','p_marital','p_objective','p_certs','p_projects','p_hobbies','p_decl','p_sign'].forEach(function(id){ d.fields[id] = $(id).value; });
+                d.fields.p_decl_on = $('p_decl_on').checked;
+                localStorage.setItem(KEY, JSON.stringify(d));
+            } catch (e) {}
+        }, 350);
+    }
+    function loadDraft(){
+        try {
+            var raw = localStorage.getItem(KEY); if (!raw) return false;
+            var d = JSON.parse(raw);
+            Object.keys(d.fields || {}).forEach(function(id){
+                if (id === 'p_decl_on') $('p_decl_on').checked = !!d.fields[id];
+                else if ($(id)) $(id).value = d.fields[id];
+            });
+            skills = d.skills || []; langs = d.langs || [];
+            renderEduList(d.edu && d.edu.length ? d.edu : [{}]);
+            renderExpList(d.exp && d.exp.length ? d.exp : [{}]);
+            var t = TEMPLATES.filter(function(x){ return x.id === d.tpl; })[0]; if (t) cur = t;
+            var ph = localStorage.getItem(PKEY); if (ph) setPhoto(ph);
+            return true;
+        } catch (e) { return false; }
+    }
+    function setPhoto(data){
+        photoData = data;
+        $('photoBox').innerHTML = '<img src="' + data + '" alt="">';
+        try { localStorage.setItem(PKEY, data); } catch (e) {}
+    }
+    /* ---------- objectives ---------- */
+    var OBJECTIVES = {
+        fresher: 'Recent graduate seeking an entry-level opportunity where I can apply my knowledge, learn quickly and contribute to the growth of the organisation while developing my professional skills.',
+        experienced: 'Dedicated and results-oriented professional seeking a challenging role where I can use my experience and skills to contribute to organisational goals and grow with the company.',
+        general: 'Hardworking and sincere candidate looking for a suitable position in a reputed organisation where I can work honestly, take responsibility and build a long-term career.'
+    };
+    /* ---------- sample ---------- */
+    function fillSample(){
+        var f = { p_name:'Demo Candidate', p_phone:'+91 98765 43210', p_email:'demo.candidate@email.com',
+            p_address:'Vill — Shibhati, P.O — Shibhati, P.S — Baduria, Dist — North 24 Parganas, West Bengal — 743401',
+            p_dob:'2002-05-21', p_gender:'Male', p_nationality:'Indian', p_marital:'Single',
+            p_objective: OBJECTIVES.experienced,
+            p_certs:'CCC Computer Course — NIELIT, 2023\nTyping Certificate (English 35 WPM), 2024',
+            p_projects:'CSC Service Center — handled online form fill-up and documentation for 2 years\nData Entry Project — digitised 5,000+ land records',
+            p_hobbies:'Reading, Football, Computer Learning', p_sign:'Demo Candidate' };
+        Object.keys(f).forEach(function(id){ $(id).value = f[id]; });
+        $('p_decl_on').checked = true;
+        $('p_decl').value = 'I hereby declare that the above information is true and correct to the best of my knowledge and belief.';
+        skills = ['Computer Operating','MS Word & Excel','Data Entry','Internet & Email','Bengali Typing','Customer Handling'];
+        langs = ['Bengali','Hindi','English'];
+        renderEduList([
+            { qual:'Madhyamik (10th)', qualMode:'list', board:'WBBSE — West Bengal Board', boardMode:'list', year:'2018', yearMode:'list', course:'', inst:'Shibhati High School', marks:'68%' },
+            { qual:'Higher Secondary (12th)', qualMode:'list', board:'WBCHSE — West Bengal Council', boardMode:'list', year:'2020', yearMode:'list', course:'Arts', inst:'Shibhati High School', marks:'74%' },
+            { qual:'B.A.', qualMode:'list', board:'University of Calcutta', boardMode:'list', year:'2023', yearMode:'list', course:'General', inst:'Basirhat College', marks:'62%' }
+        ]);
+        renderExpList([
+            { title:'Data Entry Operator', comp:'Dafadar Online Seva (CSC Center)', dur:'Jan 2023 — Present', desc:'Online form fill-up, data entry and document processing for government services. Handled 50+ customers daily with accuracy.' },
+            { title:'Computer Assistant', comp:'Local Cyber Cafe', dur:'Jun 2021 — Dec 2022', desc:'Assisted customers with online applications, printing and scanning. Maintained records in MS Excel.' }
+        ]);
+        renderChips(); render(); saveDraft();
+        toast('✨ নমুনা তথ্য ভরা হয়েছে — এবার নিজের তথ্য দিয়ে বদলে নিন');
+    }
+    /* ---------- init & bindings ---------- */
+    renderEduList([{}]); renderExpList([{}]); renderChips();
+    loadDraft();
+    renderTplGrid(); render();
+
+    $('resumeForm').addEventListener('input', function(){ render(); saveDraft(); });
+    $('resumeForm').addEventListener('change', function(){ render(); saveDraft(); });
+    bindCardControls($('eduList')); bindCardControls($('expList'));
+    $('addEduBtn').addEventListener('click', function(){ var l = collectEdu(); l.push({}); renderEduList(l); render(); saveDraft(); });
+    $('addExpBtn').addEventListener('click', function(){ var l = collectExp(); l.push({}); renderExpList(l); render(); saveDraft(); });
+    $('addSkillBtn').addEventListener('click', function(){ addChip('skill'); saveDraft(); });
+    $('addLangBtn').addEventListener('click', function(){ addChip('lang'); saveDraft(); });
+    $('skillInput').addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); addChip('skill'); saveDraft(); } });
+    $('langInput').addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); addChip('lang'); saveDraft(); } });
+    document.addEventListener('click', function(e){
+        var ch = e.target.closest('[data-chip]');
+        if (ch) {
+            var arr = ch.getAttribute('data-chip') === 'skill' ? skills : langs;
+            arr.splice(parseInt(ch.getAttribute('data-i'), 10), 1);
+            renderChips(); render(); saveDraft();
+        }
+        var ob = e.target.closest('[data-obj]');
+        if (ob) { $('p_objective').value = OBJECTIVES[ob.getAttribute('data-obj')]; render(); saveDraft(); toast('🎯 Career Objective বসানো হয়েছে — চাইলে বদলে নিন'); }
+    });
+    $('tplGrid').addEventListener('click', function(e){
+        var card = e.target.closest('[data-tpl]'); if (!card) return;
+        var t = TEMPLATES.filter(function(x){ return x.id === card.getAttribute('data-tpl'); })[0];
+        if (t) { cur = t; renderTplGrid(); render(); saveDraft(); }
+    });
+    $('photoInput').addEventListener('change', function(){
+        var file = this.files && this.files[0]; if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(){
+            var img = new Image();
+            img.onload = function(){
+                var max = 480, sc = Math.min(1, max / Math.max(img.width, img.height));
+                var c = document.createElement('canvas');
+                c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+                c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+                setPhoto(c.toDataURL('image/jpeg', 0.85));
+                render(); saveDraft();
+                toast('📷 ছবি যোগ হয়েছে');
+            };
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    });
+    $('downloadBtn').addEventListener('click', downloadPDF);
+    $('sampleBtn').addEventListener('click', fillSample);
+    $('clearDraftBtn').addEventListener('click', function(){
+        try { localStorage.removeItem(KEY); localStorage.removeItem(PKEY); } catch (e) {}
+        toast('🗑️ সেভ করা তথ্য মোছা হয়েছে (ফর্মের লেখা এখনো আছে)');
+    });
+    $('resetBtn').addEventListener('click', function(){
+        if (!confirm('সব তথ্য মুছে ফর্ম একদম ফাঁকা করবেন?')) return;
+        try { localStorage.removeItem(KEY); localStorage.removeItem(PKEY); } catch (e) {}
+        $('resumeForm').reset();
+        $('p_nationality').value = 'Indian';
+        $('p_decl').value = 'I hereby declare that the above information is true and correct to the best of my knowledge and belief.';
+        skills = []; langs = []; photoData = '';
+        $('photoBox').innerHTML = '<span>ছবি নেই<br>(ঐচ্ছিক)</span>';
+        renderEduList([{}]); renderExpList([{}]); renderChips();
+        cur = TEMPLATES[0]; renderTplGrid(); render();
+        toast('↺ ফর্ম রিসেট হয়েছে');
+    });
+    window.addEventListener('resize', fitPreview);
+    })();
+    </script>
+</body>
+</html>
