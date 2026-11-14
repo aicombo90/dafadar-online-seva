@@ -137,6 +137,8 @@
                     <input class="tin" id="f_bank" placeholder="যেমন: স্টেট ব্যাংক অফ ইন্ডিয়া">
                     <label class="flabel" for="f_acct">ব্যাংক অ্যাকাউন্ট নম্বর</label>
                     <input class="tin" id="f_acct" inputmode="numeric" placeholder="যে অ্যাকাউন্টে টাকা আসার কথা">
+                    <label class="flabel" for="f_ifsc">ব্যাংক IFSC কোড</label>
+                    <input class="tin" id="f_ifsc" placeholder="যেমন: SBIN0012345 (পাসবুকের প্রথম পাতায় থাকে)">
                 </div>
 
                 <div class="fsec">
@@ -173,7 +175,7 @@
                                 <p class="lt-subject">বিষয়: পশ্চিমবঙ্গ আবাস যোজনার দ্বিতীয় কিস্তির (₹৬০,০০০) টাকা না পাওয়া প্রসঙ্গে আবেদন।</p>
                                 <div class="lt-body">
                                     <p>মহাশয়,</p>
-                                    <p>সবিনয় নিবেদন এই যে, আমি <span class="fv" data-f="name">…………</span>, পিতা/স্বামী – <span class="fv" data-f="father">…………</span>, সাকিন – গ্রাম: <span class="fv" data-f="village">…………</span>, পোস্ট অফিস: <span class="fv" data-f="po">…………</span>, থানা: <span class="fv" data-f="ps">…………</span>, গ্রাম পঞ্চায়েত: <span class="fv" data-f="gp">…………</span>, ব্লক: <span class="fv" data-f="block">…………</span>, জেলা: <span class="fv" data-f="district">…………</span>। আমি পশ্চিমবঙ্গ আবাস যোজনার একজন উপভোক্তা; আমার রেজিস্ট্রেশন নম্বর – <span class="fv" data-f="reg">…………</span>। আমার বাড়ির কাজ লিন্টেল স্তর পর্যন্ত সম্পূর্ণ ও যাচাই সম্পন্ন হয়েছে, কিন্তু এখনও দ্বিতীয় কিস্তির ₹৬০,০০০ টাকা আমার <span class="fv" data-f="bank">…………</span> ব্যাংকের অ্যাকাউন্টে (অ্যাকাউন্ট নম্বর: <span class="fv" data-f="acct">…………</span>) জমা হয়নি।</p>
+                                    <p>সবিনয় নিবেদন এই যে, আমি <span class="fv" data-f="name">…………</span>, পিতা/স্বামী – <span class="fv" data-f="father">…………</span>, সাকিন – গ্রাম: <span class="fv" data-f="village">…………</span>, পোস্ট অফিস: <span class="fv" data-f="po">…………</span>, থানা: <span class="fv" data-f="ps">…………</span>, গ্রাম পঞ্চায়েত: <span class="fv" data-f="gp">…………</span>, ব্লক: <span class="fv" data-f="block">…………</span>, জেলা: <span class="fv" data-f="district">…………</span>। আমি পশ্চিমবঙ্গ আবাস যোজনার একজন উপভোক্তা; আমার রেজিস্ট্রেশন নম্বর – <span class="fv" data-f="reg">…………</span>। আমার বাড়ির কাজ লিন্টেল স্তর পর্যন্ত সম্পূর্ণ ও যাচাই সম্পন্ন হয়েছে, কিন্তু এখনও দ্বিতীয় কিস্তির ₹৬০,০০০ টাকা আমার <span class="fv" data-f="bank">…………</span> ব্যাংকের অ্যাকাউন্টে (অ্যাকাউন্ট নম্বর: <span class="fv" data-f="acct">…………</span>, IFSC: <span class="fv" data-f="ifsc">…………</span>) জমা হয়নি।</p>
                                     <p>অতএব, আপনার নিকট বিনীত অনুরোধ, বিষয়টি যাচাই করে আমার প্রাপ্য কিস্তির টাকা ছাড়ার ব্যবস্থা করলে বাধিত থাকব।</p>
                                 </div>
                                 <div class="lt-foot">
@@ -208,7 +210,7 @@
         var FIELDS = {
             f_name: 'name', f_father: 'father', f_village: 'village', f_po: 'po',
             f_ps: 'ps', f_gp: 'gp', f_block: 'block', f_district: 'district',
-            f_reg: 'reg', f_bank: 'bank', f_acct: 'acct', f_mobile: 'mobile', f_date: 'date'
+            f_reg: 'reg', f_bank: 'bank', f_acct: 'acct', f_ifsc: 'ifsc', f_mobile: 'mobile', f_date: 'date'
         };
         function bnDigits(s){ var bn = '০১২৩৪৫৬৭৮৯'; return String(s).replace(/[0-9]/g, function(c){ return bn[+c]; }); }
         function todayBn(){
@@ -217,7 +219,7 @@
             return t.getDate() + ' ' + months[t.getMonth()] + ' ' + t.getFullYear();
         }
         function update(key){
-            var el = document.getElementById('f_' + ({name:'name',father:'father',village:'village',po:'po',ps:'ps',gp:'gp',block:'block',district:'district',reg:'reg',bank:'bank',acct:'acct',mobile:'mobile',date:'date'})[key]);
+            var el = document.getElementById('f_' + ({name:'name',father:'father',village:'village',po:'po',ps:'ps',gp:'gp',block:'block',district:'district',reg:'reg',bank:'bank',acct:'acct',ifsc:'ifsc',mobile:'mobile',date:'date'})[key]);
             var val = el ? el.value.trim() : '';
             var spans = document.querySelectorAll('[data-f="' + key + '"]');
             for (var i = 0; i < spans.length; i++) spans[i].textContent = val ? val : BLANK;
