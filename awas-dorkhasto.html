@@ -67,6 +67,8 @@
         .lt-sign{ text-align:left; min-width:250px; }
         .lt-sign p{ margin:0; }
         .lt-sign .sign-space{ height:44px; }
+        .lt-sign .sign-line{ border-bottom:2px solid #222; width:230px; }
+        .lt-sign .sign-name{ margin-top:8px; }
         .fv{ font-weight:600; }
 
         /* ================= PRINT: শুধু A4 দরখাস্ত ================= */
@@ -180,8 +182,8 @@
                                         <p>ইতি,</p>
                                         <p>আপনার বিশ্বস্ত,</p>
                                         <div class="sign-space"></div>
-                                        <p>(সই)</p>
-                                        <p><span class="fv" data-f="name">…………</span></p>
+                                        <div class="sign-line"></div>
+                                        <p class="sign-name">নাম: <span class="fv" data-f="name">…………</span></p>
                                         <p>মোবাইল: <span class="fv" data-f="mobile">…………</span></p>
                                     </div>
                                 </div>
@@ -210,9 +212,9 @@
         };
         function bnDigits(s){ var bn = '০১২৩৪৫৬৭৮৯'; return String(s).replace(/[0-9]/g, function(c){ return bn[+c]; }); }
         function todayBn(){
-            var months = ['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+            var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
             var t = new Date();
-            return bnDigits(t.getDate()) + ' ' + months[t.getMonth()] + ' ' + bnDigits(t.getFullYear());
+            return t.getDate() + ' ' + months[t.getMonth()] + ' ' + t.getFullYear();
         }
         function update(key){
             var el = document.getElementById('f_' + ({name:'name',father:'father',village:'village',po:'po',ps:'ps',gp:'gp',block:'block',district:'district',reg:'reg',bank:'bank',acct:'acct',mobile:'mobile',date:'date'})[key]);
