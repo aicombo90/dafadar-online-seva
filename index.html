@@ -1045,6 +1045,7 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
 .st-hex{width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;font-family:monospace;letter-spacing:1px;text-align:center;}
 .st-bg-note{font-size:11.5px;color:#64748b;line-height:1.4;margin:0;}
 #genBtn{position:sticky;bottom:10px;z-index:5;}
+#stAddBtn{background:linear-gradient(135deg,#0ea5e9,#0284c7);margin-top:10px;}
 
 @media(max-width:520px){.logo{font-size:17px;}.studio-top .preview-box{flex:0 0 112px;width:112px;height:150px;}.st-bg-panel{padding:10px;}.st-bg-title{font-size:13px;}.tb-window{width:52%;}}
 
@@ -2425,7 +2426,7 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
             </div>
             <div class="input-group">
                 <label id="mCopies">Number of Copies</label>
-                <input type="number" id="copiesInput" value="8" min="1" max="49">
+                <input type="number" id="copiesInput" value="8" min="1" max="42">
             </div>
             <div class="input-group">
                 <label id="mCrop">Photo Crop</label>
@@ -2434,7 +2435,14 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
                     <option value="bottom">Cut from bottom</option>
                     <option value="top">Cut from top</option>
                 </select>
-                <small style="display:block;margin-top:6px;color:#64748b;">Made to your real passport photo size. Up to 49 photos fit on one A4 page.</small>
+                <small style="display:block;margin-top:6px;color:#64748b;">Made to your real passport photo size. Up to 42 photos fit on one A4 page (6 in a row).</small>
+            </div>
+                        <button type="button" class="generate-btn" id="stAddBtn" onclick="stAddCurrentPhoto()">&#10133; Add This Photo &mdash; &#2438;&#2480;&#2503;&#2453;&#2460;&#2472;&#2503;&#2480; &#2459;&#2476;&#2495; &#2479;&#2507;&#2455; &#2453;&#2480;&#2497;&#2472;</button>
+            <div id="stAddedWrap" style="display:none;margin-top:12px;text-align:left;">
+                <div style="font-weight:600;font-size:14px;margin-bottom:8px;">&#128101; &#2447;&#2453;&#2488;&#2494;&#2469;&#2503; &#2474;&#2509;&#2480;&#2495;&#2472;&#2509;&#2463; &#2489;&#2476;&#2503; (<span id="stAddedCount">0</span> &#2460;&#2472;)</div>
+                <div id="stAddedStrip" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+                <button type="button" style="margin-top:8px;background:none;border:none;color:#dc2626;font-size:13px;cursor:pointer;padding:0;" onclick="stClearAdded()">&#10006; &#2488;&#2476; &#2478;&#2497;&#2459;&#2503; &#2475;&#2503;&#2482;&#2497;&#2472;</button>
+                <small style="display:block;margin-top:6px;color:#64748b;">&#2453;&#2474;&#2495; &#2488;&#2434;&#2454;&#2509;&#2479;&#2494; &#2464;&#2495;&#2453; &#2453;&#2480;&#2503; &#2474;&#2509;&#2480;&#2468;&#2509;&#2479;&#2503;&#2453;&#2460;&#2472;&#2503;&#2480; &#2459;&#2476;&#2495; &#2447;&#2453;&#2503; &#2447;&#2453;&#2503; &#2479;&#2507;&#2455; &#2453;&#2480;&#2497;&#2472;&#2404; &#2468;&#2494;&#2480;&#2474;&#2480; Generate &#2458;&#2494;&#2474;&#2482;&#2503;&#2439; &#2488;&#2476;&#2494;&#2480; &#2459;&#2476;&#2495; &#2447;&#2453; &#2474;&#2503;&#2460;&#2503; &#2438;&#2488;&#2476;&#2503;&#2404;</small>
             </div>
             <button class="generate-btn" id="genBtn" onclick="generateA4()">Generate A4 Print File</button>
             <div class="yt-tutorial-box">
@@ -3723,9 +3731,9 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
            Photo size = the user's real studio photo (measured against a test print): 324x405 px (~27.4x34.3 mm).
            Gap 24 px (~2 mm), top margin 80 px, grid centred left-right. */
         const A4_LAYOUT = { pageW: 2480, pageH: 3508, w: 324, h: 405, gap: 24, minX: 23, y0: 80 };
-        A4_LAYOUT.cols = Math.floor((A4_LAYOUT.pageW - A4_LAYOUT.minX * 2 + A4_LAYOUT.gap) / (A4_LAYOUT.w + A4_LAYOUT.gap));              // 7
+        A4_LAYOUT.cols = Math.min(6, Math.floor((A4_LAYOUT.pageW - A4_LAYOUT.minX * 2 + A4_LAYOUT.gap) / (A4_LAYOUT.w + A4_LAYOUT.gap)));   // max 6 in a row
         A4_LAYOUT.rows = Math.floor((A4_LAYOUT.pageH - A4_LAYOUT.y0 * 2 + A4_LAYOUT.gap) / (A4_LAYOUT.h + A4_LAYOUT.gap));                // 7
-        A4_LAYOUT.max = A4_LAYOUT.cols * A4_LAYOUT.rows;                                                                                  // 49
+        A4_LAYOUT.max = A4_LAYOUT.cols * A4_LAYOUT.rows;                                                                                  // 42
         A4_LAYOUT.x0 = Math.round((A4_LAYOUT.pageW - (A4_LAYOUT.cols * A4_LAYOUT.w + (A4_LAYOUT.cols - 1) * A4_LAYOUT.gap)) / 2);
 
         /* Looks at the photo itself: finds the top of the head (scarf/hair) and the face centre by
@@ -3795,19 +3803,16 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
             return { sx: sx, sy: sy, sw: sw, sh: sh };
         }
 
-        async function generateA4() {
-            if (!selectedSourceImage) { showToast("Please select a photo!", "error"); return; }
-            let copies = parseInt(document.getElementById('copiesInput').value) || 8;
-            if (copies > A4_LAYOUT.max) { copies = A4_LAYOUT.max; document.getElementById('copiesInput').value = copies; showToast("A single A4 page holds a maximum of " + A4_LAYOUT.max + " photos!", "error"); }
-            if (copies < 1) copies = 1;
+        /* Builds ONE finished passport cell (324x405) from the current photo + settings.
+           Shared by the single-photo sheet and the multi-photo list below. */
+        async function stBuildCell(spinBtn) {
+            const LY = A4_LAYOUT;
             const mode = document.getElementById('modeSelect').value;
-            const genBtn = document.getElementById('genBtn');
-            
             let processingImage = selectedSourceImage;
 
             if ((mode === "C" || mode === "D") && originalFile && !aiProcessedImage) {
-                genBtn.innerHTML = '<span class="loader-spinner" style="border-color:rgba(255,255,255,0.35);border-top-color:#fff;"></span> AI processing...';
-                genBtn.disabled = true;
+                const oldHtml = spinBtn ? spinBtn.innerHTML : '';
+                if (spinBtn) { spinBtn.innerHTML = '<span class="loader-spinner" style="border-color:rgba(255,255,255,0.35);border-top-color:#fff;"></span> AI processing...'; spinBtn.disabled = true; }
                 try {
                     const formData = new FormData();
                     formData.append("image_file", originalFile);
@@ -3826,18 +3831,15 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
                         processingImage = aiProcessedImage;
                     }
                 } catch (e) { console.log(e); }
+                if (spinBtn) { spinBtn.innerHTML = oldHtml; spinBtn.disabled = false; }
             }
 
-            genBtn.innerHTML = 'Generate A4 Print File';
-            genBtn.disabled = false;
-
-            const LY = A4_LAYOUT;
             const pCanvas = document.getElementById('photoCanvas');
             const pCtx = pCanvas.getContext('2d');
             pCanvas.width = LY.w; pCanvas.height = LY.h;
             pCtx.fillStyle = (mode === "C" || mode === "D") ? stBgFill : "white"; pCtx.fillRect(0, 0, LY.w, LY.h);
 
-            if(mode === "D") {
+            if (mode === "D") {
                 pCtx.filter = `brightness(${document.getElementById('brightnessSlider').value}%) blur(${document.getElementById('smoothSlider').value * 0.3}px)`;
             }
             // photo fills the whole cell; the tool decides itself where to cut (top / bottom / sides)
@@ -3847,19 +3849,32 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
             pCtx.filter = "none";
             pCtx.strokeStyle = "#000000"; pCtx.lineWidth = 2; pCtx.strokeRect(1, 1, LY.w - 2, LY.h - 2);   // thin cut line, kept inside the cell
 
+            const cell = document.createElement('canvas');
+            cell.width = LY.w; cell.height = LY.h;
+            cell.getContext('2d').drawImage(pCanvas, 0, 0);
+            return cell;
+        }
+
+        /* Draws finished cells on one A4 canvas: max 6 in a row, and every row is
+           centred left-right, so a short last row sits in the middle with space at both sides. */
+        function stDrawSheet(cells) {
+            const LY = A4_LAYOUT;
             const a4Canvas = document.getElementById('a4Canvas');
             const a4Ctx = a4Canvas.getContext('2d');
             a4Canvas.width = LY.pageW; a4Canvas.height = LY.pageH;
             a4Ctx.fillStyle = "white"; a4Ctx.fillRect(0, 0, LY.pageW, LY.pageH);
-
-            let placed = 0;
-            for (let r = 0; r < LY.rows && placed < copies; r++) {
-                for (let c = 0; c < LY.cols && placed < copies; c++) {
-                    a4Ctx.drawImage(pCanvas, LY.x0 + c * (LY.w + LY.gap), LY.y0 + r * (LY.h + LY.gap));
-                    placed++;
-                }
+            for (let i = 0; i < cells.length; i++) {
+                const r = Math.floor(i / LY.cols);
+                const inRow = Math.min(LY.cols, cells.length - r * LY.cols);
+                const rowW = inRow * LY.w + (inRow - 1) * LY.gap;
+                const startX = Math.round((LY.pageW - rowW) / 2);
+                const c = i - r * LY.cols;
+                a4Ctx.drawImage(cells[i], startX + c * (LY.w + LY.gap), LY.y0 + r * (LY.h + LY.gap));
             }
+            return a4Canvas;
+        }
 
+        function stDownloadSheet(a4Canvas, name) {
             // JPEG with 300 DPI stored in the file, so it prints at the exact physical size
             const b64 = a4Canvas.toDataURL('image/jpeg', 0.95).split(',')[1];
             const bin = atob(b64), bytes = new Uint8Array(bin.length);
@@ -3868,10 +3883,82 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
                 bytes[13] = 1; bytes[14] = 300 >> 8; bytes[15] = 300 & 255; bytes[16] = 300 >> 8; bytes[17] = 300 & 255;
             }
             const link = document.createElement('a');
-            link.download = 'CSC_Print_Ready_A4.jpg';
+            link.download = name;
             link.href = URL.createObjectURL(new Blob([bytes], { type: 'image/jpeg' }));
             document.body.appendChild(link); link.click(); link.remove();
             setTimeout(function(){ URL.revokeObjectURL(link.href); }, 5000);
+        }
+
+        /* ---------- Multi-photo: 2-3 people's photos together on one sheet ---------- */
+        let stAddedPhotos = [];   // { url: finished-cell image, copies: n }
+
+        function stRenderAdded() {
+            const wrap = document.getElementById('stAddedWrap');
+            const strip = document.getElementById('stAddedStrip');
+            document.getElementById('stAddedCount').innerText = stAddedPhotos.length;
+            wrap.style.display = stAddedPhotos.length ? "block" : "none";
+            strip.innerHTML = "";
+            stAddedPhotos.forEach(function(p, idx) {
+                const d = document.createElement('div');
+                d.style.cssText = "position:relative;width:54px;";
+                d.innerHTML = '<img src="' + p.url + '" style="width:54px;height:67px;object-fit:cover;border:1px solid #cbd5e1;border-radius:6px;display:block;">' +
+                    '<span style="position:absolute;left:0;bottom:0;background:rgba(15,23,42,.85);color:#fff;font-size:11px;padding:1px 5px;border-radius:0 6px 0 6px;">&times;' + p.copies + '</span>' +
+                    '<button type="button" title="Remove" style="position:absolute;top:-7px;right:-7px;width:20px;height:20px;border-radius:50%;border:none;background:#dc2626;color:#fff;font-size:12px;line-height:20px;cursor:pointer;padding:0;">&#10005;</button>';
+                d.querySelector('button').onclick = function(){ stAddedPhotos.splice(idx, 1); stRenderAdded(); };
+                strip.appendChild(d);
+            });
+        }
+
+        async function stAddCurrentPhoto() {
+            if (!selectedSourceImage) { showToast("Please select a photo!", "error"); return; }
+            const btn = document.getElementById('stAddBtn');
+            const cell = await stBuildCell(btn);
+            let n = parseInt(document.getElementById('copiesInput').value) || 8;
+            if (n < 1) n = 1;
+            stAddedPhotos.push({ url: cell.toDataURL('image/png'), copies: n });
+            stRenderAdded();
+            showToast("Photo added! Now select the next person's photo.", "success");
+        }
+
+        function stClearAdded() { stAddedPhotos = []; stRenderAdded(); }
+
+        function stLoadImg(src) { return new Promise(function(res, rej){ const i = new Image(); i.onload = function(){ res(i); }; i.onerror = rej; i.src = src; }); }
+
+        async function generateA4() {
+            const LY = A4_LAYOUT;
+            const genBtn = document.getElementById('genBtn');
+
+            // Multi-photo mode: photos added one by one -> print everybody together
+            if (stAddedPhotos.length > 0) {
+                genBtn.innerHTML = 'Preparing...'; genBtn.disabled = true;
+                try {
+                    let cells = [];
+                    for (const p of stAddedPhotos) {
+                        const img = await stLoadImg(p.url);
+                        for (let k = 0; k < p.copies; k++) cells.push(img);
+                    }
+                    let page = 0;
+                    for (let sIdx = 0; sIdx < cells.length; sIdx += LY.max) {
+                        page++;
+                        const sheet = stDrawSheet(cells.slice(sIdx, sIdx + LY.max));
+                        stDownloadSheet(sheet, page > 1 ? 'CSC_Print_Ready_A4_' + page + '.jpg' : 'CSC_Print_Ready_A4.jpg');
+                        if (sIdx + LY.max < cells.length) await new Promise(function(r){ setTimeout(r, 700); });
+                    }
+                    if (page > 1) showToast(page + " A4 pages downloaded!", "success");
+                } catch (e) { console.log(e); showToast("Something went wrong. Please try again.", "error"); }
+                genBtn.innerHTML = 'Generate A4 Print File'; genBtn.disabled = false;
+                return;
+            }
+
+            if (!selectedSourceImage) { showToast("Please select a photo!", "error"); return; }
+            let copies = parseInt(document.getElementById('copiesInput').value) || 8;
+            if (copies > LY.max) { copies = LY.max; document.getElementById('copiesInput').value = copies; showToast("A single A4 page holds a maximum of " + LY.max + " photos!", "error"); }
+            if (copies < 1) copies = 1;
+
+            const cell = await stBuildCell(genBtn);
+            const cells = [];
+            for (let i = 0; i < copies; i++) cells.push(cell);
+            stDownloadSheet(stDrawSheet(cells), 'CSC_Print_Ready_A4.jpg');
         }
 
 
