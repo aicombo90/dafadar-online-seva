@@ -2445,6 +2445,8 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
                 <small style="display:block;margin-top:6px;color:#64748b;">&#2453;&#2474;&#2495; &#2488;&#2434;&#2454;&#2509;&#2479;&#2494; &#2464;&#2495;&#2453; &#2453;&#2480;&#2503; &#2474;&#2509;&#2480;&#2468;&#2509;&#2479;&#2503;&#2453;&#2460;&#2472;&#2503;&#2480; &#2459;&#2476;&#2495; &#2447;&#2453;&#2503; &#2447;&#2453;&#2503; &#2479;&#2507;&#2455; &#2453;&#2480;&#2497;&#2472;&#2404; &#2468;&#2494;&#2480;&#2474;&#2480; Generate &#2458;&#2494;&#2474;&#2482;&#2503;&#2439; &#2488;&#2476;&#2494;&#2480; &#2459;&#2476;&#2495; &#2447;&#2453; &#2474;&#2503;&#2460;&#2503; &#2438;&#2488;&#2476;&#2503;&#2404;</small>
             </div>
             <button class="generate-btn" id="genBtn" onclick="generateA4()">Generate A4 Print File</button>
+            <button type="button" class="generate-btn" id="stPdfBtn" style="background:linear-gradient(135deg,#16a34a,#15803d);" onclick="generateA4(true)">&#128196; Download A4 PDF &mdash; &#2474;&#2509;&#2480;&#2495;&#2472;&#2509;&#2463; &#2480;&#2503;&#2465;&#2495;</button>
+            <small style="display:block;margin-top:6px;color:#64748b;">PDF &#2472;&#2495;&#2482;&#2503; &#2479;&#2503;&#2453;&#2507;&#2472;&#2507; &#2474;&#2509;&#2480;&#2495;&#2472;&#2509;&#2463;&#2494;&#2480;&#2503; &#2489;&#2497;&#2476;&#2489;&#2497; A4 &#2488;&#2494;&#2439;&#2460;&#2503; &#2459;&#2494;&#2474;&#2494; &#2489;&#2476;&#2503;&#2404;</small>
             <div class="yt-tutorial-box">
                 <div class="yt-tutorial-title">📺 ভিডিও দেখে শিখুন — Passport Photo Tutorial</div>
                 <div class="yt-video-wrap">
@@ -3859,7 +3861,7 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
            centred left-right, so a short last row sits in the middle with space at both sides. */
         function stDrawSheet(cells) {
             const LY = A4_LAYOUT;
-            const a4Canvas = document.getElementById('a4Canvas');
+            const a4Canvas = document.createElement('canvas');
             const a4Ctx = a4Canvas.getContext('2d');
             a4Canvas.width = LY.pageW; a4Canvas.height = LY.pageH;
             a4Ctx.fillStyle = "white"; a4Ctx.fillRect(0, 0, LY.pageW, LY.pageH);
@@ -3885,6 +3887,46 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
             const link = document.createElement('a');
             link.download = name;
             link.href = URL.createObjectURL(new Blob([bytes], { type: 'image/jpeg' }));
+            document.body.appendChild(link); link.click(); link.remove();
+            setTimeout(function(){ URL.revokeObjectURL(link.href); }, 5000);
+        }
+
+        /* Packs finished A4 sheets into ONE print-ready PDF (exact A4 pages, 210x297 mm),
+           so it prints at the right size on any printer without Photoshop settings. */
+        function stDownloadPdf(sheets, name) {
+            const PW = 595.28, PH = 841.89; // A4 portrait in PDF points
+            const enc = new TextEncoder();
+            const parts = []; let len = 0;
+            const push = function(d){ const b = (typeof d === 'string') ? enc.encode(d) : d; parts.push(b); len += b.length; };
+            const offsets = [];
+            push('%PDF-1.4\n');
+            const total = 2 + sheets.length * 3;
+            offsets[1] = len; push('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+            const kids = sheets.map(function(_, i){ return (3 + i * 3) + ' 0 R'; }).join(' ');
+            offsets[2] = len; push('2 0 obj\n<< /Type /Pages /Kids [' + kids + '] /Count ' + sheets.length + ' >>\nendobj\n');
+            sheets.forEach(function(cv, i){
+                const pageObj = 3 + i * 3, contObj = 4 + i * 3, imgObj = 5 + i * 3;
+                const b64 = cv.toDataURL('image/jpeg', 0.95).split(',')[1];
+                const bin = atob(b64), img = new Uint8Array(bin.length);
+                for (let k = 0; k < bin.length; k++) img[k] = bin.charCodeAt(k);
+                const content = 'q ' + PW + ' 0 0 ' + PH + ' 0 0 cm /Im' + i + ' Do Q';
+                offsets[pageObj] = len;
+                push(pageObj + ' 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + PW + ' ' + PH + '] /Resources << /XObject << /Im' + i + ' ' + imgObj + ' 0 R >> >> /Contents ' + contObj + ' 0 R >>\nendobj\n');
+                offsets[contObj] = len;
+                push(contObj + ' 0 obj\n<< /Length ' + content.length + ' >>\nstream\n' + content + '\nendstream\nendobj\n');
+                offsets[imgObj] = len;
+                push(imgObj + ' 0 obj\n<< /Type /XObject /Subtype /Image /Width ' + cv.width + ' /Height ' + cv.height + ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + img.length + ' >>\nstream\n');
+                push(img);
+                push('\nendstream\nendobj\n');
+            });
+            const xrefPos = len;
+            let xref = 'xref\n0 ' + (total + 1) + '\n0000000000 65535 f \n';
+            for (let o = 1; o <= total; o++) xref += String(offsets[o]).padStart(10, '0') + ' 00000 n \n';
+            push(xref);
+            push('trailer\n<< /Size ' + (total + 1) + ' /Root 1 0 R >>\nstartxref\n' + xrefPos + '\n%%EOF');
+            const link = document.createElement('a');
+            link.download = name;
+            link.href = URL.createObjectURL(new Blob(parts, { type: 'application/pdf' }));
             document.body.appendChild(link); link.click(); link.remove();
             setTimeout(function(){ URL.revokeObjectURL(link.href); }, 5000);
         }
@@ -3924,29 +3966,33 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
 
         function stLoadImg(src) { return new Promise(function(res, rej){ const i = new Image(); i.onload = function(){ res(i); }; i.onerror = rej; i.src = src; }); }
 
-        async function generateA4() {
+        async function generateA4(asPdf) {
             const LY = A4_LAYOUT;
-            const genBtn = document.getElementById('genBtn');
+            const mainBtn = asPdf ? document.getElementById('stPdfBtn') : document.getElementById('genBtn');
+            const mainLabel = mainBtn.innerHTML;
 
             // Multi-photo mode: photos added one by one -> print everybody together
             if (stAddedPhotos.length > 0) {
-                genBtn.innerHTML = 'Preparing...'; genBtn.disabled = true;
+                mainBtn.innerHTML = 'Preparing...'; mainBtn.disabled = true;
                 try {
                     let cells = [];
                     for (const p of stAddedPhotos) {
                         const img = await stLoadImg(p.url);
                         for (let k = 0; k < p.copies; k++) cells.push(img);
                     }
-                    let page = 0;
-                    for (let sIdx = 0; sIdx < cells.length; sIdx += LY.max) {
-                        page++;
-                        const sheet = stDrawSheet(cells.slice(sIdx, sIdx + LY.max));
-                        stDownloadSheet(sheet, page > 1 ? 'CSC_Print_Ready_A4_' + page + '.jpg' : 'CSC_Print_Ready_A4.jpg');
-                        if (sIdx + LY.max < cells.length) await new Promise(function(r){ setTimeout(r, 700); });
+                    let sheets = [];
+                    for (let sIdx = 0; sIdx < cells.length; sIdx += LY.max) sheets.push(stDrawSheet(cells.slice(sIdx, sIdx + LY.max)));
+                    if (asPdf) {
+                        stDownloadPdf(sheets, 'CSC_Print_Ready_A4.pdf');
+                    } else {
+                        for (let pg = 0; pg < sheets.length; pg++) {
+                            stDownloadSheet(sheets[pg], pg > 0 ? 'CSC_Print_Ready_A4_' + (pg + 1) + '.jpg' : 'CSC_Print_Ready_A4.jpg');
+                            if (pg < sheets.length - 1) await new Promise(function(r){ setTimeout(r, 700); });
+                        }
                     }
-                    if (page > 1) showToast(page + " A4 pages downloaded!", "success");
+                    if (sheets.length > 1) showToast(sheets.length + (asPdf ? " pages in one PDF!" : " A4 pages downloaded!"), "success");
                 } catch (e) { console.log(e); showToast("Something went wrong. Please try again.", "error"); }
-                genBtn.innerHTML = 'Generate A4 Print File'; genBtn.disabled = false;
+                mainBtn.innerHTML = mainLabel; mainBtn.disabled = false;
                 return;
             }
 
@@ -3955,10 +4001,12 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
             if (copies > LY.max) { copies = LY.max; document.getElementById('copiesInput').value = copies; showToast("A single A4 page holds a maximum of " + LY.max + " photos!", "error"); }
             if (copies < 1) copies = 1;
 
-            const cell = await stBuildCell(genBtn);
+            const cell = await stBuildCell(mainBtn);
             const cells = [];
             for (let i = 0; i < copies; i++) cells.push(cell);
-            stDownloadSheet(stDrawSheet(cells), 'CSC_Print_Ready_A4.jpg');
+            const sheet = stDrawSheet(cells);
+            if (asPdf) stDownloadPdf([sheet], 'CSC_Print_Ready_A4.pdf');
+            else stDownloadSheet(sheet, 'CSC_Print_Ready_A4.jpg');
         }
 
 
