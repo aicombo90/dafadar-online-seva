@@ -2426,7 +2426,7 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
             </div>
             <div class="input-group">
                 <label id="mCopies">Number of Copies</label>
-                <input type="number" id="copiesInput" value="8" min="1" max="42">
+                <input type="number" id="copiesInput" value="8" min="1" max="36">
             </div>
             <div class="input-group">
                 <label id="mCrop">Photo Crop</label>
@@ -2435,7 +2435,7 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
                     <option value="bottom">Cut from bottom</option>
                     <option value="top">Cut from top</option>
                 </select>
-                <small style="display:block;margin-top:6px;color:#64748b;">Made to your real passport photo size. Up to 42 photos fit on one A4 page (6 in a row).</small>
+                <small style="display:block;margin-top:6px;color:#64748b;">Made to your real passport photo size. Up to 36 photos fit on one A4 page (6 in a row).</small>
             </div>
                         <button type="button" class="generate-btn" id="stAddBtn" onclick="stAddCurrentPhoto()">&#10133; Add This Photo &mdash; &#2438;&#2480;&#2503;&#2453;&#2460;&#2472;&#2503;&#2480; &#2459;&#2476;&#2495; &#2479;&#2507;&#2455; &#2453;&#2480;&#2497;&#2472;</button>
             <div id="stAddedWrap" style="display:none;margin-top:12px;text-align:left;">
@@ -3730,9 +3730,10 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
         }
 
         /* A4 passport sheet (A4 @ 300 DPI = 2480x3508 px).
-           Photo size = the user's real studio photo (measured against a test print): 324x405 px (~27.4x34.3 mm).
+           Photo size: 382x477 px (~32.3x40.4 mm) - enlarged 2026-11-23 to the size the user
+           drags photos to in Photoshop; with 6 in a row the block fills the A4 width.
            Gap 24 px (~2 mm), top margin 80 px, grid centred left-right. */
-        const A4_LAYOUT = { pageW: 2480, pageH: 3508, w: 324, h: 405, gap: 24, minX: 23, y0: 80 };
+        const A4_LAYOUT = { pageW: 2480, pageH: 3508, w: 382, h: 477, gap: 24, minX: 23, y0: 80 };
         A4_LAYOUT.cols = Math.min(6, Math.floor((A4_LAYOUT.pageW - A4_LAYOUT.minX * 2 + A4_LAYOUT.gap) / (A4_LAYOUT.w + A4_LAYOUT.gap)));   // max 6 in a row
         A4_LAYOUT.rows = Math.floor((A4_LAYOUT.pageH - A4_LAYOUT.y0 * 2 + A4_LAYOUT.gap) / (A4_LAYOUT.h + A4_LAYOUT.gap));                // 7
         A4_LAYOUT.max = A4_LAYOUT.cols * A4_LAYOUT.rows;                                                                                  // 42
