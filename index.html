@@ -2437,6 +2437,11 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
                 </select>
                 <small style="display:block;margin-top:6px;color:#64748b;">Made to your real passport photo size. Up to 36 photos fit on one A4 page (6 in a row).</small>
             </div>
+            <div class="input-group">
+                <label>Photo Quality</label>
+                <button type="button" class="rmbg-hd" id="stHdBtn" style="height:42px;" aria-pressed="false" onclick="stToggleHD()"><span class="rmbg-hd-dot"></span><span id="stHdLabel">HD</span></button>
+                <small style="display:block;margin-top:6px;color:#64748b;">HD &#2438;&#2472; &#2453;&#2480;&#2482;&#2503; &#2459;&#2476;&#2495; &#2438;&#2488;&#2482; &#2453;&#2507;&#2479;&#2494;&#2482;&#2495;&#2463;&#2495;&#2468;&#2503; &#2471;&#2494;&#2480;&#2494;&#2482;&#2507; &#2489;&#2479;&#2503; &#2438;&#2488;&#2476;&#2503; &#8212; &#2459;&#2507;&#2463; &#2459;&#2476;&#2495; &#2476;&#2465;&#2392; &#2489;&#2476;&#2503;&#2404; &#2474;&#2509;&#2480;&#2495;&#2472;&#2509;&#2463;&#2503; &#2438;&#2480;&#2507; &#2474;&#2480;&#2495;&#2487;&#2509;&#2453;&#2494;&#2480; &#2470;&#2503;&#2454;&#2494; &#2479;&#2494;&#2476;&#2503;&#2404;</small>
+            </div>
                         <button type="button" class="generate-btn" id="stAddBtn" onclick="stAddCurrentPhoto()">&#10133; Add This Photo &mdash; &#2438;&#2480;&#2503;&#2453;&#2460;&#2472;&#2503;&#2480; &#2459;&#2476;&#2495; &#2479;&#2507;&#2455; &#2453;&#2480;&#2497;&#2472;</button>
             <div id="stAddedWrap" style="display:none;margin-top:12px;text-align:left;">
                 <div style="font-weight:600;font-size:14px;margin-bottom:8px;">&#128101; &#2447;&#2453;&#2488;&#2494;&#2469;&#2503; &#2474;&#2509;&#2480;&#2495;&#2472;&#2509;&#2463; &#2489;&#2476;&#2503; (<span id="stAddedCount">0</span> &#2460;&#2472;)</div>
@@ -3692,11 +3697,24 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
             stBgFill = col;
         }
 
+        /* ---------- Photoshop Studio: HD quality (same system as the Remove BG tool) ---------- */
+        let stHdOn = false;
+        let stHdCache = null;
+        function stToggleHD() {
+            stHdOn = !stHdOn;
+            const b = document.getElementById('stHdBtn');
+            b.classList.toggle('on', stHdOn);
+            b.setAttribute('aria-pressed', stHdOn ? 'true' : 'false');
+            document.getElementById('stHdLabel').textContent = stHdOn ? 'HD On \u2713' : 'HD';
+            if (stHdOn) showToast("HD on \u2014 photo will be made full HD.", "success");
+        }
+
         function previewImage(event) {
             const file = event.target.files[0];
             if (file) {
                 originalFile = file;
                 aiProcessedImage = null;
+                stHdCache = null;
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const imgElement = document.getElementById('imgPreview');
@@ -3806,7 +3824,59 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
             return { sx: sx, sy: sy, sw: sw, sh: sh };
         }
 
-        /* Builds ONE finished passport cell (324x405) from the current photo + settings.
+        /* HD version of the current photo, built exactly like the Remove BG tool's HD:
+           colours come from the ORIGINAL photo (up to 2x for small photos), the AI cut-out
+           is used only as an edge-refined mask, and the picture is gently sharpened. */
+        async function stBuildHDImage(mode) {
+            const useMask = (mode === "C" || mode === "D") && !!aiProcessedImage;
+            const key = (selectedSourceImage ? (selectedSourceImage.src || '').length : 0) + '|' + mode + '|' + (useMask ? 'm' : '-');
+            if (stHdCache && stHdCache.key === key) return stHdCache.canvas;
+            const orig = selectedSourceImage;
+            const ow = orig.naturalWidth || orig.width, oh = orig.naturalHeight || orig.height;
+            const longSide = Math.max(ow, oh);
+            let scale = 1;
+            if (longSide < 2000) scale = Math.min(2, 2000 / longSide);     // small photos: up to 2x
+            if (longSide * scale > 3000) scale = 3000 / longSide;          // memory-safe cap
+            const W = Math.max(1, Math.round(ow * scale)), H = Math.max(1, Math.round(oh * scale));
+
+            const c = document.createElement('canvas'); c.width = W; c.height = H;
+            const ctx = c.getContext('2d', { willReadFrequently: true });
+            ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(orig, 0, 0, W, H);                               // colours from the ORIGINAL photo
+            const img = ctx.getImageData(0, 0, W, H), d = img.data;
+
+            let md = null;
+            if (useMask) {
+                const m = document.createElement('canvas'); m.width = W; m.height = H;
+                const mctx = m.getContext('2d', { willReadFrequently: true });
+                mctx.imageSmoothingEnabled = true; mctx.imageSmoothingQuality = 'high';
+                mctx.drawImage(aiProcessedImage, 0, 0, W, H);              // AI mask
+                md = mctx.getImageData(0, 0, W, H).data; m.width = 0;
+            }
+
+            const src = new Uint8ClampedArray(d), row = W * 4, amt = 0.4;  // gentle sharpen (RGB only)
+            for (let y = 1; y < H - 1; y++) {
+                for (let x = 1; x < W - 1; x++) {
+                    const i = y * row + x * 4;
+                    if (md && md[i + 3] === 0) continue;
+                    for (let k = 0; k < 3; k++) {
+                        const v = src[i + k];
+                        d[i + k] = v + amt * (4 * v - src[i - 4 + k] - src[i + 4 + k] - src[i - row + k] - src[i + row + k]);
+                    }
+                }
+            }
+            if (md) {                                                      // crisp, clean edges
+                for (let i = 3; i < d.length; i += 4) {
+                    const a = (md[i] / 255 - 0.55) * 1.6 + 0.5;
+                    d[i] = a <= 0 ? 0 : (a >= 1 ? 255 : Math.round(a * 255));
+                }
+            }
+            ctx.putImageData(img, 0, 0);
+            stHdCache = { key: key, canvas: c };
+            return c;
+        }
+
+        /* Builds ONE finished passport cell (382x477) from the current photo + settings.
            Shared by the single-photo sheet and the multi-photo list below. */
         async function stBuildCell(spinBtn) {
             const LY = A4_LAYOUT;
@@ -3835,6 +3905,13 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
                     }
                 } catch (e) { console.log(e); }
                 if (spinBtn) { spinBtn.innerHTML = oldHtml; spinBtn.disabled = false; }
+            }
+
+            if (stHdOn) {
+                const btnHtml = spinBtn ? spinBtn.innerHTML : '';
+                if (spinBtn) { spinBtn.innerHTML = '<span class="loader-spinner" style="border-color:rgba(255,255,255,0.35);border-top-color:#fff;"></span> Making HD...'; spinBtn.disabled = true; }
+                try { processingImage = await stBuildHDImage(mode); } catch (e) { console.log(e); }
+                if (spinBtn) { spinBtn.innerHTML = btnHtml; spinBtn.disabled = false; }
             }
 
             const pCanvas = document.getElementById('photoCanvas');
