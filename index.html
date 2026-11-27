@@ -1271,69 +1271,6 @@ body[data-theme="dark"] .yt-tutorial-box{border-color:#3b5a9e;background:#101a30
         </div>
     </section>
 
-    <!-- Loop Live video download (password-protected) -->
-    <style>
-        .ll-dl-wrap { max-width: 1200px; margin: 22px auto 0; padding: 0 5%; }
-        .ll-dl-card { background: #fff; border: 1px solid #d7e3dc; border-radius: 12px; padding: 20px 22px; box-shadow: 0 4px 16px rgba(0,0,0,.06); }
-        .ll-dl-card h2 { font-size: 22px; color: #1e40af; margin: 0 0 8px; }
-        .ll-dl-card p { font-size: 15px; color: #334155; margin: 0 0 14px; line-height: 1.6; }
-        .ll-dl-btn { background: #1fc64c; color: #fff; border: none; border-radius: 10px; padding: 12px 26px; font-size: 16px; font-weight: 800; font-family: inherit; cursor: pointer; }
-        .ll-dl-btn:hover { filter: brightness(1.05); }
-        .ll-dl-link { display: inline-block; margin-top: 14px; background: #1e40af; color: #fff !important; text-decoration: none; border-radius: 10px; padding: 12px 26px; font-size: 16px; font-weight: 800; }
-        .ll-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
-        .ll-modal { background: #fff; border-radius: 12px; padding: 22px; width: 100%; max-width: 360px; box-shadow: 0 16px 40px rgba(0,0,0,.3); }
-        .ll-modal input { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 12px; box-sizing: border-box; font-family: inherit; }
-        .ll-modal button { width: 100%; padding: 12px; font-size: 16px; font-weight: 800; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; margin-bottom: 8px; }
-        .ll-modal .ll-go { background: #1fc64c; color: #fff; }
-        .ll-modal .ll-cancel { background: #f1f5f9; color: #334155; }
-        .ll-modal .ll-err { color: #dc2626; font-size: 14px; margin: 4px 0 0; display: none; }
-    </style>
-    <div class="ll-dl-wrap" id="loopLiveDownload">
-        <div class="ll-dl-card">
-            <h2>🎥 Loop Live ভিডিও ডাউনলোড</h2>
-            <p>আজকের লাইভ (২৭ নভেম্বর ২০২৬) — অন্নপূর্ণা ভাণ্ডার • পিএম কিসান • যুবশক্তি 'ভরসা' • পঞ্চায়েত ইনকাম সার্টিফিকেট • Unmarried Certificate • DBT লিংক চেক। দৈর্ঘ্য: ২ ঘণ্টা ১৯ মিনিট | Vertical (৯:১৬) ভিডিও | সাইজ: ৯৩৩ MB। ডাউনলোড করতে পাসওয়ার্ড দিন।</p>
-            <button class="ll-dl-btn" onclick="openLlGate()">ডাউনলোড করুন</button>
-            <div id="llDlBox" style="display:none;">
-                <a class="ll-dl-link" href="https://drive.google.com/uc?id=1IaEXwkApKI9mRFFthEeljitAy3QFTKuM&amp;export=download" target="_blank" rel="noopener">⬇ ভিডিও ডাউনলোড করুন (২ ঘণ্টা ১৯ মিনিট, ৯৩৩ MB)</a>
-            </div>
-        </div>
-    </div>
-    <div id="llModal" class="ll-modal-overlay">
-        <div class="ll-modal">
-            <input type="password" id="llPass" placeholder="পাসওয়ার্ড দিন" autocomplete="off">
-            <button class="ll-go" onclick="unlockLl()">ডাউনলোড করুন</button>
-            <button class="ll-cancel" onclick="closeLlGate()">বন্ধ করুন</button>
-            <p id="llErr" class="ll-err">ভুল পাসওয়ার্ড।</p>
-        </div>
-    </div>
-    <script>
-    const LL_HASH = "ba9d2d1bdd32d987c06cb2dc042da1021dc358f25196ef52954f7cce1844fc98";
-    function openLlGate(){
-      const m = document.getElementById('llModal');
-      m.style.display = 'flex';
-      document.getElementById('llErr').style.display = 'none';
-      document.getElementById('llPass').value = '';
-      setTimeout(function(){ document.getElementById('llPass').focus(); }, 50);
-    }
-    function closeLlGate(){ document.getElementById('llModal').style.display = 'none'; }
-    async function unlockLl(){
-      const err = document.getElementById('llErr');
-      err.style.display = 'none';
-      if(!window.crypto || !crypto.subtle){ err.textContent = 'এই ব্রাউজারে পাসওয়ার্ড যাচাই সম্ভব নয়।'; err.style.display = 'block'; return; }
-      try{
-        const v = document.getElementById('llPass').value;
-        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(v));
-        const hex = [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
-        if(hex === LL_HASH){
-          document.getElementById('llDlBox').style.display = 'block';
-          closeLlGate();
-          document.getElementById('llDlBox').scrollIntoView({behavior:'smooth', block:'center'});
-        } else { err.textContent = 'ভুল পাসওয়ার্ড।'; err.style.display = 'block'; }
-      }catch(e){ err.textContent = 'কিছু ভুল হয়েছে, আবার চেষ্টা করুন।'; err.style.display = 'block'; }
-    }
-    document.getElementById('llPass').addEventListener('keydown', function(e){ if(e.key === 'Enter') unlockLl(); });
-    document.getElementById('llModal').addEventListener('click', function(e){ if(e.target === this) closeLlGate(); });
-    </script>
         <style>
         @media (min-width: 769px) { .ad-desktop-728 { display:block !important; } }
         @media (max-width: 768px) { .ad-mobile-320 { display:block !important; } }
